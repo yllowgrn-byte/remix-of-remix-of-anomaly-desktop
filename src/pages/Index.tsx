@@ -9,6 +9,7 @@ import NotesWindow from "@/components/windows/NotesWindow";
 import TerminalWindow from "@/components/windows/TerminalWindow";
 import StatusWindow from "@/components/windows/StatusWindow";
 import ArchiveWindow from "@/components/windows/ArchiveWindow";
+import TokenWindow from "@/components/windows/TokenWindow";
 import anomalyImage from "@/assets/anomaly-ghost.jpg";
 
 export interface WindowDef {
