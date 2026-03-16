@@ -220,7 +220,7 @@ const TerminalWindow = () => {
         addLines([
           { type: "info",  text: `  input:  "${cmd.trim().split(" ").slice(1).join(" ")}"` },
           { type: "highlight", text: `  output: "${scrambled}"` },
-          { type: "warn",  text: "  ⚠ Decryption key not found. Output may be unreliable." },
+          { type: "warn",  text: "  [!] Decryption key not found. Output may be unreliable." },
         ]);
         break;
       }
