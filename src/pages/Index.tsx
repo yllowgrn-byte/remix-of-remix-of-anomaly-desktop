@@ -141,7 +141,7 @@ const Index = () => {
                 {renderWindowPanel(visibleWindows[0])}
                 {/* Token window below overview */}
                 {visibleWindows[0] === "overview" && (
-                  <div className="bevel-raised bg-secondary flex flex-col flex-1">
+                  <div className="bevel-raised bg-secondary flex flex-col shrink-0">
                     <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
                       <div className="flex items-center gap-1.5">
                         <span className="text-xs">💰</span>
@@ -153,7 +153,7 @@ const Index = () => {
                         <button className="bevel-raised bg-secondary w-4 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none hover:bg-muted">×</button>
                       </div>
                     </div>
-                    <div className="bevel-sunken bg-window-bg m-0.5 p-3 flex-1 flex flex-col justify-center">
+                    <div className="bevel-sunken bg-window-bg m-0.5 p-2">
                       <TokenWindow />
                     </div>
                   </div>
