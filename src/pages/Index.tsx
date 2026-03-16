@@ -118,7 +118,7 @@ const Index = () => {
 
       <div className="flex-1 flex overflow-hidden relative z-10">
         {/* Desktop icons sidebar */}
-        <div className="w-[72px] flex flex-col gap-0.5 p-1.5 shrink-0 border-r border-border/30">
+        <div className="w-[60px] flex flex-col gap-0.5 p-1 shrink-0 border-r border-border/30 overflow-hidden">
           {windowDefs.map((item) => (
             <DesktopIcon
               key={item.id}
