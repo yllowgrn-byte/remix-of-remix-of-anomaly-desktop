@@ -157,10 +157,10 @@ const TerminalWindow = () => {
         addLines([
           { type: "dim", text: "" },
           { type: "header", text: "Scan complete. Results:" },
-          { type: "info",   text: "  ● 2 anomalous signatures detected" },
-          { type: "warn",   text: "  ● 1 unknown entity in sector 7-G" },
-          { type: "info",   text: "  ● Signal interference at 18.9Hz" },
-          { type: "error",  text: "  ⚠ Recommend immediate investigation" },
+          { type: "info",   text: "  * 2 anomalous signatures detected" },
+          { type: "warn",   text: "  * 1 unknown entity in sector 7-G" },
+          { type: "info",   text: "  * Signal interference at 18.9Hz" },
+          { type: "error",  text: "  [!] Recommend immediate investigation" },
         ]);
         break;
       }
