@@ -440,6 +440,42 @@ const TerminalWindow = () => {
         break;
       }
 
+      case "story": {
+        addLines([{ type: "system", text: "Fetching anomaly transmissions..." }]);
+        await simulateDelay(600);
+        const { data, error: dbError } = await supabase
+          .from("story_entries")
+          .select("*")
+          .in("status", ["live", "pinned"])
+          .order("sort_order", { ascending: true })
+          .limit(20);
+        if (dbError || !data || data.length === 0) {
+          addLines([
+            { type: "error", text: "  ⚠ No transmissions found in the archive." },
+            { type: "dim", text: "  The signal is quiet... for now." },
+          ]);
+        } else {
+          addLines([
+            { type: "highlight", text: "┌─── ANOMALY TRANSMISSIONS ───────────────┐" },
+          ]);
+          data.forEach((entry, idx) => {
+            const typeColor = ["signal", "trace", "memory_leak"].includes(entry.entry_type) ? "error" : 
+                              ["system_remark", "witness_line"].includes(entry.entry_type) ? "highlight" : 
+                              "output";
+            addLines([
+              { type: typeColor as TerminalLine["type"], text: `│ ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
+              { type: "output", text: `│     ${entry.content}` },
+              { type: "dim", text: `│     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
+            ]);
+          });
+          addLines([
+            { type: "highlight", text: "└─────────────────────────────────────────┘" },
+            { type: "system", text: `  ${data.length} transmission(s) recovered.` },
+          ]);
+        }
+        break;
+      }
+
       default:
         addLines([
           { type: "error", text: `Command not found: ${command}` },
