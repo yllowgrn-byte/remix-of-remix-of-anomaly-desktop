@@ -10,7 +10,6 @@ import TerminalWindow from "@/components/windows/TerminalWindow";
 import StatusWindow from "@/components/windows/StatusWindow";
 import ArchiveWindow from "@/components/windows/ArchiveWindow";
 import TokenWindow from "@/components/windows/TokenWindow";
-import anomalyImage from "@/assets/anomaly-ghost.jpg";
 
 export interface WindowDef {
   id: string;
@@ -110,10 +109,6 @@ const Index = () => {
     <div className="h-screen flex flex-col overflow-hidden bg-desktop">
       <div className="crt-overlay" />
 
-      {/* Desktop wallpaper ghost image */}
-      <div className="fixed inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none z-0">
-        <img src={anomalyImage} alt="" className="max-h-[80vh] object-contain" />
-      </div>
 
       <MenuBar />
 
@@ -143,8 +138,8 @@ const Index = () => {
           {/* Two window layout (overview + status) */}
           {visibleWindows.length === 2 && (
             <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-3">
-              <div className="lg:col-span-2 flex flex-col gap-3 min-h-0">
-                <div className="flex-1 flex flex-col min-h-0">{renderWindowPanel(visibleWindows[0])}</div>
+              <div className="lg:col-span-2 flex flex-col gap-2 min-h-0">
+                {renderWindowPanel(visibleWindows[0])}
                 {/* Token window below overview */}
                 {visibleWindows[0] === "overview" && (
                   <div className="bevel-raised bg-secondary flex flex-col">
@@ -159,7 +154,7 @@ const Index = () => {
                         <button className="bevel-raised bg-secondary w-4 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none hover:bg-muted">×</button>
                       </div>
                     </div>
-                    <div className="bevel-sunken bg-window-bg m-0.5 p-3">
+                    <div className="bevel-sunken bg-window-bg m-0.5 p-2">
                       <TokenWindow />
                     </div>
                   </div>

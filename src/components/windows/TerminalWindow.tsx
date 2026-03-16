@@ -486,7 +486,7 @@ const TerminalWindow = () => {
         {lines.map((line, i) => (
           line.type === "image" ? (
             <div key={i} className="py-2">
-              <img src={asciiLogo} alt="anomaly" className="h-14 invert opacity-70" />
+              <img src={asciiLogo} alt="anomaly" className="h-[60px] invert opacity-70" />
             </div>
           ) : (
             <div key={i} className={lineColor(line.type)}>
