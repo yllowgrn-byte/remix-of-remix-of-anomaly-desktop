@@ -70,7 +70,7 @@ const Index = () => {
     return (
       <div
         key={id}
-        className={`bevel-raised bg-secondary flex flex-col min-h-0 ${fullWidth ? "col-span-full" : ""}`}
+        className={`bevel-raised bg-secondary flex flex-col min-h-0 flex-1 ${fullWidth ? "col-span-full" : ""}`}
       >
         {/* Title bar */}
         <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
