@@ -70,9 +70,9 @@ const SightingsWindow = () => {
   }
 
   return (
-    <div className="flex flex-col gap-3 font-mono text-xs">
+    <div className="flex flex-col gap-3 font-mono text-xs h-full">
       {/* Toolbar */}
-      <div className="flex items-center gap-2 flex-wrap">
+      <div className="flex items-center gap-2 flex-wrap shrink-0 sticky top-0 bg-window-bg z-10 pb-1">
         <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">Sightings Log</span>
         <span className="flex-1" />
         {["all", "critical", "high", "medium", "low"].map((sev) => (
