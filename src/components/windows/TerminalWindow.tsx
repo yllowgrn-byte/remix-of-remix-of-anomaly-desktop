@@ -545,7 +545,7 @@ const TerminalWindow = () => {
       </div>
 
       {/* Fixed input line at bottom */}
-      <form onSubmit={handleSubmit} className="flex items-center px-3 py-2 border-t border-terminal-text/10 shrink-0 bg-terminal-bg">
+      <form onSubmit={handleSubmit} className="flex items-center px-3 py-1 border-t border-terminal-text/10 shrink-0 bg-terminal-bg">
         <span className="text-accent font-bold mr-1">$</span>
         <input
           ref={inputRef}
