@@ -155,7 +155,7 @@ const Index = () => {
                         <button className="bevel-raised bg-secondary w-4 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none hover:bg-muted">×</button>
                       </div>
                     </div>
-                    <div className="bevel-sunken bg-window-bg m-0.5 p-3">
+                    <div className="bevel-sunken bg-window-bg m-0.5 p-2">
                       <TokenWindow />
                     </div>
                   </div>
