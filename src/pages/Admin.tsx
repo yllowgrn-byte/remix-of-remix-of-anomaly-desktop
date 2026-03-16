@@ -49,7 +49,29 @@ const Admin = () => {
   const [tokenAddress, setTokenAddress] = useState("");
   const [buyLink, setBuyLink] = useState("");
 
-  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "token" | "settings">("entries");
+  // Sightings management
+  interface SightingEntry {
+    id: string;
+    sig_id: string;
+    timestamp: string;
+    location: string;
+    type: string;
+    severity: "low" | "medium" | "high" | "critical";
+    description: string;
+    status: "confirmed" | "unverified" | "disputed";
+  }
+  const [sightings, setSightings] = useState<SightingEntry[]>([]);
+  const [newSighting, setNewSighting] = useState({
+    sig_id: "",
+    location: "",
+    type: "",
+    severity: "medium" as "low" | "medium" | "high" | "critical",
+    description: "",
+    status: "unverified" as "confirmed" | "unverified" | "disputed",
+  });
+  const [editingSighting, setEditingSighting] = useState<SightingEntry | null>(null);
+
+  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "sightings" | "token" | "settings">("entries");
   const [statusMsg, setStatusMsg] = useState("");
 
   const showStatus = (msg: string) => {
