@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import asciiLogo from "@/assets/ascii-logo.png";
 
 interface TerminalLine {
   type: "input" | "output" | "error" | "system" | "ascii" | "image";
