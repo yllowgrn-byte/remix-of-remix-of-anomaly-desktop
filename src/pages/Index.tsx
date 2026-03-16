@@ -110,10 +110,6 @@ const Index = () => {
     <div className="h-screen flex flex-col overflow-hidden bg-desktop">
       <div className="crt-overlay" />
 
-      {/* Desktop wallpaper ghost image */}
-      <div className="fixed inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none z-0">
-        <img src={anomalyImage} alt="" className="max-h-[80vh] object-contain" />
-      </div>
 
       <MenuBar />
 
