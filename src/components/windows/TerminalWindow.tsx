@@ -90,7 +90,7 @@ const TerminalWindow = () => {
     { type: "system", text: "  > loading anomaly database....... OK" },
     { type: "info", text: "  > calibrating sensors............ OK" },
     { type: "warn",  text: "  > threat assessment.............. ELEVATED" },
-    { type: "dim", text: "  ─────────────────────────────────────────" },
+    { type: "dim", text: "  =============================================" },
     { type: "highlight", text: "  All systems online. 3 anomalies tracked." },
     { type: "output", text: '  Type "help" for commands. Try "story" for transmissions.' },
     { type: "dim", text: "" },
