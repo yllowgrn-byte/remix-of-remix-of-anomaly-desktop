@@ -7,44 +7,44 @@ interface TerminalLine {
 }
 
 const HELP_TEXT: TerminalLine[] = [
-  { type: "header", text: "┌─── COMMAND REFERENCE ───────────────────┐" },
-  { type: "output", text: "│                                         │" },
-  { type: "info",   text: "│  help          — show this message      │" },
-  { type: "info",   text: "│  status        — system diagnostics     │" },
-  { type: "info",   text: "│  scan          — run anomaly scan       │" },
-  { type: "info",   text: "│  ping          — test connection        │" },
-  { type: "info",   text: "│  whoami        — identity check         │" },
-  { type: "info",   text: "│  logs          — recent activity log    │" },
-  { type: "info",   text: "│  decrypt [msg] — decrypt a message      │" },
-  { type: "info",   text: "│  analyze       — run signal analysis    │" },
-  { type: "info",   text: "│  clear         — clear terminal         │" },
-  { type: "info",   text: "│  history       — command history        │" },
-  { type: "info",   text: "│  about         — about this system      │" },
-  { type: "info",   text: "│  matrix        — ???                    │" },
-  { type: "info",   text: "│  reboot        — attempt system reboot  │" },
-  { type: "info",   text: "│  date          — current timestamp      │" },
-  { type: "info",   text: "│  echo [msg]    — repeat a message       │" },
-  { type: "info",   text: "│  color         — test color output      │" },
-  { type: "info",   text: "│  fortune       — anomaly fortune cookie │" },
-  { type: "info",   text: "│  glitch        — induce visual glitch   │" },
-  { type: "info",   text: "│  trace [ip]    — trace a signal source  │" },
-  { type: "info",   text: "│  hack          — access restricted data │" },
-  { type: "info",   text: "│  anomaly       — show anomaly logo      │" },
-  { type: "info",   text: "│  uptime        — system uptime report   │" },
-  { type: "info",   text: "│  joke          — system humor module    │" },
-  { type: "info",   text: "│  story         — fetch transmissions    │" },
-  { type: "output", text: "│                                         │" },
-  { type: "header", text: "└─────────────────────────────────────────┘" },
+  { type: "header", text: "+--- COMMAND REFERENCE -----------------------+" },
+  { type: "output", text: "|                                              |" },
+  { type: "info",   text: "|  help          -- show this message          |" },
+  { type: "info",   text: "|  status        -- system diagnostics        |" },
+  { type: "info",   text: "|  scan          -- run anomaly scan          |" },
+  { type: "info",   text: "|  ping          -- test connection           |" },
+  { type: "info",   text: "|  whoami        -- identity check            |" },
+  { type: "info",   text: "|  logs          -- recent activity log       |" },
+  { type: "info",   text: "|  decrypt [msg] -- decrypt a message         |" },
+  { type: "info",   text: "|  analyze       -- run signal analysis       |" },
+  { type: "info",   text: "|  clear         -- clear terminal            |" },
+  { type: "info",   text: "|  history       -- command history           |" },
+  { type: "info",   text: "|  about         -- about this system         |" },
+  { type: "info",   text: "|  matrix        -- ???                       |" },
+  { type: "info",   text: "|  reboot        -- attempt system reboot     |" },
+  { type: "info",   text: "|  date          -- current timestamp         |" },
+  { type: "info",   text: "|  echo [msg]    -- repeat a message          |" },
+  { type: "info",   text: "|  color         -- test color output         |" },
+  { type: "info",   text: "|  fortune       -- anomaly fortune cookie    |" },
+  { type: "info",   text: "|  glitch        -- induce visual glitch      |" },
+  { type: "info",   text: "|  trace [ip]    -- trace a signal source     |" },
+  { type: "info",   text: "|  hack          -- access restricted data    |" },
+  { type: "info",   text: "|  anomaly       -- show anomaly logo         |" },
+  { type: "info",   text: "|  uptime        -- system uptime report      |" },
+  { type: "info",   text: "|  joke          -- system humor module       |" },
+  { type: "info",   text: "|  story         -- fetch transmissions       |" },
+  { type: "output", text: "|                                              |" },
+  { type: "header", text: "+----------------------------------------------+" },
 ];
 
 const SCAN_FRAMES = [
-  "scanning sector 1/7 ░░░░░░░░░░",
-  "scanning sector 2/7 █░░░░░░░░░",
-  "scanning sector 3/7 ██░░░░░░░░",
-  "scanning sector 4/7 ████░░░░░░",
-  "scanning sector 5/7 ██████░░░░",
-  "scanning sector 6/7 ████████░░",
-  "scanning sector 7/7 ██████████",
+  "scanning sector 1/7 ..........",
+  "scanning sector 2/7 #.........",
+  "scanning sector 3/7 ##........",
+  "scanning sector 4/7 ####......",
+  "scanning sector 5/7 ######....",
+  "scanning sector 6/7 ########..",
+  "scanning sector 7/7 ##########",
 ];
 
 const LOG_ENTRIES = [
@@ -83,14 +83,14 @@ const TerminalWindow = () => {
     { type: "highlight", text: "  A G E N T  A N O M A L Y" },
     { type: "dim", text: "" },
     { type: "header", text: "  ANOMALY TERMINAL v0.7.3" },
-    { type: "dim", text: "  ─────────────────────────────────────────" },
+    { type: "dim", text: "  =============================================" },
     { type: "system", text: "  > booting core systems..." },
     { type: "info", text: "  > scanning memory banks.......... OK" },
     { type: "info", text: "  > initializing signal monitor.... OK" },
     { type: "system", text: "  > loading anomaly database....... OK" },
     { type: "info", text: "  > calibrating sensors............ OK" },
     { type: "warn",  text: "  > threat assessment.............. ELEVATED" },
-    { type: "dim", text: "  ─────────────────────────────────────────" },
+    { type: "dim", text: "  =============================================" },
     { type: "highlight", text: "  All systems online. 3 anomalies tracked." },
     { type: "output", text: '  Type "help" for commands. Try "story" for transmissions.' },
     { type: "dim", text: "" },
@@ -136,14 +136,14 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Running diagnostics..." }]);
         await simulateDelay(800);
         addLines([
-          { type: "header", text: "┌─── SYSTEM DIAGNOSTICS ─────────────────┐" },
-          { type: "info",   text: "│  Core............  ●  ONLINE            │" },
-          { type: "info",   text: "│  Memory..........  847MB / 2GB          │" },
-          { type: "info",   text: "│  Signal..........  ◈  STABLE            │" },
-          { type: "warn",   text: "│  Threat Level....  ▲  ELEVATED          │" },
-          { type: "error",  text: "│  Anomalies.......  3  ACTIVE            │" },
-          { type: "info",   text: "│  Uptime..........  4721h 33m            │" },
-          { type: "header", text: "└─────────────────────────────────────────┘" },
+          { type: "header", text: "+--- SYSTEM DIAGNOSTICS ---------------------+" },
+          { type: "info",   text: "|  Core............  *  ONLINE               |" },
+          { type: "info",   text: "|  Memory..........  847MB / 2GB             |" },
+          { type: "info",   text: "|  Signal..........  ~  STABLE               |" },
+          { type: "warn",   text: "|  Threat Level....  !  ELEVATED             |" },
+          { type: "error",  text: "|  Anomalies.......  3  ACTIVE               |" },
+          { type: "info",   text: "|  Uptime..........  4721h 33m               |" },
+          { type: "header", text: "+--------------------------------------------+" },
         ]);
         break;
       }
@@ -157,10 +157,10 @@ const TerminalWindow = () => {
         addLines([
           { type: "dim", text: "" },
           { type: "header", text: "Scan complete. Results:" },
-          { type: "info",   text: "  ● 2 anomalous signatures detected" },
-          { type: "warn",   text: "  ● 1 unknown entity in sector 7-G" },
-          { type: "info",   text: "  ● Signal interference at 18.9Hz" },
-          { type: "error",  text: "  ⚠ Recommend immediate investigation" },
+          { type: "info",   text: "  * 2 anomalous signatures detected" },
+          { type: "warn",   text: "  * 1 unknown entity in sector 7-G" },
+          { type: "info",   text: "  * Signal interference at 18.9Hz" },
+          { type: "error",  text: "  [!] Recommend immediate investigation" },
         ]);
         break;
       }
@@ -172,7 +172,7 @@ const TerminalWindow = () => {
           { type: "output", text: "PING anomaly.core (127.0.0.1): 56 bytes" },
           { type: "info",   text: "  reply: seq=1 time=0.042ms" },
           { type: "info",   text: "  reply: seq=2 time=0.038ms" },
-          { type: "warn",   text: "  reply: seq=3 time=███████ms" },
+          { type: "warn",   text: "  reply: seq=3 time=#######ms" },
           { type: "error",  text: "  reply: seq=4 time=ERR_TEMPORAL_SHIFT" },
           { type: "dim", text: "" },
           { type: "output", text: "3 packets received, 1 anomalous" },
@@ -194,9 +194,9 @@ const TerminalWindow = () => {
 
       case "logs":
         addLines([
-          { type: "header", text: "┌─── Recent Activity ─────────────────────┐" },
-          ...LOG_ENTRIES.map((l) => ({ type: "info" as const, text: `│  ${l}` })),
-          { type: "header", text: "└─────────────────────────────────────────┘" },
+          { type: "header", text: "+--- Recent Activity -------------------------+" },
+          ...LOG_ENTRIES.map((l) => ({ type: "info" as const, text: `|  ${l}` })),
+          { type: "header", text: "+---------------------------------------------+" },
         ]);
         break;
 
@@ -220,7 +220,7 @@ const TerminalWindow = () => {
         addLines([
           { type: "info",  text: `  input:  "${cmd.trim().split(" ").slice(1).join(" ")}"` },
           { type: "highlight", text: `  output: "${scrambled}"` },
-          { type: "warn",  text: "  ⚠ Decryption key not found. Output may be unreliable." },
+          { type: "warn",  text: "  [!] Decryption key not found. Output may be unreliable." },
         ]);
         break;
       }
@@ -229,12 +229,12 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Running signal analysis..." }]);
         await simulateDelay(600);
         addLines([
-          { type: "header", text: "┌─── SIGNAL ANALYSIS ─────────────────────┐" },
-          { type: "error",  text: "│  18.9Hz  ████████░░  HIGH               │" },
-          { type: "info",   text: "│  42.0Hz  ███░░░░░░░  LOW                │" },
-          { type: "error",  text: "│  77.7Hz  █████████░  HIGH               │" },
-          { type: "info",   text: "│  120Hz   ██░░░░░░░░  LOW                │" },
-          { type: "header", text: "└─────────────────────────────────────────┘" },
+          { type: "header", text: "+--- SIGNAL ANALYSIS -------------------------+" },
+          { type: "error",  text: "|  18.9Hz  ########..  HIGH                   |" },
+          { type: "info",   text: "|  42.0Hz  ###.......  LOW                    |" },
+          { type: "error",  text: "|  77.7Hz  #########.  HIGH                   |" },
+          { type: "info",   text: "|  120Hz   ##........  LOW                    |" },
+          { type: "header", text: "+---------------------------------------------+" },
           { type: "system", text: "Dominant frequency: 18.9Hz (subsonic)" },
           { type: "warn",   text: "Pattern matches known anomaly signature." },
         ]);
@@ -312,14 +312,14 @@ const TerminalWindow = () => {
 
       case "color": {
         addLines([
-          { type: "output",    text: "  ████ output    — default text" },
-          { type: "system",    text: "  ████ system    — system messages" },
-          { type: "info",      text: "  ████ info      — data & values" },
-          { type: "warn",      text: "  ████ warn      — caution" },
-          { type: "error",     text: "  ████ error     — alerts & danger" },
-          { type: "highlight", text: "  ████ highlight — emphasis" },
-          { type: "header",    text: "  ████ header    — borders & titles" },
-          { type: "dim",       text: "  ████ dim       — faded / metadata" },
+          { type: "output",    text: "  ==== output    -- default text" },
+          { type: "system",    text: "  ==== system    -- system messages" },
+          { type: "info",      text: "  ==== info      -- data & values" },
+          { type: "warn",      text: "  ==== warn      -- caution" },
+          { type: "error",     text: "  ==== error     -- alerts & danger" },
+          { type: "highlight", text: "  ==== highlight -- emphasis" },
+          { type: "header",    text: "  ==== header    -- borders & titles" },
+          { type: "dim",       text: "  ==== dim       -- faded / metadata" },
           { type: "dim",       text: "" },
           { type: "system",    text: "  Color matrix: nominal" },
         ]);
@@ -341,7 +341,7 @@ const TerminalWindow = () => {
       case "glitch": {
         addLines([{ type: "error", text: "INDUCING VISUAL GLITCH..." }]);
         await simulateDelay(200);
-        const glitchChars = "█▓▒░╬╫╪┼┤├╧╨╤╥╙╘╒╓╚╔╩╦╠═╬";
+        const glitchChars = "#@%&*!~^+=<>/?$:;{}[]()_-|\\";
         for (let i = 0; i < 4; i++) {
           let line = "  ";
           for (let j = 0; j < 44; j++) {
@@ -366,8 +366,8 @@ const TerminalWindow = () => {
           { type: "info",  text: `  2   2.1ms   isp-node-7.net` },
           { type: "info",  text: `  3   8.7ms   backbone-12.transit.io` },
           { type: "warn",  text: `  4  14.2ms   dark-relay.onion.x` },
-          { type: "error", text: `  5   ?.?ms   ░░░░░░░░░░░░░░░░░` },
-          { type: "error", text: `  6   ∞  ms   ████████████████████` },
+          { type: "error", text: `  5   ?.?ms   #################` },
+          { type: "error", text: `  6   ~  ms   ####################` },
         ];
         for (const hop of hops) {
           addLines([hop]);
@@ -440,12 +440,12 @@ const TerminalWindow = () => {
           .limit(20);
         if (dbError || !data || data.length === 0) {
           addLines([
-            { type: "error", text: "  ⚠ No transmissions found in the archive." },
+            { type: "error", text: "  [!] No transmissions found in the archive." },
             { type: "dim",   text: "  The signal is quiet... for now." },
           ]);
         } else {
           addLines([
-            { type: "header", text: "┌─── ANOMALY TRANSMISSIONS ───────────────┐" },
+            { type: "header", text: "+--- ANOMALY TRANSMISSIONS -------------------+" },
           ]);
           data.forEach((entry, idx) => {
             const typeColor: TerminalLine["type"] = 
@@ -453,13 +453,13 @@ const TerminalWindow = () => {
               ["system_remark", "witness_line"].includes(entry.entry_type) ? "highlight" : 
               "info";
             addLines([
-              { type: typeColor, text: `│ ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
-              { type: "output",  text: `│     ${entry.content}` },
-              { type: "dim",     text: `│     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
+              { type: typeColor, text: `| ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
+              { type: "output",  text: `|     ${entry.content}` },
+              { type: "dim",     text: `|     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
             ]);
           });
           addLines([
-            { type: "header", text: "└─────────────────────────────────────────┘" },
+            { type: "header", text: "+--------------------------------------------+" },
             { type: "system", text: `  ${data.length} transmission(s) recovered.` },
           ]);
         }
@@ -563,7 +563,7 @@ const TerminalWindow = () => {
             spellCheck={false}
             autoComplete="off"
           />
-          {isProcessing && <span className="text-amber-status animate-pulse ml-2">●</span>}
+          {isProcessing && <span className="text-amber-status animate-pulse ml-2">*</span>}
         </form>
       </div>
     </div>
