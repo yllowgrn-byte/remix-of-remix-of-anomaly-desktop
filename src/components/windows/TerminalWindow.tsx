@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 
 interface TerminalLine {
-  type: "input" | "output" | "error" | "system" | "ascii" | "image";
+  type: "input" | "output" | "error" | "system" | "ascii";
   text: string;
 }
 
