@@ -38,13 +38,13 @@ const HELP_TEXT: TerminalLine[] = [
 ];
 
 const SCAN_FRAMES = [
-  "scanning sector 1/7 ░░░░░░░░░░",
-  "scanning sector 2/7 █░░░░░░░░░",
-  "scanning sector 3/7 ██░░░░░░░░",
-  "scanning sector 4/7 ████░░░░░░",
-  "scanning sector 5/7 ██████░░░░",
-  "scanning sector 6/7 ████████░░",
-  "scanning sector 7/7 ██████████",
+  "scanning sector 1/7 ..........",
+  "scanning sector 2/7 #.........",
+  "scanning sector 3/7 ##........",
+  "scanning sector 4/7 ####......",
+  "scanning sector 5/7 ######....",
+  "scanning sector 6/7 ########..",
+  "scanning sector 7/7 ##########",
 ];
 
 const LOG_ENTRIES = [
