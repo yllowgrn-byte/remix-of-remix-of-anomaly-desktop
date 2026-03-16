@@ -82,11 +82,13 @@ const Admin = () => {
     const { data } = await supabase
       .from("site_settings")
       .select("*")
-      .in("key", ["autonomous_enabled", "autonomous_interval_minutes"]);
+      .in("key", ["autonomous_enabled", "autonomous_interval_minutes", "token_address", "buy_link"]);
     if (data) {
       data.forEach((s) => {
         if (s.key === "autonomous_enabled") setAutonomousEnabled(s.value === true);
         if (s.key === "autonomous_interval_minutes") setIntervalMin(Number(s.value) || 15);
+        if (s.key === "token_address") setTokenAddress(String(s.value || "").replace(/^"|"$/g, ""));
+        if (s.key === "buy_link") setBuyLink(String(s.value || "").replace(/^"|"$/g, ""));
       });
     }
   }, []);
