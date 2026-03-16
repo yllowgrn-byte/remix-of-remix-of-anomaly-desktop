@@ -524,7 +524,7 @@ const TerminalWindow = () => {
       case "error": return "text-amber-status";
       case "system": return "text-accent";
       case "ascii": return "text-terminal-text/60";
-      case "highlight": return "text-primary-foreground brightness-150";
+      case "highlight": return "text-[hsl(120,60%,75%)] font-bold";
       case "dim": return "text-terminal-text/40 italic";
       default: return "text-terminal-text";
     }
