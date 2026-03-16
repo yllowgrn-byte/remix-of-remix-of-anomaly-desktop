@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface TerminalLine {
-  type: "input" | "output" | "error" | "system" | "ascii";
+  type: "input" | "output" | "error" | "system" | "ascii" | "highlight" | "dim";
   text: string;
 }
 
