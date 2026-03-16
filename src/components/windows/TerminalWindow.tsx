@@ -563,7 +563,7 @@ const TerminalWindow = () => {
             spellCheck={false}
             autoComplete="off"
           />
-          {isProcessing && <span className="text-amber-status animate-pulse ml-2">●</span>}
+          {isProcessing && <span className="text-amber-status animate-pulse ml-2">*</span>}
         </form>
       </div>
     </div>
