@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import BootScreen from "@/components/desktop/BootScreen";
 import MenuBar from "@/components/desktop/MenuBar";
 import Taskbar from "@/components/desktop/Taskbar";
 import DesktopIcon from "@/components/desktop/DesktopIcon";
