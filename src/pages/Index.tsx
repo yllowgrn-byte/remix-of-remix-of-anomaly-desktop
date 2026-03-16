@@ -137,8 +137,8 @@ const Index = () => {
 
           {/* Two window layout (overview + status) */}
           {visibleWindows.length === 2 && (
-            <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-3">
-              <div className="lg:col-span-2 flex flex-col gap-2 min-h-0">
+            <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-2">
+              <div className="lg:col-span-2 flex flex-col gap-2 min-h-0 overflow-hidden">
                 {renderWindowPanel(visibleWindows[0])}
                 {/* Token window below overview */}
                 {visibleWindows[0] === "overview" && (
