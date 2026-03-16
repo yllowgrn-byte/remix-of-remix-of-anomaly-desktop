@@ -440,7 +440,7 @@ const TerminalWindow = () => {
           .limit(20);
         if (dbError || !data || data.length === 0) {
           addLines([
-            { type: "error", text: "  ⚠ No transmissions found in the archive." },
+            { type: "error", text: "  [!] No transmissions found in the archive." },
             { type: "dim",   text: "  The signal is quiet... for now." },
           ]);
         } else {
