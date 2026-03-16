@@ -397,7 +397,11 @@ const TerminalWindow = () => {
       }
 
       case "anomaly": {
-        addLines([{ type: "image", text: "" }]);
+        addLines([
+          { type: "ascii", text: "" },
+          { type: "ascii", text: "  A G E N T  A N O M A L Y" },
+          { type: "ascii", text: "" },
+        ]);
         break;
       }
 
