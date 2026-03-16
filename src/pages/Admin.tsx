@@ -196,6 +196,35 @@ const Admin = () => {
     fetchEntries();
   };
 
+  // Sightings functions
+  const createSighting = async () => {
+    if (!newSighting.sig_id.trim() || !newSighting.location.trim()) return;
+    await supabase.from("sightings").insert({
+      sig_id: newSighting.sig_id,
+      location: newSighting.location,
+      type: newSighting.type,
+      severity: newSighting.severity,
+      description: newSighting.description,
+      status: newSighting.status,
+    });
+    setNewSighting({ sig_id: "", location: "", type: "", severity: "medium", description: "", status: "unverified" });
+    showStatus("sighting created");
+    fetchSightings();
+  };
+
+  const updateSighting = async (id: string, updates: Record<string, unknown>) => {
+    await supabase.from("sightings").update(updates).eq("id", id);
+    showStatus("sighting updated");
+    setEditingSighting(null);
+    fetchSightings();
+  };
+
+  const deleteSighting = async (id: string) => {
+    await supabase.from("sightings").delete().eq("id", id);
+    showStatus("sighting deleted");
+    fetchSightings();
+  };
+
   // Notes-specific functions
   const createNote = async () => {
     if (!newNote.trim()) return;
