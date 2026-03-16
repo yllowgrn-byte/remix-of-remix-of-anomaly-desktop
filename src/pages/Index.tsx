@@ -114,7 +114,11 @@ const Index = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-desktop">
+    <>
+      {booting && <BootScreen onComplete={() => { setBooting(false); setTimeout(() => setSpawned(true), 50); }} />}
+    <div className={`h-screen flex flex-col overflow-hidden bg-desktop transition-all duration-700 ease-out ${
+      !booting && spawned ? "opacity-100 scale-100" : !booting ? "opacity-0 scale-[0.97]" : "opacity-0 scale-[0.95]"
+    }`}>
       <div className="crt-overlay" />
 
 
