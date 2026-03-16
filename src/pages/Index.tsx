@@ -160,7 +160,7 @@ const Index = () => {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col overflow-hidden">
                 {renderWindowPanel(visibleWindows[1])}
               </div>
             </div>
