@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import BootScreen from "@/components/desktop/BootScreen";
 import MenuBar from "@/components/desktop/MenuBar";
 import Taskbar from "@/components/desktop/Taskbar";
 import DesktopIcon from "@/components/desktop/DesktopIcon";
@@ -49,6 +50,8 @@ const layouts: Record<string, string[]> = {
 };
 
 const Index = () => {
+  const [booting, setBooting] = useState(true);
+  const [spawned, setSpawned] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("overview");
 
   const handleIconClick = useCallback((id: string) => {
@@ -111,7 +114,11 @@ const Index = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-desktop">
+    <>
+      {booting && <BootScreen onComplete={() => { setBooting(false); setTimeout(() => setSpawned(true), 50); }} />}
+    <div className={`h-screen flex flex-col overflow-hidden bg-desktop transition-all duration-700 ease-out ${
+      !booting && spawned ? "opacity-100 scale-100" : !booting ? "opacity-0 scale-[0.97]" : "opacity-0 scale-[0.95]"
+    }`}>
       <div className="crt-overlay" />
 
 
@@ -184,6 +191,7 @@ const Index = () => {
         onTaskbarClick={handleIconClick}
       />
     </div>
+    </>
   );
 };
 
