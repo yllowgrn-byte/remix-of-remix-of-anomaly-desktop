@@ -50,6 +50,8 @@ const layouts: Record<string, string[]> = {
 };
 
 const Index = () => {
+  const [booting, setBooting] = useState(true);
+  const [spawned, setSpawned] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("overview");
 
   const handleIconClick = useCallback((id: string) => {
