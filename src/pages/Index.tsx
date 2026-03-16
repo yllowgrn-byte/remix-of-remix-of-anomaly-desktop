@@ -113,16 +113,23 @@ const Index = () => {
     );
   };
 
+  const spawnDelay = (ms: number) => ({
+    opacity: !booting && spawned ? 1 : 0,
+    transform: !booting && spawned ? "translateY(0)" : "translateY(8px)",
+    transition: `opacity 0.5s ease ${ms}ms, transform 0.5s ease ${ms}ms`,
+  });
+
   return (
     <>
       {booting && <BootScreen onComplete={() => { setBooting(false); setTimeout(() => setSpawned(true), 50); }} />}
-    <div className={`h-screen flex flex-col overflow-hidden bg-desktop transition-all duration-700 ease-out ${
-      !booting && spawned ? "opacity-100 scale-100" : !booting ? "opacity-0 scale-[0.97]" : "opacity-0 scale-[0.95]"
+    <div className={`h-screen flex flex-col overflow-hidden bg-desktop transition-opacity duration-500 ${
+      !booting ? "opacity-100" : "opacity-0"
     }`}>
       <div className="crt-overlay" />
 
-
-      <MenuBar />
+      <div style={spawnDelay(0)}>
+        <MenuBar />
+      </div>
 
       <div className="flex-1 flex overflow-hidden relative z-10">
         {/* Desktop icons sidebar */}
