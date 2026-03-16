@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Copy, ExternalLink } from "lucide-react";
+import { Copy, ExternalLink, ShoppingCart } from "lucide-react";
 
 const TokenWindow = () => {
   const [tokenAddress, setTokenAddress] = useState("");
@@ -37,7 +37,7 @@ const TokenWindow = () => {
   };
 
   return (
-    <div className="font-mono text-[10px] space-y-1.5">
+    <div className="font-mono text-[10px] space-y-2">
       {/* CA row */}
       <div className="flex items-center gap-2">
         <span className="text-muted-foreground uppercase w-7 shrink-0 text-right">CA</span>
@@ -58,18 +58,17 @@ const TokenWindow = () => {
         </button>
       </div>
 
-      {/* Buy row */}
+      {/* Buy link row */}
       <div className="flex items-center gap-2">
-        <span className="text-muted-foreground uppercase w-7 shrink-0 text-right">BUY</span>
+        <span className="text-muted-foreground uppercase w-7 shrink-0 text-right">URL</span>
         {buyLink ? (
           <a
             href={buyLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="bevel-raised bg-accent text-accent-foreground flex-1 px-2 py-0.5 font-bold text-center hover:opacity-90 active:bevel-sunken flex items-center justify-center gap-1"
+            className="bevel-sunken bg-terminal-bg flex-1 px-2 py-0.5 text-accent truncate hover:brightness-125"
           >
-            <ExternalLink size={9} />
-            BUY NOW
+            {buyLink}
           </a>
         ) : (
           <div className="bevel-sunken bg-terminal-bg flex-1 px-2 py-0.5 text-muted-foreground italic">
@@ -77,6 +76,23 @@ const TokenWindow = () => {
           </div>
         )}
       </div>
+
+      {/* Buy button */}
+      {buyLink ? (
+        <a
+          href={buyLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bevel-raised bg-accent text-accent-foreground w-full px-3 py-1.5 font-bold text-xs text-center hover:opacity-90 active:bevel-sunken flex items-center justify-center gap-1.5 tracking-wider uppercase"
+        >
+          <ShoppingCart size={12} />
+          BUY NOW
+        </a>
+      ) : (
+        <div className="bevel-sunken bg-terminal-bg w-full px-3 py-1.5 text-xs text-center text-muted-foreground italic">
+          buy link not configured
+        </div>
+      )}
     </div>
   );
 };
