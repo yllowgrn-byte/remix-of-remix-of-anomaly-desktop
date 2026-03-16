@@ -7,34 +7,33 @@ interface TerminalLine {
 }
 
 const HELP_TEXT: TerminalLine[] = [
-  { type: "header", text: "+--- COMMAND REFERENCE -----------------------+" },
-  { type: "output", text: "|                                              |" },
-  { type: "info",   text: "|  help          -- show this message          |" },
-  { type: "info",   text: "|  status        -- system diagnostics        |" },
-  { type: "info",   text: "|  scan          -- run anomaly scan          |" },
-  { type: "info",   text: "|  ping          -- test connection           |" },
-  { type: "info",   text: "|  whoami        -- identity check            |" },
-  { type: "info",   text: "|  logs          -- recent activity log       |" },
-  { type: "info",   text: "|  decrypt [msg] -- decrypt a message         |" },
-  { type: "info",   text: "|  analyze       -- run signal analysis       |" },
-  { type: "info",   text: "|  clear         -- clear terminal            |" },
-  { type: "info",   text: "|  history       -- command history           |" },
-  { type: "info",   text: "|  about         -- about this system         |" },
-  { type: "info",   text: "|  matrix        -- ???                       |" },
-  { type: "info",   text: "|  reboot        -- attempt system reboot     |" },
-  { type: "info",   text: "|  date          -- current timestamp         |" },
-  { type: "info",   text: "|  echo [msg]    -- repeat a message          |" },
-  { type: "info",   text: "|  color         -- test color output         |" },
-  { type: "info",   text: "|  fortune       -- anomaly fortune cookie    |" },
-  { type: "info",   text: "|  glitch        -- induce visual glitch      |" },
-  { type: "info",   text: "|  trace [ip]    -- trace a signal source     |" },
-  { type: "info",   text: "|  hack          -- access restricted data    |" },
-  { type: "info",   text: "|  anomaly       -- show anomaly logo         |" },
-  { type: "info",   text: "|  uptime        -- system uptime report      |" },
-  { type: "info",   text: "|  joke          -- system humor module       |" },
-  { type: "info",   text: "|  story         -- fetch transmissions       |" },
-  { type: "output", text: "|                                              |" },
-  { type: "header", text: "+----------------------------------------------+" },
+  { type: "header", text: "--- COMMAND REFERENCE ---" },
+  { type: "dim",    text: "" },
+  { type: "info",   text: "  help          -- show this message" },
+  { type: "info",   text: "  status        -- system diagnostics" },
+  { type: "info",   text: "  scan          -- run anomaly scan" },
+  { type: "info",   text: "  ping          -- test connection" },
+  { type: "info",   text: "  whoami        -- identity check" },
+  { type: "info",   text: "  logs          -- recent activity log" },
+  { type: "info",   text: "  decrypt [msg] -- decrypt a message" },
+  { type: "info",   text: "  analyze       -- run signal analysis" },
+  { type: "info",   text: "  clear         -- clear terminal" },
+  { type: "info",   text: "  history       -- command history" },
+  { type: "info",   text: "  about         -- about this system" },
+  { type: "info",   text: "  matrix        -- ???" },
+  { type: "info",   text: "  reboot        -- attempt system reboot" },
+  { type: "info",   text: "  date          -- current timestamp" },
+  { type: "info",   text: "  echo [msg]    -- repeat a message" },
+  { type: "info",   text: "  color         -- test color output" },
+  { type: "info",   text: "  fortune       -- anomaly fortune cookie" },
+  { type: "info",   text: "  glitch        -- induce visual glitch" },
+  { type: "info",   text: "  trace [ip]    -- trace a signal source" },
+  { type: "info",   text: "  hack          -- access restricted data" },
+  { type: "info",   text: "  anomaly       -- show anomaly logo" },
+  { type: "info",   text: "  uptime        -- system uptime report" },
+  { type: "info",   text: "  joke          -- system humor module" },
+  { type: "info",   text: "  story         -- fetch transmissions" },
+  { type: "dim",    text: "" },
 ];
 
 const SCAN_FRAMES = [
@@ -136,14 +135,14 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Running diagnostics..." }]);
         await simulateDelay(800);
         addLines([
-          { type: "header", text: "+--- SYSTEM DIAGNOSTICS ---------------------+" },
-          { type: "info",   text: "|  Core............  *  ONLINE               |" },
-          { type: "info",   text: "|  Memory..........  847MB / 2GB             |" },
-          { type: "info",   text: "|  Signal..........  ~  STABLE               |" },
-          { type: "warn",   text: "|  Threat Level....  !  ELEVATED             |" },
-          { type: "error",  text: "|  Anomalies.......  3  ACTIVE               |" },
-          { type: "info",   text: "|  Uptime..........  4721h 33m               |" },
-          { type: "header", text: "+--------------------------------------------+" },
+          { type: "header", text: "--- SYSTEM DIAGNOSTICS ---" },
+          { type: "info",   text: "  Core............  *  ONLINE" },
+          { type: "info",   text: "  Memory..........  847MB / 2GB" },
+          { type: "info",   text: "  Signal..........  ~  STABLE" },
+          { type: "warn",   text: "  Threat Level....  !  ELEVATED" },
+          { type: "error",  text: "  Anomalies.......  3  ACTIVE" },
+          { type: "info",   text: "  Uptime..........  4721h 33m" },
+          { type: "dim",    text: "" },
         ]);
         break;
       }
@@ -194,9 +193,9 @@ const TerminalWindow = () => {
 
       case "logs":
         addLines([
-          { type: "header", text: "+--- Recent Activity -------------------------+" },
-          ...LOG_ENTRIES.map((l) => ({ type: "info" as const, text: `|  ${l}` })),
-          { type: "header", text: "+---------------------------------------------+" },
+          { type: "header", text: "--- Recent Activity ---" },
+          ...LOG_ENTRIES.map((l) => ({ type: "info" as const, text: `  ${l}` })),
+          { type: "dim",    text: "" },
         ]);
         break;
 
@@ -229,12 +228,12 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Running signal analysis..." }]);
         await simulateDelay(600);
         addLines([
-          { type: "header", text: "+--- SIGNAL ANALYSIS -------------------------+" },
-          { type: "error",  text: "|  18.9Hz  ########..  HIGH                   |" },
-          { type: "info",   text: "|  42.0Hz  ###.......  LOW                    |" },
-          { type: "error",  text: "|  77.7Hz  #########.  HIGH                   |" },
-          { type: "info",   text: "|  120Hz   ##........  LOW                    |" },
-          { type: "header", text: "+---------------------------------------------+" },
+          { type: "header", text: "--- SIGNAL ANALYSIS ---" },
+          { type: "error",  text: "  18.9Hz  ########..  HIGH" },
+          { type: "info",   text: "  42.0Hz  ###.......  LOW" },
+          { type: "error",  text: "  77.7Hz  #########.  HIGH" },
+          { type: "info",   text: "  120Hz   ##........  LOW" },
+          { type: "dim",    text: "" },
           { type: "system", text: "Dominant frequency: 18.9Hz (subsonic)" },
           { type: "warn",   text: "Pattern matches known anomaly signature." },
         ]);
@@ -445,7 +444,7 @@ const TerminalWindow = () => {
           ]);
         } else {
           addLines([
-            { type: "header", text: "+--- ANOMALY TRANSMISSIONS -------------------+" },
+            { type: "header", text: "--- ANOMALY TRANSMISSIONS ---" },
           ]);
           data.forEach((entry, idx) => {
             const typeColor: TerminalLine["type"] = 
@@ -453,13 +452,13 @@ const TerminalWindow = () => {
               ["system_remark", "witness_line"].includes(entry.entry_type) ? "highlight" : 
               "info";
             addLines([
-              { type: typeColor, text: `| ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
-              { type: "output",  text: `|     ${entry.content}` },
-              { type: "dim",     text: `|     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
+              { type: typeColor, text: `  ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
+              { type: "output",  text: `      ${entry.content}` },
+              { type: "dim",     text: `      ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
             ]);
           });
           addLines([
-            { type: "header", text: "+--------------------------------------------+" },
+            { type: "dim",    text: "" },
             { type: "system", text: `  ${data.length} transmission(s) recovered.` },
           ]);
         }
