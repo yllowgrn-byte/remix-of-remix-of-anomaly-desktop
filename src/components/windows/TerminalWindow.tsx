@@ -83,7 +83,7 @@ const TerminalWindow = () => {
     { type: "highlight", text: "  A G E N T  A N O M A L Y" },
     { type: "dim", text: "" },
     { type: "header", text: "  ANOMALY TERMINAL v0.7.3" },
-    { type: "dim", text: "  ─────────────────────────────────────────" },
+    { type: "dim", text: "  =============================================" },
     { type: "system", text: "  > booting core systems..." },
     { type: "info", text: "  > scanning memory banks.......... OK" },
     { type: "info", text: "  > initializing signal monitor.... OK" },
