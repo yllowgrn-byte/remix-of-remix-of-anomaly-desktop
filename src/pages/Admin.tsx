@@ -45,7 +45,11 @@ const Admin = () => {
   const [newNote, setNewNote] = useState("");
   const [editingNote, setEditingNote] = useState<StoryEntry | null>(null);
 
-  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "settings">("entries");
+  // Token management
+  const [tokenAddress, setTokenAddress] = useState("");
+  const [buyLink, setBuyLink] = useState("");
+
+  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "token" | "settings">("entries");
   const [statusMsg, setStatusMsg] = useState("");
 
   const showStatus = (msg: string) => {
