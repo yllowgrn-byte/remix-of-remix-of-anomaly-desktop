@@ -97,8 +97,14 @@ const Index = () => {
         </div>
 
         {/* Content */}
-        <div className="bevel-sunken bg-window-bg m-0.5 flex-1 overflow-auto p-3">
+        <div className="bevel-sunken bg-window-bg m-0.5 mb-0 flex-1 overflow-auto p-3">
           {windowComponents[id]}
+        </div>
+
+        {/* Bottom status bar */}
+        <div className="bg-secondary px-2 py-[2px] m-0.5 mt-0 flex items-center justify-between text-[8px] text-muted-foreground font-mono select-none shrink-0">
+          <span>{id === "terminal" ? "build 0.7.3-rc4 · sh:anomaly" : id === "overview" ? "anomaly v0.7.3 · monitoring" : id === "status" ? "diagnostics · auto-refresh" : id === "live_feed" ? "feed · streaming" : id === "notes" ? "notes.txt · saved" : id === "sightings" ? "sightings.dat · synced" : id === "archive" ? "archive · indexed" : ""}</span>
+          <span>{id === "terminal" ? "pid:4093 · mem:847MB" : "ready"}</span>
         </div>
       </div>
     );
