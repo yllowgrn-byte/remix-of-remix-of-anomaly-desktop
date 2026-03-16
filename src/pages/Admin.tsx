@@ -115,12 +115,21 @@ const Admin = () => {
     }
   }, []);
 
+  const fetchSightings = useCallback(async () => {
+    const { data } = await supabase
+      .from("sightings")
+      .select("*")
+      .order("timestamp", { ascending: false });
+    if (data) setSightings(data as unknown as SightingEntry[]);
+  }, []);
+
   useEffect(() => {
     if (authenticated) {
       fetchEntries();
       fetchSettings();
+      fetchSightings();
     }
-  }, [authenticated, fetchEntries, fetchSettings]);
+  }, [authenticated, fetchEntries, fetchSettings, fetchSightings]);
 
   const createEntry = async () => {
     if (!newContent.trim()) return;
