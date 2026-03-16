@@ -458,7 +458,7 @@ const TerminalWindow = () => {
             ]);
           });
           addLines([
-            { type: "header", text: "+--------------------------------------------+" },
+            { type: "dim",    text: "" },
             { type: "system", text: `  ${data.length} transmission(s) recovered.` },
           ]);
         }
