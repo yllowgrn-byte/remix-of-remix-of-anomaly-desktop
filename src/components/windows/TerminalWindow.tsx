@@ -82,7 +82,9 @@ const JOKES = [
 
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
-    { type: "image", text: "" },
+    { type: "ascii", text: "" },
+    { type: "ascii", text: "  A G E N T  A N O M A L Y" },
+    { type: "ascii", text: "" },
     { type: "system", text: "ANOMALY TERMINAL v0.7.3" },
     { type: "system", text: 'Type "help" for available commands.' },
     { type: "system", text: "" },
