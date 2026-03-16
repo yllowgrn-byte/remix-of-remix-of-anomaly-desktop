@@ -172,7 +172,7 @@ const TerminalWindow = () => {
           { type: "output", text: "PING anomaly.core (127.0.0.1): 56 bytes" },
           { type: "info",   text: "  reply: seq=1 time=0.042ms" },
           { type: "info",   text: "  reply: seq=2 time=0.038ms" },
-          { type: "warn",   text: "  reply: seq=3 time=███████ms" },
+          { type: "warn",   text: "  reply: seq=3 time=#######ms" },
           { type: "error",  text: "  reply: seq=4 time=ERR_TEMPORAL_SHIFT" },
           { type: "dim", text: "" },
           { type: "output", text: "3 packets received, 1 anomalous" },
