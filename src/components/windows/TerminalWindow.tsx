@@ -341,7 +341,7 @@ const TerminalWindow = () => {
       case "glitch": {
         addLines([{ type: "error", text: "INDUCING VISUAL GLITCH..." }]);
         await simulateDelay(200);
-        const glitchChars = "█▓▒░╬╫╪┼┤├╧╨╤╥╙╘╒╓╚╔╩╦╠═╬";
+        const glitchChars = "#@%&*!~^+=<>/?$:;{}[]()_-|\\";
         for (let i = 0; i < 4; i++) {
           let line = "  ";
           for (let j = 0; j < 44; j++) {
