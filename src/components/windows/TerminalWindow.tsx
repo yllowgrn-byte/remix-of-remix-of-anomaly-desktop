@@ -366,8 +366,8 @@ const TerminalWindow = () => {
           { type: "info",  text: `  2   2.1ms   isp-node-7.net` },
           { type: "info",  text: `  3   8.7ms   backbone-12.transit.io` },
           { type: "warn",  text: `  4  14.2ms   dark-relay.onion.x` },
-          { type: "error", text: `  5   ?.?ms   ░░░░░░░░░░░░░░░░░` },
-          { type: "error", text: `  6   ∞  ms   ████████████████████` },
+          { type: "error", text: `  5   ?.?ms   #################` },
+          { type: "error", text: `  6   ~  ms   ####################` },
         ];
         for (const hop of hops) {
           addLines([hop]);
