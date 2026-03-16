@@ -83,9 +83,7 @@ const JOKES = [
 
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
-    { type: "ascii", text: "" },
-    ...ASCII_LOGO.map((l) => ({ type: "ascii" as const, text: l })),
-    { type: "ascii", text: "" },
+    { type: "image", text: "" },
     { type: "system", text: "ANOMALY TERMINAL v0.7.3" },
     { type: "system", text: 'Type "help" for available commands.' },
     { type: "system", text: "" },
