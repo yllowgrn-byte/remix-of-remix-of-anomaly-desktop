@@ -532,7 +532,8 @@ const TerminalWindow = () => {
 
   return (
     <div
-      className="bg-terminal-bg font-mono text-xs crt-flicker -m-3 flex flex-col h-full"
+      className="bg-terminal-bg font-mono text-xs crt-flicker -m-3 flex flex-col"
+      style={{ height: "calc(100% + 24px)" }}
       onClick={() => inputRef.current?.focus()}
     >
       {/* Scrollable output area */}
