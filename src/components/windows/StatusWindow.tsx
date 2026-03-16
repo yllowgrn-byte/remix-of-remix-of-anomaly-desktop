@@ -94,7 +94,7 @@ const StatusWindow = () => {
       {/* Footer */}
       <div className="border-t border-border/30 pt-2 text-[10px] text-muted-foreground space-y-0.5 mt-auto">
         <p>last refresh: just now · auto-updating</p>
-        <p>next maintenance: indefinitely postponed</p>
+        
         <p>build: 0.7.3-unstable · pid: {Math.floor(Math.random() * 9000) + 1000}</p>
       </div>
     </div>
