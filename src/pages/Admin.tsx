@@ -293,7 +293,7 @@ const Admin = () => {
 
         {/* Tab bar */}
         <div className="flex gap-0.5 font-mono text-xs">
-          {(["entries", "notes", "token", "settings"] as const).map((tab) => (
+          {(["entries", "notes", "sightings", "token", "settings"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -301,7 +301,7 @@ const Admin = () => {
                 activeTab === tab ? "bg-window-bg" : "bg-secondary hover:bg-muted"
               } active:bevel-sunken`}
             >
-              {tab === "entries" ? "📋 Entries" : tab === "notes" ? "📝 Notes.txt" : tab === "token" ? "💰 Token" : "⚙️ Settings"}
+              {tab === "entries" ? "📋 Entries" : tab === "notes" ? "📝 Notes.txt" : tab === "sightings" ? "👁 Sightings" : tab === "token" ? "💰 Token" : "⚙️ Settings"}
             </button>
           ))}
         </div>
