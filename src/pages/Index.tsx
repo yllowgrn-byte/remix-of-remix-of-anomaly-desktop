@@ -113,36 +113,44 @@ const Index = () => {
     );
   };
 
+  const spawnDelay = (ms: number) => ({
+    opacity: !booting && spawned ? 1 : 0,
+    transform: !booting && spawned ? "translateY(0)" : "translateY(8px)",
+    transition: `opacity 0.5s ease ${ms}ms, transform 0.5s ease ${ms}ms`,
+  });
+
   return (
     <>
       {booting && <BootScreen onComplete={() => { setBooting(false); setTimeout(() => setSpawned(true), 50); }} />}
-    <div className={`h-screen flex flex-col overflow-hidden bg-desktop transition-all duration-700 ease-out ${
-      !booting && spawned ? "opacity-100 scale-100" : !booting ? "opacity-0 scale-[0.97]" : "opacity-0 scale-[0.95]"
+    <div className={`h-screen flex flex-col overflow-hidden bg-desktop transition-opacity duration-500 ${
+      !booting ? "opacity-100" : "opacity-0"
     }`}>
       <div className="crt-overlay" />
 
-
-      <MenuBar />
+      <div style={spawnDelay(0)}>
+        <MenuBar />
+      </div>
 
       <div className="flex-1 flex overflow-hidden relative z-10">
         {/* Desktop icons sidebar */}
-        <div className="w-[60px] flex flex-col gap-0.5 p-1 shrink-0 border-r border-border/30 overflow-hidden">
-          {windowDefs.map((item) => (
-            <DesktopIcon
-              key={item.id}
-              icon={item.icon}
-              label={item.label}
-              isActive={activeTab === item.id}
-              onClick={() => handleIconClick(item.id)}
-            />
+        <div className="w-[60px] flex flex-col gap-0.5 p-1 shrink-0 border-r border-border/30 overflow-hidden" style={spawnDelay(100)}>
+          {windowDefs.map((item, i) => (
+            <div key={item.id} style={spawnDelay(150 + i * 50)}>
+              <DesktopIcon
+                icon={item.icon}
+                label={item.label}
+                isActive={activeTab === item.id}
+                onClick={() => handleIconClick(item.id)}
+              />
+            </div>
           ))}
         </div>
 
         {/* Main content area */}
-        <div className="flex-1 overflow-hidden p-2">
+        <div className="flex-1 overflow-hidden p-2" style={spawnDelay(200)}>
           {/* Single window views */}
           {visibleWindows.length === 1 && (
-            <div className="h-full flex flex-col">
+            <div className="h-full flex flex-col" style={spawnDelay(300)}>
               {renderWindowPanel(visibleWindows[0], true)}
             </div>
           )}
@@ -150,11 +158,11 @@ const Index = () => {
           {/* Two window layout (overview + status) */}
           {visibleWindows.length === 2 && (
             <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-2">
-              <div className="lg:col-span-2 flex flex-col gap-2 min-h-0 overflow-hidden">
+              <div className="lg:col-span-2 flex flex-col gap-2 min-h-0 overflow-hidden" style={spawnDelay(300)}>
                 {renderWindowPanel(visibleWindows[0])}
                 {/* Token window below overview */}
                 {visibleWindows[0] === "overview" && (
-                  <div className="bevel-raised bg-secondary flex flex-col shrink-0">
+                  <div className="bevel-raised bg-secondary flex flex-col shrink-0" style={spawnDelay(500)}>
                     <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
                       <div className="flex items-center gap-1.5">
                         <span className="text-xs">💰</span>
@@ -172,7 +180,7 @@ const Index = () => {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col overflow-hidden">
+              <div className="flex flex-col overflow-hidden" style={spawnDelay(400)}>
                 {renderWindowPanel(visibleWindows[1])}
               </div>
             </div>
@@ -180,16 +188,18 @@ const Index = () => {
         </div>
       </div>
 
-      <Taskbar
-        openWindows={[windowDefs.find((w) => w.id === activeTab)!].map((w) => ({
-          id: w.id,
-          label: w.label,
-          icon: w.icon,
-        }))}
-        activeWindow={activeTab}
-        minimizedWindows={[]}
-        onTaskbarClick={handleIconClick}
-      />
+      <div style={spawnDelay(500)}>
+        <Taskbar
+          openWindows={[windowDefs.find((w) => w.id === activeTab)!].map((w) => ({
+            id: w.id,
+            label: w.label,
+            icon: w.icon,
+          }))}
+          activeWindow={activeTab}
+          minimizedWindows={[]}
+          onTaskbarClick={handleIconClick}
+        />
+      </div>
     </div>
     </>
   );
