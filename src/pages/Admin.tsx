@@ -49,7 +49,29 @@ const Admin = () => {
   const [tokenAddress, setTokenAddress] = useState("");
   const [buyLink, setBuyLink] = useState("");
 
-  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "token" | "settings">("entries");
+  // Sightings management
+  interface SightingEntry {
+    id: string;
+    sig_id: string;
+    timestamp: string;
+    location: string;
+    type: string;
+    severity: "low" | "medium" | "high" | "critical";
+    description: string;
+    status: "confirmed" | "unverified" | "disputed";
+  }
+  const [sightings, setSightings] = useState<SightingEntry[]>([]);
+  const [newSighting, setNewSighting] = useState({
+    sig_id: "",
+    location: "",
+    type: "",
+    severity: "medium" as "low" | "medium" | "high" | "critical",
+    description: "",
+    status: "unverified" as "confirmed" | "unverified" | "disputed",
+  });
+  const [editingSighting, setEditingSighting] = useState<SightingEntry | null>(null);
+
+  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "sightings" | "token" | "settings">("entries");
   const [statusMsg, setStatusMsg] = useState("");
 
   const showStatus = (msg: string) => {
@@ -93,12 +115,21 @@ const Admin = () => {
     }
   }, []);
 
+  const fetchSightings = useCallback(async () => {
+    const { data } = await supabase
+      .from("sightings")
+      .select("*")
+      .order("timestamp", { ascending: false });
+    if (data) setSightings(data as unknown as SightingEntry[]);
+  }, []);
+
   useEffect(() => {
     if (authenticated) {
       fetchEntries();
       fetchSettings();
+      fetchSightings();
     }
-  }, [authenticated, fetchEntries, fetchSettings]);
+  }, [authenticated, fetchEntries, fetchSettings, fetchSightings]);
 
   const createEntry = async () => {
     if (!newContent.trim()) return;
@@ -163,6 +194,35 @@ const Admin = () => {
     await supabase.from("story_entries").update({ sort_order: other.sort_order }).eq("id", entry.id);
     await supabase.from("story_entries").update({ sort_order: entry.sort_order }).eq("id", other.id);
     fetchEntries();
+  };
+
+  // Sightings functions
+  const createSighting = async () => {
+    if (!newSighting.sig_id.trim() || !newSighting.location.trim()) return;
+    await supabase.from("sightings").insert({
+      sig_id: newSighting.sig_id,
+      location: newSighting.location,
+      type: newSighting.type,
+      severity: newSighting.severity,
+      description: newSighting.description,
+      status: newSighting.status,
+    });
+    setNewSighting({ sig_id: "", location: "", type: "", severity: "medium", description: "", status: "unverified" });
+    showStatus("sighting created");
+    fetchSightings();
+  };
+
+  const updateSighting = async (id: string, updates: Record<string, unknown>) => {
+    await supabase.from("sightings").update(updates).eq("id", id);
+    showStatus("sighting updated");
+    setEditingSighting(null);
+    fetchSightings();
+  };
+
+  const deleteSighting = async (id: string) => {
+    await supabase.from("sightings").delete().eq("id", id);
+    showStatus("sighting deleted");
+    fetchSightings();
   };
 
   // Notes-specific functions
@@ -233,7 +293,7 @@ const Admin = () => {
 
         {/* Tab bar */}
         <div className="flex gap-0.5 font-mono text-xs">
-          {(["entries", "notes", "token", "settings"] as const).map((tab) => (
+          {(["entries", "notes", "sightings", "token", "settings"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -241,7 +301,7 @@ const Admin = () => {
                 activeTab === tab ? "bg-window-bg" : "bg-secondary hover:bg-muted"
               } active:bevel-sunken`}
             >
-              {tab === "entries" ? "📋 Entries" : tab === "notes" ? "📝 Notes.txt" : tab === "token" ? "💰 Token" : "⚙️ Settings"}
+              {tab === "entries" ? "📋 Entries" : tab === "notes" ? "📝 Notes.txt" : tab === "sightings" ? "👁 Sightings" : tab === "token" ? "💰 Token" : "⚙️ Settings"}
             </button>
           ))}
         </div>
@@ -440,6 +500,133 @@ const Admin = () => {
                 <div className="text-[10px] text-muted-foreground border-t border-border/30 pt-2">
                   tip: if no pinned notes exist, the notes.txt window shows default placeholder content
                 </div>
+              </div>
+            </RetroWindow>
+          </>
+        )}
+
+        {/* SIGHTINGS TAB */}
+        {activeTab === "sightings" && (
+          <>
+            <RetroWindow title="Create Sighting" icon="👁">
+              <div className="space-y-2 text-xs font-mono">
+                <div className="flex gap-2 flex-wrap">
+                  <input
+                    value={newSighting.sig_id}
+                    onChange={(e) => setNewSighting({ ...newSighting, sig_id: e.target.value })}
+                    placeholder="SIG-0042"
+                    className="bevel-sunken bg-window-bg px-2 py-1 text-xs font-mono outline-none w-24"
+                  />
+                  <input
+                    value={newSighting.location}
+                    onChange={(e) => setNewSighting({ ...newSighting, location: e.target.value })}
+                    placeholder="Location..."
+                    className="bevel-sunken bg-window-bg px-2 py-1 text-xs font-mono outline-none flex-1"
+                  />
+                  <input
+                    value={newSighting.type}
+                    onChange={(e) => setNewSighting({ ...newSighting, type: e.target.value })}
+                    placeholder="Type..."
+                    className="bevel-sunken bg-window-bg px-2 py-1 text-xs font-mono outline-none w-32"
+                  />
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  <select
+                    value={newSighting.severity}
+                    onChange={(e) => setNewSighting({ ...newSighting, severity: e.target.value as any })}
+                    className="bevel-sunken bg-window-bg px-2 py-1 text-xs font-mono outline-none"
+                  >
+                    <option value="low">low</option>
+                    <option value="medium">medium</option>
+                    <option value="high">high</option>
+                    <option value="critical">critical</option>
+                  </select>
+                  <select
+                    value={newSighting.status}
+                    onChange={(e) => setNewSighting({ ...newSighting, status: e.target.value as any })}
+                    className="bevel-sunken bg-window-bg px-2 py-1 text-xs font-mono outline-none"
+                  >
+                    <option value="unverified">unverified</option>
+                    <option value="confirmed">confirmed</option>
+                    <option value="disputed">disputed</option>
+                  </select>
+                </div>
+                <textarea
+                  value={newSighting.description}
+                  onChange={(e) => setNewSighting({ ...newSighting, description: e.target.value })}
+                  placeholder="Description..."
+                  className="bevel-sunken bg-window-bg w-full px-2 py-1 text-xs font-mono outline-none min-h-[50px] resize-y"
+                />
+                <button
+                  onClick={createSighting}
+                  className="bevel-raised bg-secondary px-4 py-1 text-xs font-bold hover:bg-muted active:bevel-sunken"
+                >
+                  + Log Sighting
+                </button>
+              </div>
+            </RetroWindow>
+
+            <RetroWindow title="Sightings Database" icon="📡" maxHeight="500px">
+              <div className="space-y-1 font-mono text-xs">
+                <div className="flex gap-2 border-b border-border pb-1 font-bold text-muted-foreground text-[10px]">
+                  <span className="w-20">SIG ID</span>
+                  <span className="w-16">Severity</span>
+                  <span className="w-16">Status</span>
+                  <span className="flex-1">Type / Location</span>
+                  <span className="w-28">Actions</span>
+                </div>
+                {sightings.map((s) => (
+                  <div key={s.id} className="flex gap-2 items-start py-0.5 border-b border-border/30">
+                    <span className="w-20 text-accent font-bold">{s.sig_id}</span>
+                    <span className={`w-16 font-bold uppercase ${
+                      s.severity === "critical" || s.severity === "high" ? "text-destructive" :
+                      s.severity === "medium" ? "text-amber-status" : "text-muted-foreground"
+                    }`}>{s.severity}</span>
+                    <span className={`w-16 ${
+                      s.status === "confirmed" ? "text-terminal-text" :
+                      s.status === "unverified" ? "text-amber-status" : "text-muted-foreground"
+                    }`}>{s.status}</span>
+
+                    {editingSighting?.id === s.id ? (
+                      <div className="flex-1 space-y-1">
+                        <div className="flex gap-1 flex-wrap">
+                          <input value={editingSighting.sig_id} onChange={(e) => setEditingSighting({ ...editingSighting, sig_id: e.target.value })} className="bevel-sunken bg-window-bg px-1 py-0.5 text-xs font-mono outline-none w-20" />
+                          <input value={editingSighting.location} onChange={(e) => setEditingSighting({ ...editingSighting, location: e.target.value })} className="bevel-sunken bg-window-bg px-1 py-0.5 text-xs font-mono outline-none flex-1" />
+                          <input value={editingSighting.type} onChange={(e) => setEditingSighting({ ...editingSighting, type: e.target.value })} className="bevel-sunken bg-window-bg px-1 py-0.5 text-xs font-mono outline-none w-24" />
+                        </div>
+                        <div className="flex gap-1">
+                          <select value={editingSighting.severity} onChange={(e) => setEditingSighting({ ...editingSighting, severity: e.target.value as any })} className="bevel-sunken bg-window-bg px-1 py-0.5 text-xs font-mono outline-none">
+                            <option value="low">low</option><option value="medium">medium</option><option value="high">high</option><option value="critical">critical</option>
+                          </select>
+                          <select value={editingSighting.status} onChange={(e) => setEditingSighting({ ...editingSighting, status: e.target.value as any })} className="bevel-sunken bg-window-bg px-1 py-0.5 text-xs font-mono outline-none">
+                            <option value="unverified">unverified</option><option value="confirmed">confirmed</option><option value="disputed">disputed</option>
+                          </select>
+                        </div>
+                        <textarea value={editingSighting.description} onChange={(e) => setEditingSighting({ ...editingSighting, description: e.target.value })} className="bevel-sunken bg-window-bg w-full px-1 py-0.5 text-xs font-mono outline-none min-h-[30px]" />
+                        <div className="flex gap-1">
+                          <button onClick={() => updateSighting(s.id, { sig_id: editingSighting.sig_id, location: editingSighting.location, type: editingSighting.type, severity: editingSighting.severity, status: editingSighting.status, description: editingSighting.description })} className="bevel-raised bg-secondary px-2 py-0.5 text-[9px] hover:bg-muted">save</button>
+                          <button onClick={() => setEditingSighting(null)} className="bevel-raised bg-secondary px-2 py-0.5 text-[9px] hover:bg-muted">cancel</button>
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="flex-1 truncate">
+                        <span className="text-foreground">{s.type}</span>
+                        <span className="text-muted-foreground"> · {s.location}</span>
+                      </span>
+                    )}
+
+                    <div className="w-28 flex gap-0.5 shrink-0">
+                      <button onClick={() => setEditingSighting(s)} className="bevel-raised bg-secondary px-1 py-0 text-[9px] hover:bg-muted">edit</button>
+                      <button onClick={() => updateSighting(s.id, { status: "confirmed" })} className="bevel-raised bg-secondary px-1 py-0 text-[9px] hover:bg-muted">✓</button>
+                      <button onClick={() => updateSighting(s.id, { status: "disputed" })} className="bevel-raised bg-secondary px-1 py-0 text-[9px] hover:bg-muted">✕</button>
+                      <button onClick={() => deleteSighting(s.id)} className="bevel-raised bg-secondary px-1 py-0 text-[9px] hover:bg-destructive hover:text-destructive-foreground">del</button>
+                    </div>
+                  </div>
+                ))}
+                {sightings.length === 0 && (
+                  <div className="text-center text-muted-foreground py-4">no sightings logged</div>
+                )}
+                <div className="text-[10px] text-muted-foreground pt-1">{sightings.length} sighting(s) in database</div>
               </div>
             </RetroWindow>
           </>
