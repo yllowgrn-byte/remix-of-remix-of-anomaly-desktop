@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      sightings: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          location: string
+          severity: Database["public"]["Enums"]["sighting_severity"]
+          sig_id: string
+          status: Database["public"]["Enums"]["sighting_status"]
+          timestamp: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          location: string
+          severity?: Database["public"]["Enums"]["sighting_severity"]
+          sig_id: string
+          status?: Database["public"]["Enums"]["sighting_status"]
+          timestamp?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          location?: string
+          severity?: Database["public"]["Enums"]["sighting_severity"]
+          sig_id?: string
+          status?: Database["public"]["Enums"]["sighting_status"]
+          timestamp?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           created_at: string
@@ -90,6 +129,8 @@ export type Database = {
         | "system_remark"
         | "memory_leak"
         | "signal"
+      sighting_severity: "low" | "medium" | "high" | "critical"
+      sighting_status: "confirmed" | "unverified" | "disputed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -229,6 +270,8 @@ export const Constants = {
         "memory_leak",
         "signal",
       ],
+      sighting_severity: ["low", "medium", "high", "critical"],
+      sighting_status: ["confirmed", "unverified", "disputed"],
     },
   },
 } as const
