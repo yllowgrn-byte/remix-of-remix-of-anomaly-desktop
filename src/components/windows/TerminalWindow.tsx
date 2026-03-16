@@ -488,9 +488,15 @@ const TerminalWindow = () => {
       {/* Scrollable output area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-0.5 min-h-0">
         {lines.map((line, i) => (
-          <div key={i} className={lineColor(line.type)}>
-            {line.text || "\u00A0"}
-          </div>
+          line.type === "image" ? (
+            <div key={i} className="py-1">
+              <img src={asciiLogo} alt="anomaly" className="h-10 invert opacity-60" />
+            </div>
+          ) : (
+            <div key={i} className={lineColor(line.type)}>
+              {line.text || "\u00A0"}
+            </div>
+          )
         ))}
       </div>
 
