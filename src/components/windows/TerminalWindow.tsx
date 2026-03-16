@@ -459,7 +459,7 @@ const TerminalWindow = () => {
             ]);
           });
           addLines([
-            { type: "header", text: "└─────────────────────────────────────────┘" },
+            { type: "header", text: "+--------------------------------------------+" },
             { type: "system", text: `  ${data.length} transmission(s) recovered.` },
           ]);
         }
