@@ -312,14 +312,14 @@ const TerminalWindow = () => {
 
       case "color": {
         addLines([
-          { type: "output",    text: "  ████ output    — default text" },
-          { type: "system",    text: "  ████ system    — system messages" },
-          { type: "info",      text: "  ████ info      — data & values" },
-          { type: "warn",      text: "  ████ warn      — caution" },
-          { type: "error",     text: "  ████ error     — alerts & danger" },
-          { type: "highlight", text: "  ████ highlight — emphasis" },
-          { type: "header",    text: "  ████ header    — borders & titles" },
-          { type: "dim",       text: "  ████ dim       — faded / metadata" },
+          { type: "output",    text: "  ==== output    -- default text" },
+          { type: "system",    text: "  ==== system    -- system messages" },
+          { type: "info",      text: "  ==== info      -- data & values" },
+          { type: "warn",      text: "  ==== warn      -- caution" },
+          { type: "error",     text: "  ==== error     -- alerts & danger" },
+          { type: "highlight", text: "  ==== highlight -- emphasis" },
+          { type: "header",    text: "  ==== header    -- borders & titles" },
+          { type: "dim",       text: "  ==== dim       -- faded / metadata" },
           { type: "dim",       text: "" },
           { type: "system",    text: "  Color matrix: nominal" },
         ]);
