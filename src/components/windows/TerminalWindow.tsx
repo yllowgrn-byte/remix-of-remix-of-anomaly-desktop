@@ -452,9 +452,9 @@ const TerminalWindow = () => {
               ["system_remark", "witness_line"].includes(entry.entry_type) ? "highlight" : 
               "info";
             addLines([
-              { type: typeColor, text: `| ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
-              { type: "output",  text: `|     ${entry.content}` },
-              { type: "dim",     text: `|     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
+              { type: typeColor, text: `  ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
+              { type: "output",  text: `      ${entry.content}` },
+              { type: "dim",     text: `      ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
             ]);
           });
           addLines([
