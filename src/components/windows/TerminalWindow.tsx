@@ -229,12 +229,12 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Running signal analysis..." }]);
         await simulateDelay(600);
         addLines([
-          { type: "header", text: "┌─── SIGNAL ANALYSIS ─────────────────────┐" },
-          { type: "error",  text: "│  18.9Hz  ████████░░  HIGH               │" },
-          { type: "info",   text: "│  42.0Hz  ███░░░░░░░  LOW                │" },
-          { type: "error",  text: "│  77.7Hz  █████████░  HIGH               │" },
-          { type: "info",   text: "│  120Hz   ██░░░░░░░░  LOW                │" },
-          { type: "header", text: "└─────────────────────────────────────────┘" },
+          { type: "header", text: "+--- SIGNAL ANALYSIS -------------------------+" },
+          { type: "error",  text: "|  18.9Hz  ########..  HIGH                   |" },
+          { type: "info",   text: "|  42.0Hz  ###.......  LOW                    |" },
+          { type: "error",  text: "|  77.7Hz  #########.  HIGH                   |" },
+          { type: "info",   text: "|  120Hz   ##........  LOW                    |" },
+          { type: "header", text: "+---------------------------------------------+" },
           { type: "system", text: "Dominant frequency: 18.9Hz (subsonic)" },
           { type: "warn",   text: "Pattern matches known anomaly signature." },
         ]);
