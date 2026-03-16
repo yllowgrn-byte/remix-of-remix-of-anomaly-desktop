@@ -32,6 +32,7 @@ const HELP_TEXT = [
   "  anomaly       — show anomaly logo",
   "  uptime        — system uptime report",
   "  joke          — system humor module",
+  "  story         — fetch anomaly transmissions",
 ];
 
 const ASCII_LOGO = [
