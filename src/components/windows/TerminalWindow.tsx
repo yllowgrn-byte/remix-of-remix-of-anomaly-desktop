@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import asciiLogo from "@/assets/ascii-logo.png";
 
 interface TerminalLine {
-  type: "input" | "output" | "error" | "system" | "ascii";
+  type: "input" | "output" | "error" | "system" | "ascii" | "image";
   text: string;
 }
 
@@ -82,9 +83,7 @@ const JOKES = [
 
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
-    { type: "ascii", text: "" },
-    ...ASCII_LOGO.map((l) => ({ type: "ascii" as const, text: l })),
-    { type: "ascii", text: "" },
+    { type: "image", text: "" },
     { type: "system", text: "ANOMALY TERMINAL v0.7.3" },
     { type: "system", text: 'Type "help" for available commands.' },
     { type: "system", text: "" },
@@ -397,11 +396,7 @@ const TerminalWindow = () => {
       }
 
       case "anomaly": {
-        addLines([
-          { type: "ascii", text: "" },
-          ...ASCII_LOGO.map((l) => ({ type: "ascii" as const, text: l })),
-          { type: "ascii", text: "" },
-        ]);
+        addLines([{ type: "image", text: "" }]);
         break;
       }
 
@@ -489,9 +484,15 @@ const TerminalWindow = () => {
       {/* Scrollable output area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-0.5 min-h-0">
         {lines.map((line, i) => (
-          <div key={i} className={lineColor(line.type)}>
-            {line.text || "\u00A0"}
-          </div>
+          line.type === "image" ? (
+            <div key={i} className="py-1">
+              <img src={asciiLogo} alt="anomaly" className="h-10 invert opacity-60" />
+            </div>
+          ) : (
+            <div key={i} className={lineColor(line.type)}>
+              {line.text || "\u00A0"}
+            </div>
+          )
         ))}
       </div>
 
