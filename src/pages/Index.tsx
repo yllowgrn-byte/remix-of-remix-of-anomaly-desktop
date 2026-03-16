@@ -127,7 +127,7 @@ const Index = () => {
         </div>
 
         {/* Main content area */}
-        <div className="flex-1 overflow-y-auto p-3">
+        <div className="flex-1 overflow-hidden p-2">
           {/* Single window views */}
           {visibleWindows.length === 1 && (
             <div className="h-full flex flex-col">
