@@ -544,23 +544,32 @@ const TerminalWindow = () => {
         ))}
       </div>
 
-      {/* Fixed input line at bottom */}
-      <form onSubmit={handleSubmit} className="flex items-center px-3 py-1 border-t border-terminal-text/10 shrink-0 bg-terminal-bg">
-        <span className="text-accent font-bold mr-1">$</span>
-        <input
-          ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={isProcessing}
-          className="flex-1 bg-transparent text-terminal-text outline-none caret-terminal-text"
-          autoFocus
-          spellCheck={false}
-          autoComplete="off"
-        />
-        {isProcessing && <span className="text-accent animate-pulse ml-2">⏳</span>}
-      </form>
+      {/* Input + status bar */}
+      <div className="border-t border-terminal-text/10 shrink-0 bg-terminal-bg">
+        <form onSubmit={handleSubmit} className="flex items-center px-3 py-1">
+          <span className="text-accent font-bold mr-1">$</span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={isProcessing}
+            className="flex-1 bg-transparent text-terminal-text outline-none caret-terminal-text"
+            autoFocus
+            spellCheck={false}
+            autoComplete="off"
+          />
+          {isProcessing && <span className="text-accent animate-pulse ml-2">⏳</span>}
+        </form>
+        <div className="flex items-center justify-between px-3 py-0.5 text-[8px] text-terminal-text/30 border-t border-terminal-text/5">
+          <span>build 0.7.3-rc4</span>
+          <span>pid:4093</span>
+          <span>mem:847MB</span>
+          <span>sh:anomaly</span>
+          <span>LN {lines.length}</span>
+        </div>
+      </div>
     </div>
   );
 };
