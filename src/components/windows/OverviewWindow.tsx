@@ -50,11 +50,9 @@ const OverviewWindow = () => {
       </div>
 
       {/* Signal visualizer — fills remaining space */}
-      <div className="bevel-sunken bg-terminal-bg p-2 flex-1 min-h-0 flex flex-col">
-        <div className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">
-          ◈ signal monitor
-        </div>
-        <div className="flex-1 flex items-end gap-[3px] min-h-0">
+      <div className="bevel-sunken bg-terminal-bg p-2 flex-1 min-h-[60px] flex flex-col">
+        <div className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">◈ signal monitor</div>
+        <div className="flex-1 flex items-end gap-[3px]" style={{ minHeight: 40 }}>
           {signalBars.map((v, i) => (
             <div key={i} className="flex-1 flex flex-col justify-end h-full">
               <div
