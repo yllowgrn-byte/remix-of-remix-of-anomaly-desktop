@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TerminalLine {
-  type: "input" | "output" | "error" | "system" | "ascii";
+  type: "input" | "output" | "error" | "system" | "ascii" | "highlight" | "dim";
   text: string;
 }
 
@@ -31,6 +32,7 @@ const HELP_TEXT = [
   "  anomaly       — show anomaly logo",
   "  uptime        — system uptime report",
   "  joke          — system humor module",
+  "  story         — fetch anomaly transmissions",
 ];
 
 const ASCII_LOGO = [
@@ -83,19 +85,19 @@ const JOKES = [
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: "ascii", text: "" },
-    { type: "ascii", text: "  A G E N T  A N O M A L Y" },
+    { type: "highlight", text: "  A G E N T  A N O M A L Y" },
     { type: "ascii", text: "" },
     { type: "system", text: "ANOMALY TERMINAL v0.7.3 — Digital Presence Tracker" },
-    { type: "system", text: "" },
-    { type: "output", text: "> booting core systems..." },
+    { type: "dim", text: "────────────────────────────────────────────" },
+    { type: "system", text: "> booting core systems..." },
     { type: "output", text: "> scanning memory banks.......... OK" },
     { type: "output", text: "> initializing signal monitor.... OK" },
-    { type: "output", text: "> loading anomaly database....... OK" },
+    { type: "system", text: "> loading anomaly database....... OK" },
     { type: "output", text: "> calibrating sensors............ OK" },
     { type: "error",  text: "> threat assessment.............. ELEVATED" },
-    { type: "system", text: "" },
-    { type: "system", text: "All systems online. 3 anomalies currently tracked." },
-    { type: "system", text: 'Type "help" for available commands.' },
+    { type: "dim", text: "────────────────────────────────────────────" },
+    { type: "highlight", text: "All systems online. 3 anomalies currently tracked." },
+    { type: "system", text: 'Type "help" for commands. Try "story" for transmissions.' },
     { type: "system", text: "" },
   ]);
   const [input, setInput] = useState("");
@@ -438,6 +440,42 @@ const TerminalWindow = () => {
         break;
       }
 
+      case "story": {
+        addLines([{ type: "system", text: "Fetching anomaly transmissions..." }]);
+        await simulateDelay(600);
+        const { data, error: dbError } = await supabase
+          .from("story_entries")
+          .select("*")
+          .in("status", ["live", "pinned"])
+          .order("sort_order", { ascending: true })
+          .limit(20);
+        if (dbError || !data || data.length === 0) {
+          addLines([
+            { type: "error", text: "  ⚠ No transmissions found in the archive." },
+            { type: "dim", text: "  The signal is quiet... for now." },
+          ]);
+        } else {
+          addLines([
+            { type: "highlight", text: "┌─── ANOMALY TRANSMISSIONS ───────────────┐" },
+          ]);
+          data.forEach((entry, idx) => {
+            const typeColor = ["signal", "trace", "memory_leak"].includes(entry.entry_type) ? "error" : 
+                              ["system_remark", "witness_line"].includes(entry.entry_type) ? "highlight" : 
+                              "output";
+            addLines([
+              { type: typeColor as TerminalLine["type"], text: `│ ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
+              { type: "output", text: `│     ${entry.content}` },
+              { type: "dim", text: `│     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
+            ]);
+          });
+          addLines([
+            { type: "highlight", text: "└─────────────────────────────────────────┘" },
+            { type: "system", text: `  ${data.length} transmission(s) recovered.` },
+          ]);
+        }
+        break;
+      }
+
       default:
         addLines([
           { type: "error", text: `Command not found: ${command}` },
@@ -486,6 +524,8 @@ const TerminalWindow = () => {
       case "error": return "text-amber-status";
       case "system": return "text-accent";
       case "ascii": return "text-terminal-text/60";
+      case "highlight": return "text-[hsl(120,60%,75%)] font-bold";
+      case "dim": return "text-terminal-text/40 italic";
       default: return "text-terminal-text";
     }
   };
@@ -496,7 +536,7 @@ const TerminalWindow = () => {
       onClick={() => inputRef.current?.focus()}
     >
       {/* Scrollable output area */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-0.5 min-h-0">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-0.5 min-h-0 hide-scrollbar">
         {lines.map((line, i) => (
           <div key={i} className={`${lineColor(line.type)} ${line.type === "ascii" && line.text.includes("A G E N T") ? "text-lg font-retro tracking-[0.3em]" : ""}`}>
             {line.text || "\u00A0"}
