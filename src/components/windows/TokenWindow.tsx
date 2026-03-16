@@ -14,24 +14,18 @@ const TokenWindow = () => {
       .in("key", ["token_address", "buy_link"]);
     if (data) {
       data.forEach((s) => {
-        if (s.key === "token_address") setTokenAddress(String(s.value || ""));
-        if (s.key === "buy_link") setBuyLink(String(s.value || ""));
+        if (s.key === "token_address") setTokenAddress(String(s.value || "").replace(/^"|"$/g, ""));
+        if (s.key === "buy_link") setBuyLink(String(s.value || "").replace(/^"|"$/g, ""));
       });
     }
   };
 
   useEffect(() => {
     fetchTokenData();
-
     const channel = supabase
       .channel("token-settings")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "site_settings" },
-        () => fetchTokenData()
-      )
+      .on("postgres_changes", { event: "*", schema: "public", table: "site_settings" }, () => fetchTokenData())
       .subscribe();
-
     return () => { supabase.removeChannel(channel); };
   }, []);
 
@@ -43,43 +37,43 @@ const TokenWindow = () => {
   };
 
   return (
-    <div className="font-mono flex flex-col gap-2">
-      {/* Token address */}
-      <div className="flex items-center gap-1">
-        <span className="text-[9px] text-muted-foreground uppercase shrink-0">CA:</span>
+    <div className="font-mono text-[10px] space-y-1.5">
+      {/* CA row */}
+      <div className="flex items-center gap-2">
+        <span className="text-muted-foreground uppercase w-7 shrink-0 text-right">CA</span>
         <div
           onClick={handleCopy}
-          className={`bevel-sunken bg-terminal-bg flex-1 px-2 py-1 text-[10px] text-terminal-text truncate cursor-pointer hover:bg-terminal-bg/80 transition-colors ${!tokenAddress ? 'text-muted-foreground italic' : ''}`}
-          title={tokenAddress || "No address set"}
+          className={`bevel-sunken bg-terminal-bg flex-1 px-2 py-0.5 text-terminal-text truncate ${tokenAddress ? "cursor-pointer hover:brightness-125" : "text-muted-foreground italic"}`}
+          title={tokenAddress || "not set"}
         >
-          {tokenAddress || "—"}
+          {tokenAddress || "not set"}
         </div>
         <button
           onClick={handleCopy}
           disabled={!tokenAddress}
-          className="bevel-raised bg-secondary px-1.5 py-1 text-[9px] hover:bg-muted active:bevel-sunken disabled:opacity-40 disabled:cursor-default flex items-center gap-0.5"
+          className="bevel-raised bg-secondary px-2 py-0.5 text-[9px] font-bold hover:bg-muted active:bevel-sunken disabled:opacity-30 flex items-center gap-1 shrink-0"
         >
-          <Copy size={10} />
-          {copied ? "OK" : "COPY"}
+          <Copy size={8} />
+          {copied ? "OK!" : "COPY"}
         </button>
       </div>
 
-      {/* Buy link */}
-      <div className="flex items-center gap-1">
-        <span className="text-[9px] text-muted-foreground uppercase shrink-0">BUY:</span>
+      {/* Buy row */}
+      <div className="flex items-center gap-2">
+        <span className="text-muted-foreground uppercase w-7 shrink-0 text-right">BUY</span>
         {buyLink ? (
           <a
             href={buyLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="bevel-raised bg-accent text-accent-foreground flex-1 px-2 py-1 text-[10px] font-bold text-center hover:opacity-90 active:bevel-sunken flex items-center justify-center gap-1"
+            className="bevel-raised bg-accent text-accent-foreground flex-1 px-2 py-0.5 font-bold text-center hover:opacity-90 active:bevel-sunken flex items-center justify-center gap-1"
           >
-            <ExternalLink size={10} />
+            <ExternalLink size={9} />
             BUY NOW
           </a>
         ) : (
-          <div className="bevel-sunken bg-terminal-bg flex-1 px-2 py-1 text-[10px] text-muted-foreground italic">
-            —
+          <div className="bevel-sunken bg-terminal-bg flex-1 px-2 py-0.5 text-muted-foreground italic">
+            not set
           </div>
         )}
       </div>
