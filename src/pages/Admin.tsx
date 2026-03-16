@@ -45,7 +45,11 @@ const Admin = () => {
   const [newNote, setNewNote] = useState("");
   const [editingNote, setEditingNote] = useState<StoryEntry | null>(null);
 
-  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "settings">("entries");
+  // Token management
+  const [tokenAddress, setTokenAddress] = useState("");
+  const [buyLink, setBuyLink] = useState("");
+
+  const [activeTab, setActiveTab] = useState<"entries" | "notes" | "token" | "settings">("entries");
   const [statusMsg, setStatusMsg] = useState("");
 
   const showStatus = (msg: string) => {
@@ -78,11 +82,13 @@ const Admin = () => {
     const { data } = await supabase
       .from("site_settings")
       .select("*")
-      .in("key", ["autonomous_enabled", "autonomous_interval_minutes"]);
+      .in("key", ["autonomous_enabled", "autonomous_interval_minutes", "token_address", "buy_link"]);
     if (data) {
       data.forEach((s) => {
         if (s.key === "autonomous_enabled") setAutonomousEnabled(s.value === true);
         if (s.key === "autonomous_interval_minutes") setIntervalMin(Number(s.value) || 15);
+        if (s.key === "token_address") setTokenAddress(String(s.value || "").replace(/^"|"$/g, ""));
+        if (s.key === "buy_link") setBuyLink(String(s.value || "").replace(/^"|"$/g, ""));
       });
     }
   }, []);
@@ -227,7 +233,7 @@ const Admin = () => {
 
         {/* Tab bar */}
         <div className="flex gap-0.5 font-mono text-xs">
-          {(["entries", "notes", "settings"] as const).map((tab) => (
+          {(["entries", "notes", "token", "settings"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -235,7 +241,7 @@ const Admin = () => {
                 activeTab === tab ? "bg-window-bg" : "bg-secondary hover:bg-muted"
               } active:bevel-sunken`}
             >
-              {tab === "entries" ? "📋 Entries" : tab === "notes" ? "📝 Notes.txt" : "⚙️ Settings"}
+              {tab === "entries" ? "📋 Entries" : tab === "notes" ? "📝 Notes.txt" : tab === "token" ? "💰 Token" : "⚙️ Settings"}
             </button>
           ))}
         </div>
@@ -433,6 +439,87 @@ const Admin = () => {
 
                 <div className="text-[10px] text-muted-foreground border-t border-border/30 pt-2">
                   tip: if no pinned notes exist, the notes.txt window shows default placeholder content
+                </div>
+              </div>
+            </RetroWindow>
+          </>
+        )}
+
+        {/* TOKEN TAB */}
+        {activeTab === "token" && (
+          <>
+            <RetroWindow title="Token & Buy Link" icon="💰">
+              <div className="space-y-3 text-xs font-mono">
+                <p className="text-[10px] text-muted-foreground">
+                  Set the token contract address and buy link. Changes appear on the main page in real time.
+                </p>
+
+                <div className="space-y-2">
+                  <div>
+                    <label className="text-[10px] text-muted-foreground uppercase block mb-0.5">Token Address (CA)</label>
+                    <div className="flex gap-1">
+                      <input
+                        value={tokenAddress}
+                        onChange={(e) => setTokenAddress(e.target.value)}
+                        placeholder="paste contract address..."
+                        className="bevel-sunken bg-window-bg flex-1 px-2 py-1 text-xs font-mono outline-none"
+                      />
+                      <button
+                        onClick={async () => {
+                          await supabase.from("site_settings").update({ value: JSON.stringify(tokenAddress) }).eq("key", "token_address");
+                          showStatus("token address saved");
+                        }}
+                        className="bevel-raised bg-secondary px-3 py-1 font-bold hover:bg-muted active:bevel-sunken"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={async () => {
+                          setTokenAddress("");
+                          await supabase.from("site_settings").update({ value: JSON.stringify("") }).eq("key", "token_address");
+                          showStatus("token address cleared");
+                        }}
+                        className="bevel-raised bg-secondary px-2 py-1 hover:bg-destructive hover:text-destructive-foreground active:bevel-sunken"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] text-muted-foreground uppercase block mb-0.5">Buy Link URL</label>
+                    <div className="flex gap-1">
+                      <input
+                        value={buyLink}
+                        onChange={(e) => setBuyLink(e.target.value)}
+                        placeholder="https://..."
+                        className="bevel-sunken bg-window-bg flex-1 px-2 py-1 text-xs font-mono outline-none"
+                      />
+                      <button
+                        onClick={async () => {
+                          await supabase.from("site_settings").update({ value: JSON.stringify(buyLink) }).eq("key", "buy_link");
+                          showStatus("buy link saved");
+                        }}
+                        className="bevel-raised bg-secondary px-3 py-1 font-bold hover:bg-muted active:bevel-sunken"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={async () => {
+                          setBuyLink("");
+                          await supabase.from("site_settings").update({ value: JSON.stringify("") }).eq("key", "buy_link");
+                          showStatus("buy link cleared");
+                        }}
+                        className="bevel-raised bg-secondary px-2 py-1 hover:bg-destructive hover:text-destructive-foreground active:bevel-sunken"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-[10px] text-muted-foreground border-t border-border/30 pt-2">
+                  tip: the token.dat window shows below overview.exe on the main page
                 </div>
               </div>
             </RetroWindow>

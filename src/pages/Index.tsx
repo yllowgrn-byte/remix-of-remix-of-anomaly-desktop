@@ -9,6 +9,7 @@ import NotesWindow from "@/components/windows/NotesWindow";
 import TerminalWindow from "@/components/windows/TerminalWindow";
 import StatusWindow from "@/components/windows/StatusWindow";
 import ArchiveWindow from "@/components/windows/ArchiveWindow";
+import TokenWindow from "@/components/windows/TokenWindow";
 import anomalyImage from "@/assets/anomaly-ghost.jpg";
 
 export interface WindowDef {
@@ -142,8 +143,27 @@ const Index = () => {
           {/* Two window layout (overview + status) */}
           {visibleWindows.length === 2 && (
             <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-3">
-              <div className="lg:col-span-2 flex flex-col">
+              <div className="lg:col-span-2 flex flex-col gap-3">
                 {renderWindowPanel(visibleWindows[0])}
+                {/* Token window below overview */}
+                {visibleWindows[0] === "overview" && (
+                  <div className="bevel-raised bg-secondary flex flex-col">
+                    <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs">💰</span>
+                        <span className="text-xs font-bold text-window-titlebar-text tracking-wide">token.dat</span>
+                      </div>
+                      <div className="flex gap-0.5">
+                        <button className="bevel-raised bg-secondary w-4 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none hover:bg-muted">_</button>
+                        <button className="bevel-raised bg-secondary w-4 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none hover:bg-muted">□</button>
+                        <button className="bevel-raised bg-secondary w-4 h-3.5 flex items-center justify-center text-[8px] font-bold leading-none hover:bg-muted">×</button>
+                      </div>
+                    </div>
+                    <div className="bevel-sunken bg-window-bg m-0.5 p-3">
+                      <TokenWindow />
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="flex flex-col">
                 {renderWindowPanel(visibleWindows[1])}
