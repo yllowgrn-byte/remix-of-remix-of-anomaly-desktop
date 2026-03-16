@@ -194,9 +194,9 @@ const TerminalWindow = () => {
 
       case "logs":
         addLines([
-          { type: "header", text: "┌─── Recent Activity ─────────────────────┐" },
-          ...LOG_ENTRIES.map((l) => ({ type: "info" as const, text: `│  ${l}` })),
-          { type: "header", text: "└─────────────────────────────────────────┘" },
+          { type: "header", text: "+--- Recent Activity -------------------------+" },
+          ...LOG_ENTRIES.map((l) => ({ type: "info" as const, text: `|  ${l}` })),
+          { type: "header", text: "+---------------------------------------------+" },
         ]);
         break;
 
