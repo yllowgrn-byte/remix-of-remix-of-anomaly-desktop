@@ -2,44 +2,39 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface TerminalLine {
-  type: "input" | "output" | "error" | "system" | "ascii" | "highlight" | "dim";
+  type: "input" | "output" | "error" | "system" | "ascii" | "highlight" | "dim" | "warn" | "info" | "header";
   text: string;
 }
 
-const HELP_TEXT = [
-  "Available commands:",
-  "",
-  "  help          — show this message",
-  "  status        — system diagnostics",
-  "  scan          — run anomaly scan",
-  "  ping          — test connection",
-  "  whoami        — identity check",
-  "  logs          — recent activity log",
-  "  decrypt [msg] — decrypt a message",
-  "  analyze       — run signal analysis",
-  "  clear         — clear terminal",
-  "  history       — command history",
-  "  about         — about this system",
-  "  matrix        — ???",
-  "  reboot        — attempt system reboot",
-  "  date          — current timestamp",
-  "  echo [msg]    — repeat a message",
-  "  color         — test color output",
-  "  fortune       — anomaly fortune cookie",
-  "  glitch        — induce visual glitch",
-  "  trace [ip]    — trace a signal source",
-  "  hack          — access restricted data",
-  "  anomaly       — show anomaly logo",
-  "  uptime        — system uptime report",
-  "  joke          — system humor module",
-  "  story         — fetch anomaly transmissions",
-];
-
-const ASCII_LOGO = [
-  " ┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐",
-  " ||a |||n |||o |||m |||a |||l |||y ||",
-  " ||__|||__|||__|||__|||__|||__||",
-  " |/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|",
+const HELP_TEXT: TerminalLine[] = [
+  { type: "header", text: "┌─── COMMAND REFERENCE ───────────────────┐" },
+  { type: "output", text: "│                                         │" },
+  { type: "info",   text: "│  help          — show this message      │" },
+  { type: "info",   text: "│  status        — system diagnostics     │" },
+  { type: "info",   text: "│  scan          — run anomaly scan       │" },
+  { type: "info",   text: "│  ping          — test connection        │" },
+  { type: "info",   text: "│  whoami        — identity check         │" },
+  { type: "info",   text: "│  logs          — recent activity log    │" },
+  { type: "info",   text: "│  decrypt [msg] — decrypt a message      │" },
+  { type: "info",   text: "│  analyze       — run signal analysis    │" },
+  { type: "info",   text: "│  clear         — clear terminal         │" },
+  { type: "info",   text: "│  history       — command history        │" },
+  { type: "info",   text: "│  about         — about this system      │" },
+  { type: "info",   text: "│  matrix        — ???                    │" },
+  { type: "info",   text: "│  reboot        — attempt system reboot  │" },
+  { type: "info",   text: "│  date          — current timestamp      │" },
+  { type: "info",   text: "│  echo [msg]    — repeat a message       │" },
+  { type: "info",   text: "│  color         — test color output      │" },
+  { type: "info",   text: "│  fortune       — anomaly fortune cookie │" },
+  { type: "info",   text: "│  glitch        — induce visual glitch   │" },
+  { type: "info",   text: "│  trace [ip]    — trace a signal source  │" },
+  { type: "info",   text: "│  hack          — access restricted data │" },
+  { type: "info",   text: "│  anomaly       — show anomaly logo      │" },
+  { type: "info",   text: "│  uptime        — system uptime report   │" },
+  { type: "info",   text: "│  joke          — system humor module    │" },
+  { type: "info",   text: "│  story         — fetch transmissions    │" },
+  { type: "output", text: "│                                         │" },
+  { type: "header", text: "└─────────────────────────────────────────┘" },
 ];
 
 const SCAN_FRAMES = [
@@ -84,21 +79,21 @@ const JOKES = [
 
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
-    { type: "ascii", text: "" },
+    { type: "dim", text: "" },
     { type: "highlight", text: "  A G E N T  A N O M A L Y" },
-    { type: "ascii", text: "" },
-    { type: "system", text: "ANOMALY TERMINAL v0.7.3 — Digital Presence Tracker" },
-    { type: "dim", text: "────────────────────────────────────────────" },
-    { type: "system", text: "> booting core systems..." },
-    { type: "output", text: "> scanning memory banks.......... OK" },
-    { type: "output", text: "> initializing signal monitor.... OK" },
-    { type: "system", text: "> loading anomaly database....... OK" },
-    { type: "output", text: "> calibrating sensors............ OK" },
-    { type: "error",  text: "> threat assessment.............. ELEVATED" },
-    { type: "dim", text: "────────────────────────────────────────────" },
-    { type: "highlight", text: "All systems online. 3 anomalies currently tracked." },
-    { type: "system", text: 'Type "help" for commands. Try "story" for transmissions.' },
-    { type: "system", text: "" },
+    { type: "dim", text: "" },
+    { type: "header", text: "  ANOMALY TERMINAL v0.7.3" },
+    { type: "dim", text: "  ─────────────────────────────────────────" },
+    { type: "system", text: "  > booting core systems..." },
+    { type: "info", text: "  > scanning memory banks.......... OK" },
+    { type: "info", text: "  > initializing signal monitor.... OK" },
+    { type: "system", text: "  > loading anomaly database....... OK" },
+    { type: "info", text: "  > calibrating sensors............ OK" },
+    { type: "warn",  text: "  > threat assessment.............. ELEVATED" },
+    { type: "dim", text: "  ─────────────────────────────────────────" },
+    { type: "highlight", text: "  All systems online. 3 anomalies tracked." },
+    { type: "output", text: '  Type "help" for commands. Try "story" for transmissions.' },
+    { type: "dim", text: "" },
   ]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
@@ -129,7 +124,7 @@ const TerminalWindow = () => {
 
     switch (command) {
       case "help":
-        addLines(HELP_TEXT.map((t) => ({ type: "output", text: t })));
+        addLines(HELP_TEXT);
         break;
 
       case "clear":
@@ -141,16 +136,14 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Running diagnostics..." }]);
         await simulateDelay(800);
         addLines([
-          { type: "output", text: "┌─────────────────────────────────┐" },
-          { type: "output", text: "│  SYSTEM DIAGNOSTICS             │" },
-          { type: "output", text: "├─────────────────────────────────┤" },
-          { type: "output", text: "│  Core............ ● ONLINE      │" },
-          { type: "output", text: "│  Memory.......... 847MB / 2GB   │" },
-          { type: "output", text: "│  Signal.......... ◈ STABLE      │" },
-          { type: "output", text: "│  Threat Level.... ▲ ELEVATED    │" },
-          { type: "output", text: "│  Anomalies....... 3 ACTIVE      │" },
-          { type: "output", text: "│  Uptime.......... 4721h 33m     │" },
-          { type: "output", text: "└─────────────────────────────────┘" },
+          { type: "header", text: "┌─── SYSTEM DIAGNOSTICS ─────────────────┐" },
+          { type: "info",   text: "│  Core............  ●  ONLINE            │" },
+          { type: "info",   text: "│  Memory..........  847MB / 2GB          │" },
+          { type: "info",   text: "│  Signal..........  ◈  STABLE            │" },
+          { type: "warn",   text: "│  Threat Level....  ▲  ELEVATED          │" },
+          { type: "error",  text: "│  Anomalies.......  3  ACTIVE            │" },
+          { type: "info",   text: "│  Uptime..........  4721h 33m            │" },
+          { type: "header", text: "└─────────────────────────────────────────┘" },
         ]);
         break;
       }
@@ -162,12 +155,12 @@ const TerminalWindow = () => {
         }
         await simulateDelay(300);
         addLines([
-          { type: "output", text: "" },
-          { type: "output", text: "Scan complete. Results:" },
-          { type: "output", text: "  ● 2 anomalous signatures detected" },
-          { type: "output", text: "  ● 1 unknown entity in sector 7-G" },
-          { type: "output", text: "  ● Signal interference at 18.9Hz" },
-          { type: "error", text: "  ⚠ Recommend immediate investigation" },
+          { type: "dim", text: "" },
+          { type: "header", text: "Scan complete. Results:" },
+          { type: "info",   text: "  ● 2 anomalous signatures detected" },
+          { type: "warn",   text: "  ● 1 unknown entity in sector 7-G" },
+          { type: "info",   text: "  ● Signal interference at 18.9Hz" },
+          { type: "error",  text: "  ⚠ Recommend immediate investigation" },
         ]);
         break;
       }
@@ -177,11 +170,11 @@ const TerminalWindow = () => {
         await simulateDelay(500);
         addLines([
           { type: "output", text: "PING anomaly.core (127.0.0.1): 56 bytes" },
-          { type: "output", text: "  reply: seq=1 time=0.042ms" },
-          { type: "output", text: "  reply: seq=2 time=0.038ms" },
-          { type: "output", text: "  reply: seq=3 time=███████ms" },
-          { type: "error", text: "  reply: seq=4 time=ERR_TEMPORAL_SHIFT" },
-          { type: "output", text: "" },
+          { type: "info",   text: "  reply: seq=1 time=0.042ms" },
+          { type: "info",   text: "  reply: seq=2 time=0.038ms" },
+          { type: "warn",   text: "  reply: seq=3 time=███████ms" },
+          { type: "error",  text: "  reply: seq=4 time=ERR_TEMPORAL_SHIFT" },
+          { type: "dim", text: "" },
           { type: "output", text: "3 packets received, 1 anomalous" },
         ]);
         break;
@@ -190,20 +183,20 @@ const TerminalWindow = () => {
       case "whoami":
         await simulateDelay(600);
         addLines([
-          { type: "output", text: "Checking identity matrix..." },
-          { type: "output", text: "" },
-          { type: "output", text: "  user: OBSERVER" },
-          { type: "output", text: "  access: LEVEL-3" },
-          { type: "output", text: "  clearance: PROVISIONAL" },
-          { type: "system", text: '  note: "You came looking. That means something."' },
+          { type: "system", text: "Checking identity matrix..." },
+          { type: "dim", text: "" },
+          { type: "info",      text: "  user:      OBSERVER" },
+          { type: "info",      text: "  access:    LEVEL-3" },
+          { type: "warn",      text: "  clearance: PROVISIONAL" },
+          { type: "highlight", text: '  note: "You came looking. That means something."' },
         ]);
         break;
 
       case "logs":
         addLines([
-          { type: "system", text: "── Recent Activity ──" },
-          ...LOG_ENTRIES.map((l) => ({ type: "output" as const, text: "  " + l })),
-          { type: "system", text: "── End of Log ──" },
+          { type: "header", text: "┌─── Recent Activity ─────────────────────┐" },
+          ...LOG_ENTRIES.map((l) => ({ type: "info" as const, text: `│  ${l}` })),
+          { type: "header", text: "└─────────────────────────────────────────┘" },
         ]);
         break;
 
@@ -215,24 +208,19 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Decrypting..." }]);
         await simulateDelay(1000);
         const scrambled = cmd
-          .trim()
-          .split(" ")
-          .slice(1)
-          .join(" ")
-          .split("")
-          .map((c) => {
+          .trim().split(" ").slice(1).join(" ")
+          .split("").map((c) => {
             if (c === " ") return " ";
             const shift = Math.floor(Math.random() * 26);
             const code = c.charCodeAt(0);
             if (code >= 65 && code <= 90) return String.fromCharCode(((code - 65 + shift) % 26) + 65);
             if (code >= 97 && code <= 122) return String.fromCharCode(((code - 97 + shift) % 26) + 97);
             return c;
-          })
-          .join("");
+          }).join("");
         addLines([
-          { type: "output", text: `  input:  "${cmd.trim().split(" ").slice(1).join(" ")}"` },
-          { type: "output", text: `  output: "${scrambled}"` },
-          { type: "error", text: "  ⚠ Decryption key not found. Output may be unreliable." },
+          { type: "info",  text: `  input:  "${cmd.trim().split(" ").slice(1).join(" ")}"` },
+          { type: "highlight", text: `  output: "${scrambled}"` },
+          { type: "warn",  text: "  ⚠ Decryption key not found. Output may be unreliable." },
         ]);
         break;
       }
@@ -240,18 +228,15 @@ const TerminalWindow = () => {
       case "analyze": {
         addLines([{ type: "system", text: "Running signal analysis..." }]);
         await simulateDelay(600);
-        const freqs = [
-          "18.9Hz ████████░░ HIGH",
-          "42.0Hz ███░░░░░░░ LOW",
-          "77.7Hz █████████░ HIGH",
-          "120Hz  ██░░░░░░░░ LOW",
-        ];
         addLines([
-          { type: "output", text: "┌─ SIGNAL ANALYSIS ──────────────┐" },
-          ...freqs.map((f) => ({ type: "output" as const, text: `│  ${f}  │` })),
-          { type: "output", text: "└────────────────────────────────┘" },
+          { type: "header", text: "┌─── SIGNAL ANALYSIS ─────────────────────┐" },
+          { type: "error",  text: "│  18.9Hz  ████████░░  HIGH               │" },
+          { type: "info",   text: "│  42.0Hz  ███░░░░░░░  LOW                │" },
+          { type: "error",  text: "│  77.7Hz  █████████░  HIGH               │" },
+          { type: "info",   text: "│  120Hz   ██░░░░░░░░  LOW                │" },
+          { type: "header", text: "└─────────────────────────────────────────┘" },
           { type: "system", text: "Dominant frequency: 18.9Hz (subsonic)" },
-          { type: "error", text: "Pattern matches known anomaly signature." },
+          { type: "warn",   text: "Pattern matches known anomaly signature." },
         ]);
         break;
       }
@@ -266,30 +251,30 @@ const TerminalWindow = () => {
           matrixLines.push(line);
         }
         addLines([
-          ...matrixLines.map((l) => ({ type: "output" as const, text: l })),
-          { type: "system", text: "Wake up..." },
-          { type: "system", text: "The anomaly has you..." },
+          ...matrixLines.map((l) => ({ type: "info" as const, text: l })),
+          { type: "highlight", text: "Wake up..." },
+          { type: "highlight", text: "The anomaly has you..." },
         ]);
         break;
       }
 
       case "history":
         if (history.length === 0) {
-          addLines([{ type: "output", text: "No commands in history." }]);
+          addLines([{ type: "dim", text: "No commands in history." }]);
         } else {
-          addLines(history.map((h, i) => ({ type: "output" as const, text: `  ${i + 1}  ${h}` })));
+          addLines(history.map((h, i) => ({ type: "info" as const, text: `  ${String(i + 1).padStart(3)}  ${h}` })));
         }
         break;
 
       case "about":
         addLines([
-          { type: "output", text: "ANOMALY — Digital Presence Tracker" },
-          { type: "output", text: "Version 0.7.3 (unstable)" },
-          { type: "output", text: "" },
-          { type: "output", text: "Purpose: Monitor, log, and catalog" },
-          { type: "output", text: "anomalous digital signatures." },
-          { type: "output", text: "" },
-          { type: "system", text: '"It watches because you asked it to."' },
+          { type: "header",    text: "ANOMALY — Digital Presence Tracker" },
+          { type: "dim",       text: "Version 0.7.3 (unstable)" },
+          { type: "dim",       text: "" },
+          { type: "output",    text: "Purpose: Monitor, log, and catalog" },
+          { type: "output",    text: "anomalous digital signatures." },
+          { type: "dim",       text: "" },
+          { type: "highlight", text: '"It watches because you asked it to."' },
         ]);
         break;
 
@@ -301,8 +286,8 @@ const TerminalWindow = () => {
         addLines([{ type: "error", text: "ERROR: Permission denied." }]);
         await simulateDelay(300);
         addLines([
-          { type: "error", text: "ERROR: Something is preventing shutdown." },
-          { type: "system", text: '"Nice try."' },
+          { type: "error",     text: "ERROR: Something is preventing shutdown." },
+          { type: "highlight", text: '"Nice try."' },
         ]);
         break;
       }
@@ -310,8 +295,8 @@ const TerminalWindow = () => {
       case "date": {
         const now = new Date();
         addLines([
-          { type: "output", text: `  ${now.toUTCString()}` },
-          { type: "system", text: "  note: time may not be linear in this sector" },
+          { type: "info",   text: `  ${now.toUTCString()}` },
+          { type: "warn",   text: "  note: time may not be linear in this sector" },
         ]);
         break;
       }
@@ -327,12 +312,16 @@ const TerminalWindow = () => {
 
       case "color": {
         addLines([
-          { type: "output", text: "  ████ output (default)" },
-          { type: "system", text: "  ████ system (accent)" },
-          { type: "error", text: "  ████ error (warning)" },
-          { type: "ascii", text: "  ████ ascii (dimmed)" },
-          { type: "output", text: "" },
-          { type: "system", text: "  Color matrix: nominal" },
+          { type: "output",    text: "  ████ output    — default text" },
+          { type: "system",    text: "  ████ system    — system messages" },
+          { type: "info",      text: "  ████ info      — data & values" },
+          { type: "warn",      text: "  ████ warn      — caution" },
+          { type: "error",     text: "  ████ error     — alerts & danger" },
+          { type: "highlight", text: "  ████ highlight — emphasis" },
+          { type: "header",    text: "  ████ header    — borders & titles" },
+          { type: "dim",       text: "  ████ dim       — faded / metadata" },
+          { type: "dim",       text: "" },
+          { type: "system",    text: "  Color matrix: nominal" },
         ]);
         break;
       }
@@ -342,9 +331,9 @@ const TerminalWindow = () => {
         await simulateDelay(800);
         const fortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
         addLines([
-          { type: "output", text: "" },
-          { type: "output", text: `  🔮 ${fortune}` },
-          { type: "output", text: "" },
+          { type: "dim", text: "" },
+          { type: "highlight", text: `  🔮 ${fortune}` },
+          { type: "dim", text: "" },
         ]);
         break;
       }
@@ -358,12 +347,12 @@ const TerminalWindow = () => {
           for (let j = 0; j < 44; j++) {
             line += glitchChars[Math.floor(Math.random() * glitchChars.length)];
           }
-          addLines([{ type: "error", text: line }]);
+          addLines([{ type: i % 2 === 0 ? "error" : "warn", text: line }]);
           await simulateDelay(100);
         }
         addLines([
           { type: "system", text: "  visual subsystem recovered" },
-          { type: "output", text: "  ...probably" },
+          { type: "dim",    text: "  ...probably" },
         ]);
         break;
       }
@@ -372,21 +361,21 @@ const TerminalWindow = () => {
         const target = args || "192.168.0.???";
         addLines([{ type: "system", text: `Tracing route to ${target}...` }]);
         await simulateDelay(400);
-        const hops = [
-          `  1   0.4ms   gateway.local`,
-          `  2   2.1ms   isp-node-7.net`,
-          `  3   8.7ms   backbone-12.transit.io`,
-          `  4  14.2ms   dark-relay.onion.x`,
-          `  5   ?.?ms   ░░░░░░░░░░░░░░░░░`,
-          `  6   ∞  ms   ████████████████████`,
+        const hops: TerminalLine[] = [
+          { type: "info",  text: `  1   0.4ms   gateway.local` },
+          { type: "info",  text: `  2   2.1ms   isp-node-7.net` },
+          { type: "info",  text: `  3   8.7ms   backbone-12.transit.io` },
+          { type: "warn",  text: `  4  14.2ms   dark-relay.onion.x` },
+          { type: "error", text: `  5   ?.?ms   ░░░░░░░░░░░░░░░░░` },
+          { type: "error", text: `  6   ∞  ms   ████████████████████` },
         ];
         for (const hop of hops) {
-          addLines([{ type: "output", text: hop }]);
+          addLines([hop]);
           await simulateDelay(350);
         }
         addLines([
-          { type: "error", text: "  Trace lost at hop 6. Signal absorbed." },
-          { type: "system", text: "  Something is there. It noticed you looking." },
+          { type: "error",     text: "  Trace lost at hop 6. Signal absorbed." },
+          { type: "highlight", text: "  Something is there. It noticed you looking." },
         ]);
         break;
       }
@@ -401,17 +390,17 @@ const TerminalWindow = () => {
         addLines([{ type: "error", text: "  ACCESS DENIED" }]);
         await simulateDelay(500);
         addLines([
-          { type: "system", text: "  ...just kidding. There's nothing here." },
-          { type: "system", text: '  Or is there? Type "scan" to find out.' },
+          { type: "dim",       text: "  ...just kidding. There's nothing here." },
+          { type: "highlight", text: '  Or is there? Type "scan" to find out.' },
         ]);
         break;
       }
 
       case "anomaly": {
         addLines([
-          { type: "ascii", text: "" },
+          { type: "dim", text: "" },
           { type: "ascii", text: "  A G E N T  A N O M A L Y" },
-          { type: "ascii", text: "" },
+          { type: "dim", text: "" },
         ]);
         break;
       }
@@ -420,9 +409,9 @@ const TerminalWindow = () => {
         const hours = Math.floor(Math.random() * 9000) + 1000;
         const mins = Math.floor(Math.random() * 60);
         addLines([
-          { type: "output", text: `  System uptime: ${hours}h ${mins}m` },
-          { type: "output", text: `  Last reboot: UNKNOWN` },
-          { type: "system", text: "  The system has been running longer than it should." },
+          { type: "info",      text: `  System uptime: ${hours}h ${mins}m` },
+          { type: "warn",      text: `  Last reboot: UNKNOWN` },
+          { type: "highlight", text: "  The system has been running longer than it should." },
         ]);
         break;
       }
@@ -432,10 +421,10 @@ const TerminalWindow = () => {
         await simulateDelay(600);
         const joke = JOKES[Math.floor(Math.random() * JOKES.length)];
         addLines([
-          { type: "output", text: "" },
+          { type: "dim", text: "" },
           { type: "output", text: `  ${joke}` },
-          { type: "output", text: "" },
-          { type: "system", text: "  [humor_module: success... questionable]" },
+          { type: "dim", text: "" },
+          { type: "dim",  text: "  [humor_module: success... questionable]" },
         ]);
         break;
       }
@@ -452,24 +441,25 @@ const TerminalWindow = () => {
         if (dbError || !data || data.length === 0) {
           addLines([
             { type: "error", text: "  ⚠ No transmissions found in the archive." },
-            { type: "dim", text: "  The signal is quiet... for now." },
+            { type: "dim",   text: "  The signal is quiet... for now." },
           ]);
         } else {
           addLines([
-            { type: "highlight", text: "┌─── ANOMALY TRANSMISSIONS ───────────────┐" },
+            { type: "header", text: "┌─── ANOMALY TRANSMISSIONS ───────────────┐" },
           ]);
           data.forEach((entry, idx) => {
-            const typeColor = ["signal", "trace", "memory_leak"].includes(entry.entry_type) ? "error" : 
-                              ["system_remark", "witness_line"].includes(entry.entry_type) ? "highlight" : 
-                              "output";
+            const typeColor: TerminalLine["type"] = 
+              ["signal", "trace", "memory_leak"].includes(entry.entry_type) ? "error" : 
+              ["system_remark", "witness_line"].includes(entry.entry_type) ? "highlight" : 
+              "info";
             addLines([
-              { type: typeColor as TerminalLine["type"], text: `│ ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
-              { type: "output", text: `│     ${entry.content}` },
-              { type: "dim", text: `│     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
+              { type: typeColor, text: `│ ${String(idx + 1).padStart(2, "0")}. [${entry.entry_type}]` },
+              { type: "output",  text: `│     ${entry.content}` },
+              { type: "dim",     text: `│     ${entry.published_at ? new Date(entry.published_at).toLocaleString() : "unpublished"}` },
             ]);
           });
           addLines([
-            { type: "highlight", text: "└─────────────────────────────────────────┘" },
+            { type: "header", text: "└─────────────────────────────────────────┘" },
             { type: "system", text: `  ${data.length} transmission(s) recovered.` },
           ]);
         }
@@ -478,7 +468,7 @@ const TerminalWindow = () => {
 
       default:
         addLines([
-          { type: "error", text: `Command not found: ${command}` },
+          { type: "error",  text: `Command not found: ${command}` },
           { type: "output", text: 'Type "help" for available commands.' },
         ]);
     }
@@ -520,13 +510,17 @@ const TerminalWindow = () => {
 
   const lineColor = (type: string) => {
     switch (type) {
-      case "input": return "text-terminal-text font-bold";
-      case "error": return "text-amber-status";
-      case "system": return "text-accent";
-      case "ascii": return "text-terminal-text/60";
-      case "highlight": return "text-[hsl(120,60%,75%)] font-bold";
-      case "dim": return "text-terminal-text/40 italic";
-      default: return "text-terminal-text";
+      case "input":     return "text-[hsl(210,60%,75%)] font-bold";        // cool blue for user input
+      case "output":    return "text-[hsl(40,10%,72%)]";                    // warm neutral for general output
+      case "error":     return "text-destructive font-bold";                // red for errors/alerts
+      case "warn":      return "text-amber-status";                         // amber for warnings
+      case "system":    return "text-accent";                               // teal for system messages
+      case "info":      return "text-[hsl(200,40%,68%)]";                   // soft blue for data
+      case "header":    return "text-[hsl(280,30%,70%)] font-bold";         // muted purple for borders/titles
+      case "ascii":     return "text-[hsl(40,10%,72%)]/60";                 // dimmed neutral
+      case "highlight": return "text-[hsl(45,80%,70%)] font-bold";         // warm gold for emphasis
+      case "dim":       return "text-[hsl(40,10%,72%)]/35 italic";         // very faded
+      default:          return "text-[hsl(40,10%,72%)]";
     }
   };
 
@@ -539,16 +533,23 @@ const TerminalWindow = () => {
       {/* Scrollable output area */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-0.5 min-h-0 hide-scrollbar">
         {lines.map((line, i) => (
-          <div key={i} className={`${lineColor(line.type)} ${line.type === "ascii" && line.text.includes("A G E N T") ? "text-lg font-retro tracking-[0.3em]" : ""}`}>
+          <div
+            key={i}
+            className={`${lineColor(line.type)} ${
+              line.type === "ascii" && line.text.includes("A G E N T")
+                ? "text-lg font-retro tracking-[0.3em] text-[hsl(45,80%,70%)]"
+                : ""
+            }`}
+          >
             {line.text || "\u00A0"}
           </div>
         ))}
       </div>
 
-      {/* Input + status bar */}
-      <div className="border-t border-terminal-text/10 shrink-0 bg-terminal-bg">
-        <form onSubmit={handleSubmit} className="flex items-center px-3 py-1">
-          <span className="text-accent font-bold mr-1">$</span>
+      {/* Input area */}
+      <div className="border-t border-[hsl(200,20%,20%)] shrink-0 bg-terminal-bg">
+        <form onSubmit={handleSubmit} className="flex items-center px-3 py-1.5">
+          <span className="text-[hsl(210,60%,75%)] font-bold mr-1.5">$</span>
           <input
             ref={inputRef}
             type="text"
@@ -556,12 +557,13 @@ const TerminalWindow = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={isProcessing}
-            className="flex-1 bg-transparent text-terminal-text outline-none caret-terminal-text"
+            className="flex-1 bg-transparent text-[hsl(40,10%,78%)] outline-none caret-accent placeholder:text-[hsl(40,10%,72%)]/20"
+            placeholder={isProcessing ? "" : "enter command..."}
             autoFocus
             spellCheck={false}
             autoComplete="off"
           />
-          {isProcessing && <span className="text-accent animate-pulse ml-2">⏳</span>}
+          {isProcessing && <span className="text-amber-status animate-pulse ml-2">●</span>}
         </form>
       </div>
     </div>
