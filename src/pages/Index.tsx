@@ -97,7 +97,7 @@ const Index = () => {
         </div>
 
         {/* Content */}
-        <div className={`bevel-sunken bg-window-bg m-0.5 mb-0 flex-1 overflow-auto p-3 ${id === "sightings" ? "scrollbar-hide" : ""}`}>
+        <div className={`bevel-sunken bg-window-bg m-0.5 mb-0 flex-1 overflow-auto p-3 ${id === "sightings" ? "hide-scrollbar" : ""}`}>
           {windowComponents[id]}
         </div>
 
