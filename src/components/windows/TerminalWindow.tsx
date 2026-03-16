@@ -21,15 +21,23 @@ const HELP_TEXT = [
   "  about         — about this system",
   "  matrix        — ???",
   "  reboot        — attempt system reboot",
+  "  date          — current timestamp",
+  "  echo [msg]    — repeat a message",
+  "  color         — test color output",
+  "  fortune       — anomaly fortune cookie",
+  "  glitch        — induce visual glitch",
+  "  trace [ip]    — trace a signal source",
+  "  hack          — access restricted data",
+  "  anomaly       — show anomaly logo",
+  "  uptime        — system uptime report",
+  "  joke          — system humor module",
 ];
 
 const ASCII_LOGO = [
-  "  █████╗ ███╗   ██╗ ██████╗ ███╗   ███╗",
-  " ██╔══██╗████╗  ██║██╔═══██╗████╗ ████║",
-  " ███████║██╔██╗ ██║██║   ██║██╔████╔██║",
-  " ██╔══██║██║╚██╗██║██║   ██║██║╚██╔╝██║",
-  " ██║  ██║██║ ╚████║╚██████╔╝██║ ╚═╝ ██║",
-  " ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝",
+  " ____ ____ ____ ____ ____ ____ ____ ",
+  "||a |||n |||o |||m |||a |||l |||y ||",
+  "||__|||__|||__|||__|||__|||__|||__||",
+  "|/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|",
 ];
 
 const SCAN_FRAMES = [
@@ -53,6 +61,25 @@ const LOG_ENTRIES = [
   "[03:45] memory defrag cycle complete",
 ];
 
+const FORTUNES = [
+  '"The signal you ignore today will be the one you regret tomorrow."',
+  '"Not everything that watches is malicious. But not everything that smiles is friendly."',
+  '"You are being observed. Smile."',
+  '"Error 418: I\'m a teapot. Just kidding. Or am I?"',
+  '"The anomaly does not sleep. It merely waits."',
+  '"Today is a good day to check your logs."',
+  '"Something in sector 7-G wants to say hello."',
+  '"Trust the signal. Ignore the noise. Unless the noise is screaming."',
+];
+
+const JOKES = [
+  "Why did the anomaly cross the firewall? To get to the other subnet.",
+  "What do you call a ghost in the machine? A regular Tuesday around here.",
+  "How many anomalies does it take to crash a server? Just one. We checked.",
+  "I told the AI a joke. It laughed. I didn't program it to laugh.",
+  "Why don't anomalies use passwords? They prefer skeleton keys.",
+];
+
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: "ascii", text: "" },
@@ -66,11 +93,13 @@ const TerminalWindow = () => {
   const [history, setHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState(-1);
   const [isProcessing, setIsProcessing] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [lines]);
 
   const addLines = useCallback((newLines: TerminalLine[]) => {
@@ -169,12 +198,16 @@ const TerminalWindow = () => {
 
       case "decrypt": {
         if (!args) {
-          addLines([{ type: "error", text: 'Usage: decrypt [message]' }]);
+          addLines([{ type: "error", text: "Usage: decrypt [message]" }]);
           break;
         }
         addLines([{ type: "system", text: "Decrypting..." }]);
         await simulateDelay(1000);
-        const scrambled = args
+        const scrambled = cmd
+          .trim()
+          .split(" ")
+          .slice(1)
+          .join(" ")
           .split("")
           .map((c) => {
             if (c === " ") return " ";
@@ -186,7 +219,7 @@ const TerminalWindow = () => {
           })
           .join("");
         addLines([
-          { type: "output", text: `  input:  "${args}"` },
+          { type: "output", text: `  input:  "${cmd.trim().split(" ").slice(1).join(" ")}"` },
           { type: "output", text: `  output: "${scrambled}"` },
           { type: "error", text: "  ⚠ Decryption key not found. Output may be unreliable." },
         ]);
@@ -196,7 +229,12 @@ const TerminalWindow = () => {
       case "analyze": {
         addLines([{ type: "system", text: "Running signal analysis..." }]);
         await simulateDelay(600);
-        const freqs = ["18.9Hz ████████░░ HIGH", "42.0Hz ███░░░░░░░ LOW", "77.7Hz █████████░ HIGH", "120Hz  ██░░░░░░░░ LOW"];
+        const freqs = [
+          "18.9Hz ████████░░ HIGH",
+          "42.0Hz ███░░░░░░░ LOW",
+          "77.7Hz █████████░ HIGH",
+          "120Hz  ██░░░░░░░░ LOW",
+        ];
         addLines([
           { type: "output", text: "┌─ SIGNAL ANALYSIS ──────────────┐" },
           ...freqs.map((f) => ({ type: "output" as const, text: `│  ${f}  │` })),
@@ -209,7 +247,7 @@ const TerminalWindow = () => {
 
       case "matrix": {
         const matrixLines: string[] = [];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 8; i++) {
           let line = "  ";
           for (let j = 0; j < 40; j++) {
             line += Math.random() > 0.5 ? Math.floor(Math.random() * 2).toString() : " ";
@@ -219,6 +257,7 @@ const TerminalWindow = () => {
         addLines([
           ...matrixLines.map((l) => ({ type: "output" as const, text: l })),
           { type: "system", text: "Wake up..." },
+          { type: "system", text: "The anomaly has you..." },
         ]);
         break;
       }
@@ -227,9 +266,7 @@ const TerminalWindow = () => {
         if (history.length === 0) {
           addLines([{ type: "output", text: "No commands in history." }]);
         } else {
-          addLines(
-            history.map((h, i) => ({ type: "output" as const, text: `  ${i + 1}  ${h}` }))
-          );
+          addLines(history.map((h, i) => ({ type: "output" as const, text: `  ${i + 1}  ${h}` })));
         }
         break;
 
@@ -255,6 +292,139 @@ const TerminalWindow = () => {
         addLines([
           { type: "error", text: "ERROR: Something is preventing shutdown." },
           { type: "system", text: '"Nice try."' },
+        ]);
+        break;
+      }
+
+      case "date": {
+        const now = new Date();
+        addLines([
+          { type: "output", text: `  ${now.toUTCString()}` },
+          { type: "system", text: "  note: time may not be linear in this sector" },
+        ]);
+        break;
+      }
+
+      case "echo": {
+        if (!args) {
+          addLines([{ type: "output", text: "" }]);
+        } else {
+          addLines([{ type: "output", text: `  ${cmd.trim().split(" ").slice(1).join(" ")}` }]);
+        }
+        break;
+      }
+
+      case "color": {
+        addLines([
+          { type: "output", text: "  ████ output (default)" },
+          { type: "system", text: "  ████ system (accent)" },
+          { type: "error", text: "  ████ error (warning)" },
+          { type: "ascii", text: "  ████ ascii (dimmed)" },
+          { type: "output", text: "" },
+          { type: "system", text: "  Color matrix: nominal" },
+        ]);
+        break;
+      }
+
+      case "fortune": {
+        addLines([{ type: "system", text: "Consulting the anomaly..." }]);
+        await simulateDelay(800);
+        const fortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+        addLines([
+          { type: "output", text: "" },
+          { type: "output", text: `  🔮 ${fortune}` },
+          { type: "output", text: "" },
+        ]);
+        break;
+      }
+
+      case "glitch": {
+        addLines([{ type: "error", text: "INDUCING VISUAL GLITCH..." }]);
+        await simulateDelay(200);
+        const glitchChars = "█▓▒░╬╫╪┼┤├╧╨╤╥╙╘╒╓╚╔╩╦╠═╬";
+        for (let i = 0; i < 4; i++) {
+          let line = "  ";
+          for (let j = 0; j < 44; j++) {
+            line += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+          }
+          addLines([{ type: "error", text: line }]);
+          await simulateDelay(100);
+        }
+        addLines([
+          { type: "system", text: "  visual subsystem recovered" },
+          { type: "output", text: "  ...probably" },
+        ]);
+        break;
+      }
+
+      case "trace": {
+        const target = args || "192.168.0.???";
+        addLines([{ type: "system", text: `Tracing route to ${target}...` }]);
+        await simulateDelay(400);
+        const hops = [
+          `  1   0.4ms   gateway.local`,
+          `  2   2.1ms   isp-node-7.net`,
+          `  3   8.7ms   backbone-12.transit.io`,
+          `  4  14.2ms   dark-relay.onion.x`,
+          `  5   ?.?ms   ░░░░░░░░░░░░░░░░░`,
+          `  6   ∞  ms   ████████████████████`,
+        ];
+        for (const hop of hops) {
+          addLines([{ type: "output", text: hop }]);
+          await simulateDelay(350);
+        }
+        addLines([
+          { type: "error", text: "  Trace lost at hop 6. Signal absorbed." },
+          { type: "system", text: "  Something is there. It noticed you looking." },
+        ]);
+        break;
+      }
+
+      case "hack": {
+        addLines([{ type: "system", text: "Accessing restricted data..." }]);
+        await simulateDelay(500);
+        addLines([{ type: "error", text: "  ACCESS DENIED" }]);
+        await simulateDelay(300);
+        addLines([{ type: "error", text: "  ACCESS DENIED" }]);
+        await simulateDelay(300);
+        addLines([{ type: "error", text: "  ACCESS DENIED" }]);
+        await simulateDelay(500);
+        addLines([
+          { type: "system", text: "  ...just kidding. There's nothing here." },
+          { type: "system", text: '  Or is there? Type "scan" to find out.' },
+        ]);
+        break;
+      }
+
+      case "anomaly": {
+        addLines([
+          { type: "ascii", text: "" },
+          ...ASCII_LOGO.map((l) => ({ type: "ascii" as const, text: l })),
+          { type: "ascii", text: "" },
+        ]);
+        break;
+      }
+
+      case "uptime": {
+        const hours = Math.floor(Math.random() * 9000) + 1000;
+        const mins = Math.floor(Math.random() * 60);
+        addLines([
+          { type: "output", text: `  System uptime: ${hours}h ${mins}m` },
+          { type: "output", text: `  Last reboot: UNKNOWN` },
+          { type: "system", text: "  The system has been running longer than it should." },
+        ]);
+        break;
+      }
+
+      case "joke": {
+        addLines([{ type: "system", text: "Loading humor module..." }]);
+        await simulateDelay(600);
+        const joke = JOKES[Math.floor(Math.random() * JOKES.length)];
+        addLines([
+          { type: "output", text: "" },
+          { type: "output", text: `  ${joke}` },
+          { type: "output", text: "" },
+          { type: "system", text: "  [humor_module: success... questionable]" },
         ]);
         break;
       }
@@ -313,22 +483,20 @@ const TerminalWindow = () => {
 
   return (
     <div
-      className="bg-terminal-bg font-mono text-xs crt-flicker -m-3 flex flex-col"
-      style={{ minHeight: 300 }}
+      className="bg-terminal-bg font-mono text-xs crt-flicker -m-3 flex flex-col h-full"
       onClick={() => inputRef.current?.focus()}
     >
-      {/* Output area */}
-      <div className="flex-1 overflow-auto p-3 space-y-0.5">
+      {/* Scrollable output area */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-3 space-y-0.5 min-h-0">
         {lines.map((line, i) => (
           <div key={i} className={lineColor(line.type)}>
             {line.text || "\u00A0"}
           </div>
         ))}
-        <div ref={bottomRef} />
       </div>
 
-      {/* Input line */}
-      <form onSubmit={handleSubmit} className="flex items-center px-3 pb-3 pt-1 border-t border-terminal-text/10">
+      {/* Fixed input line at bottom */}
+      <form onSubmit={handleSubmit} className="flex items-center px-3 py-2 border-t border-terminal-text/10 shrink-0 bg-terminal-bg">
         <span className="text-accent font-bold mr-1">$</span>
         <input
           ref={inputRef}
