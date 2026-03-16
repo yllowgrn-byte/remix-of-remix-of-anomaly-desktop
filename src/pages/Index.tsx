@@ -191,6 +191,7 @@ const Index = () => {
         onTaskbarClick={handleIconClick}
       />
     </div>
+    </>
   );
 };
 
