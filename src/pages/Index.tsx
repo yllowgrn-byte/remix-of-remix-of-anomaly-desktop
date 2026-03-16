@@ -70,8 +70,7 @@ const Index = () => {
     return (
       <div
         key={id}
-        className={`bevel-raised bg-secondary flex flex-col ${fullWidth ? "col-span-full" : ""}`}
-        style={{ minHeight: 200 }}
+        className={`bevel-raised bg-secondary flex flex-col min-h-0 ${fullWidth ? "col-span-full" : ""}`}
       >
         {/* Title bar */}
         <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
@@ -127,7 +126,7 @@ const Index = () => {
         </div>
 
         {/* Main content area */}
-        <div className="flex-1 overflow-y-auto p-3">
+        <div className="flex-1 overflow-hidden p-2">
           {/* Single window views */}
           {visibleWindows.length === 1 && (
             <div className="h-full flex flex-col">
@@ -137,8 +136,8 @@ const Index = () => {
 
           {/* Two window layout (overview + status) */}
           {visibleWindows.length === 2 && (
-            <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-3">
-              <div className="lg:col-span-2 flex flex-col gap-2 min-h-0">
+            <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-2">
+              <div className="lg:col-span-2 flex flex-col gap-2 min-h-0 overflow-hidden">
                 {renderWindowPanel(visibleWindows[0])}
                 {/* Token window below overview */}
                 {visibleWindows[0] === "overview" && (
@@ -160,7 +159,7 @@ const Index = () => {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col overflow-hidden">
                 {renderWindowPanel(visibleWindows[1])}
               </div>
             </div>
