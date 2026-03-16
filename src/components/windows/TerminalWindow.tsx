@@ -85,19 +85,19 @@ const JOKES = [
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: "ascii", text: "" },
-    { type: "ascii", text: "  A G E N T  A N O M A L Y" },
+    { type: "highlight", text: "  A G E N T  A N O M A L Y" },
     { type: "ascii", text: "" },
     { type: "system", text: "ANOMALY TERMINAL v0.7.3 — Digital Presence Tracker" },
-    { type: "system", text: "" },
-    { type: "output", text: "> booting core systems..." },
+    { type: "dim", text: "────────────────────────────────────────────" },
+    { type: "system", text: "> booting core systems..." },
     { type: "output", text: "> scanning memory banks.......... OK" },
     { type: "output", text: "> initializing signal monitor.... OK" },
-    { type: "output", text: "> loading anomaly database....... OK" },
+    { type: "system", text: "> loading anomaly database....... OK" },
     { type: "output", text: "> calibrating sensors............ OK" },
     { type: "error",  text: "> threat assessment.............. ELEVATED" },
-    { type: "system", text: "" },
-    { type: "system", text: "All systems online. 3 anomalies currently tracked." },
-    { type: "system", text: 'Type "help" for available commands.' },
+    { type: "dim", text: "────────────────────────────────────────────" },
+    { type: "highlight", text: "All systems online. 3 anomalies currently tracked." },
+    { type: "system", text: 'Type "help" for commands. Try "story" for transmissions.' },
     { type: "system", text: "" },
   ]);
   const [input, setInput] = useState("");
