@@ -136,14 +136,14 @@ const TerminalWindow = () => {
         addLines([{ type: "system", text: "Running diagnostics..." }]);
         await simulateDelay(800);
         addLines([
-          { type: "header", text: "┌─── SYSTEM DIAGNOSTICS ─────────────────┐" },
-          { type: "info",   text: "│  Core............  ●  ONLINE            │" },
-          { type: "info",   text: "│  Memory..........  847MB / 2GB          │" },
-          { type: "info",   text: "│  Signal..........  ◈  STABLE            │" },
-          { type: "warn",   text: "│  Threat Level....  ▲  ELEVATED          │" },
-          { type: "error",  text: "│  Anomalies.......  3  ACTIVE            │" },
-          { type: "info",   text: "│  Uptime..........  4721h 33m            │" },
-          { type: "header", text: "└─────────────────────────────────────────┘" },
+          { type: "header", text: "+--- SYSTEM DIAGNOSTICS ---------------------+" },
+          { type: "info",   text: "|  Core............  *  ONLINE               |" },
+          { type: "info",   text: "|  Memory..........  847MB / 2GB             |" },
+          { type: "info",   text: "|  Signal..........  ~  STABLE               |" },
+          { type: "warn",   text: "|  Threat Level....  !  ELEVATED             |" },
+          { type: "error",  text: "|  Anomalies.......  3  ACTIVE               |" },
+          { type: "info",   text: "|  Uptime..........  4721h 33m               |" },
+          { type: "header", text: "+--------------------------------------------+" },
         ]);
         break;
       }
