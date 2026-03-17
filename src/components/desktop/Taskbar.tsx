@@ -40,10 +40,6 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
 
         <div className="h-4 w-px bg-border mx-0.5 shrink-0" />
 
-        <div className="flex items-center gap-px shrink-0 mr-1">
-          <div className="w-px h-4 bg-window-border-dark" />
-          <div className="w-px h-4 bg-window-border-light" />
-        </div>
 
         <div className="flex gap-0.5 flex-1 min-w-0 overflow-hidden">
           {openWindows.map((win) => {

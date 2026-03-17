@@ -57,7 +57,7 @@ const BootScreen = ({ onComplete }: BootScreenProps) => {
         {/* Title bar */}
         <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none">
           <div className="flex items-center gap-1.5">
-            <span className="text-xs">📟</span>
+            <span className="text-xs">⚙️</span>
             <span className="text-xs font-bold text-window-titlebar-text tracking-wide">system.boot</span>
           </div>
           <div className="flex gap-0.5">
