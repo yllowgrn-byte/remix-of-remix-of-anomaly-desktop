@@ -429,7 +429,7 @@ const TerminalWindow = () => {
       }
 
       case "story": {
-        addLines([{ type: "system", text: "Fetching kernel transmissions..." }]);
+        addLines([{ type: "system", text: "Fetching anomaly transmissions..." }]);
         await simulateDelay(600);
         const { data, error: dbError } = await supabase
           .from("story_entries")
