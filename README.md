@@ -433,7 +433,7 @@ client application:
 ## 05. Project Structure
 
 ```
-  kernel/
+  anomaly/
   |
   +-- public/
   |   +-- favicon.jpg
