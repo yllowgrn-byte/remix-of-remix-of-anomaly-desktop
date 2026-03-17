@@ -4,7 +4,7 @@ const MenuBar = () => {
   return (
     <div className="bevel-raised bg-secondary flex items-center justify-between px-1 py-0.5 select-none">
       <div className="flex items-center">
-        <span className="font-bold text-sm px-2 tracking-wider">Anomaly</span>
+        <span className="font-bold text-sm px-2 tracking-wider">Kernel</span>
         <div className="h-4 w-px bg-border mx-1" />
         {menuItems.map((item) => (
           <button
