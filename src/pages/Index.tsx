@@ -19,13 +19,13 @@ export interface WindowDef {
 }
 
 const windowDefs: WindowDef[] = [
-  { id: "overview", icon: "📟", label: "overview.exe" },
-  { id: "live_feed", icon: "📊", label: "live_feed.log" },
-  { id: "notes", icon: "📝", label: "notes.txt" },
-  { id: "sightings", icon: "🖼️", label: "sightings.dat" },
-  { id: "terminal", icon: "⬛", label: "terminal.sys" },
-  { id: "status", icon: "🔧", label: "status.sys" },
-  { id: "archive", icon: "📁", label: "archive" },
+  { id: "overview", icon: "⚙️", label: "overview.exe" },
+  { id: "live_feed", icon: "🔩", label: "live_feed.log" },
+  { id: "notes", icon: "🔧", label: "notes.txt" },
+  { id: "sightings", icon: "🔭", label: "sightings.dat" },
+  { id: "terminal", icon: "🛠️", label: "terminal.sys" },
+  { id: "status", icon: "🔗", label: "status.sys" },
+  { id: "archive", icon: "🗄️", label: "archive" },
 ];
 
 const windowComponents: Record<string, React.ReactNode> = {
@@ -165,7 +165,7 @@ const Index = () => {
                   <div className="bevel-raised bg-secondary flex flex-col shrink-0" style={spawnDelay(500)}>
                     <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs">💰</span>
+                        <span className="text-xs">⛓️</span>
                         <span className="text-xs font-bold text-window-titlebar-text tracking-wide">token.dat</span>
                       </div>
                       <div className="flex gap-0.5">
