@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { type LucideIcon } from "lucide-react";
+import { Cpu, type LucideIcon } from "lucide-react";
 
 interface TaskbarWindow {
   id: string;
