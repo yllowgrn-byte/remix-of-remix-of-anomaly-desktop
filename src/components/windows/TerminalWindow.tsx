@@ -29,7 +29,7 @@ const HELP_TEXT: TerminalLine[] = [
   { type: "info",   text: "  glitch        -- induce visual glitch" },
   { type: "info",   text: "  trace [ip]    -- trace a signal source" },
   { type: "info",   text: "  hack          -- access restricted data" },
-  { type: "info",   text: "  kernel        -- show kernel logo" },
+  { type: "info",   text: "  anomaly       -- show anomaly logo" },
   { type: "info",   text: "  uptime        -- system uptime report" },
   { type: "info",   text: "  joke          -- system humor module" },
   { type: "info",   text: "  story         -- fetch transmissions" },
