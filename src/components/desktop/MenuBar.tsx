@@ -5,7 +5,7 @@ const menuItems = [
   { label: "File", items: ["New Session", "Export Logs", "─", "Exit"] },
   { label: "Edit", items: ["Copy Signal", "Clear Cache", "Preferences"] },
   { label: "View", items: ["Refresh", "Toggle CRT", "Zoom In", "Zoom Out"] },
-  { label: "System", items: ["Diagnostics", "Reboot Core", "─", "About Kernel"] },
+  { label: "System", items: ["Diagnostics", "Reboot Core", "─", "About Anomaly"] },
   { label: "Logs", items: ["View Recent", "Clear All", "Export"] },
   { label: "Help", items: ["Commands", "Documentation", "─", "About"] },
 ];
