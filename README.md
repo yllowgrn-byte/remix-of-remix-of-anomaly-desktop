@@ -315,7 +315,7 @@ case-insensitive.
   |  help            |  Display the full command reference listing         |
   |  status          |  Run system diagnostics with animated output       |
   |  scan            |  Execute a seven-sector sequential scan            |
-  |  ping            |  Test connection to the kernel core                |
+  |  ping            |  Test connection to the anomaly core              |
   |  whoami          |  Perform identity and clearance check              |
   |  logs            |  Display recent activity log entries               |
   |  decrypt [msg]   |  Attempt to decrypt a user-provided message        |
