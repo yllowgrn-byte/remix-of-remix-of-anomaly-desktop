@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { Cpu, type LucideIcon } from "lucide-react";
 
 interface TaskbarWindow {
   id: string;
   label: string;
-  icon: string;
+  icon: LucideIcon;
 }
 
 interface TaskbarProps {
@@ -34,15 +35,13 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
       <div className="flex items-center gap-1 flex-1 min-w-0">
         {/* Start button with kernel branding */}
         <button className="bevel-raised bg-secondary px-2.5 py-0.5 text-xs font-bold hover:bg-muted active:bevel-sunken shrink-0 flex items-center gap-1.5">
-          <div className="w-3 h-3 bg-primary rounded-sm flex items-center justify-center">
-            <span className="text-primary-foreground text-[7px] font-bold leading-none">K</span>
-          </div>
+          <Cpu size={12} strokeWidth={2} className="text-primary" />
           <span>Start</span>
         </button>
 
         <div className="h-4 w-px bg-border mx-0.5 shrink-0" />
 
-        {/* Quick launch area */}
+        {/* Quick launch divider */}
         <div className="flex items-center gap-px shrink-0 mr-1">
           <div className="w-px h-4 bg-window-border-dark" />
           <div className="w-px h-4 bg-window-border-light" />
@@ -52,6 +51,7 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
         <div className="flex gap-0.5 flex-1 min-w-0 overflow-hidden">
           {openWindows.map((win) => {
             const isActive = activeWindow === win.id && !minimizedWindows.includes(win.id);
+            const WinIcon = win.icon;
             return (
               <button
                 key={win.id}
@@ -62,7 +62,7 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
                     : "bevel-raised bg-secondary hover:bg-muted"
                 }`}
               >
-                <span className="text-xs shrink-0">{win.icon}</span>
+                <WinIcon size={12} strokeWidth={1.5} className="shrink-0" />
                 <span className="truncate">{win.label}</span>
               </button>
             );
