@@ -444,7 +444,7 @@ const TerminalWindow = () => {
           ]);
         } else {
           addLines([
-            { type: "header", text: "--- ANOMALY TRANSMISSIONS ---" },
+            { type: "header", text: "--- KERNEL TRANSMISSIONS ---" },
           ]);
           data.forEach((entry, idx) => {
             const typeColor: TerminalLine["type"] = 
