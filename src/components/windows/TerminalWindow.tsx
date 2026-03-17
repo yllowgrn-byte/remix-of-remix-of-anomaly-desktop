@@ -395,10 +395,10 @@ const TerminalWindow = () => {
         break;
       }
 
-      case "kernel": {
+      case "anomaly": {
         addLines([
           { type: "dim", text: "" },
-          { type: "ascii", text: "  A G E N T  K E R N E L" },
+          { type: "ascii", text: "  A N O M A L Y" },
           { type: "dim", text: "" },
         ]);
         break;
