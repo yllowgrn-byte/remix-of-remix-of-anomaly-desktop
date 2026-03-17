@@ -22,7 +22,7 @@ build 0.7.3-unstable
 
 ---
 
-Kernel is a surveillance-themed web application disguised as a legacy
+Anomaly is a surveillance-themed web application disguised as a legacy
 desktop operating system. It renders a fully interactive retro computing
 environment in the browser -- beveled window frames, CRT scanline overlays,
 monospaced typography, and a functional command-line terminal -- all running
