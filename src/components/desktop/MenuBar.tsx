@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Cpu, Signal } from "lucide-react";
 
 const menuItems = [
   { label: "File", items: ["New Session", "Export Logs", "─", "Exit"] },
@@ -17,9 +18,7 @@ const MenuBar = () => {
       <div className="flex items-center">
         {/* Logo mark */}
         <div className="flex items-center gap-1.5 px-2 mr-1">
-          <div className="w-3.5 h-3.5 bg-primary rounded-sm flex items-center justify-center">
-            <span className="text-primary-foreground text-[8px] font-bold leading-none">K</span>
-          </div>
+          <Cpu size={14} strokeWidth={2} className="text-primary" />
           <span className="font-bold text-sm tracking-wider">Kernel</span>
         </div>
 
@@ -64,7 +63,7 @@ const MenuBar = () => {
       {/* Right side: status + social */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+          <Signal size={10} strokeWidth={2} className="text-primary" />
           <span className="uppercase tracking-wider">online</span>
         </div>
         <div className="h-3 w-px bg-border" />
