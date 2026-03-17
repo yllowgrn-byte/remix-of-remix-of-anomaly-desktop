@@ -5,7 +5,7 @@ const menuItems = [
   { label: "File", items: ["New Session", "Export Logs", "─", "Exit"] },
   { label: "Edit", items: ["Copy Signal", "Clear Cache", "Preferences"] },
   { label: "View", items: ["Refresh", "Toggle CRT", "Zoom In", "Zoom Out"] },
-  { label: "System", items: ["Diagnostics", "Reboot Core", "─", "About Kernel"] },
+  { label: "System", items: ["Diagnostics", "Reboot Core", "─", "About Anomaly"] },
   { label: "Logs", items: ["View Recent", "Clear All", "Export"] },
   { label: "Help", items: ["Commands", "Documentation", "─", "About"] },
 ];
@@ -19,7 +19,7 @@ const MenuBar = () => {
         {/* Logo mark */}
         <div className="flex items-center gap-1.5 px-2 mr-1">
           <Cpu size={14} strokeWidth={2} className="text-primary" />
-          <span className="font-bold text-sm tracking-wider">Kernel</span>
+          <span className="font-bold text-sm tracking-wider">Anomaly</span>
         </div>
 
         
@@ -68,12 +68,12 @@ const MenuBar = () => {
         </div>
         
         <a
-          href="https://x.com/agent_kernel"
+          href="https://x.com/anomalytech_"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[10px] px-1.5 font-bold text-foreground hover:text-primary transition-colors tracking-wide"
         >
-          @agent_kernel
+          @anomalytech_
         </a>
       </div>
 

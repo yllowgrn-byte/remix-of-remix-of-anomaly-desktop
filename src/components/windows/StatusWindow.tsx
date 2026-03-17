@@ -77,7 +77,7 @@ const StatusWindow = () => {
       <div className="border-t border-border/30 pt-2 space-y-1">
         <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold mb-1">Active Processes</div>
         {[
-          { pid: "001", name: "kernel_core.exe", cpu: "3.2%" },
+          { pid: "001", name: "anomaly_core.exe", cpu: "3.2%" },
           { pid: "014", name: "signal_watch.sys", cpu: "1.8%" },
           { pid: "027", name: "mem_defrag.bin", cpu: "0.4%" },
           { pid: "033", name: "sector_scan.dll", cpu: "2.1%" },

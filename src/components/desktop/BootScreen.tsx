@@ -10,7 +10,7 @@ const BootScreen = ({ onComplete }: BootScreenProps) => {
   const [progress, setProgress] = useState(0);
   const [fading, setFading] = useState(false);
   const [titleRevealed, setTitleRevealed] = useState(0);
-  const titleText = "AGENT  KERNEL";
+  const titleText = "ANOMALY";
 
   useEffect(() => {
     const charInterval = setInterval(() => {

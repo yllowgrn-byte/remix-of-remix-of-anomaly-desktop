@@ -31,7 +31,7 @@ const OverviewWindow = () => {
       {/* Header */}
       <div className="text-center py-1">
         <h1 className="text-2xl font-retro tracking-[0.35em] uppercase text-foreground leading-none">
-          kernel
+          anomaly
         </h1>
         <div className="text-[9px] text-muted-foreground tracking-widest mt-0.5">
           v0.7.3 · digital presence tracker
@@ -43,7 +43,7 @@ const OverviewWindow = () => {
         <p>&gt; <span className="text-accent">INIT</span> — core loaded</p>
         <p>&gt; <span className="text-accent">SCAN</span> — memory banks intact</p>
         <p>&gt; <span className="text-accent">DETECT</span> — presence confirmed</p>
-        <p>&gt; <span className="text-amber-status">WARN</span> — kernel anomalies</p>
+        <p>&gt; <span className="text-amber-status">WARN</span> — anomaly detected</p>
         <p className="pt-1 border-t border-terminal-text/10">
           &gt; ready <span className="cursor-blink">█</span>
         </p>

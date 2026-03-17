@@ -1,28 +1,28 @@
 <div align="center">
 
 ```
- ___  _  ___  ___  _  _  ___  _
-| |_)| || __|| _ \| \| || __|| |
-| ' \| || _| |   /| .  || _| | |__
-|_|\_\_||___||_|_\|_|\_||___||____|
+  ___   _  _  ___  __  __   ___   _    __   __
+ / _ \ | \| |/ _ \|  \/  | / _ \ | |   \ \ / /
+| (_| || .  || (_) | |\/| || (_| || |__  \   /
+ \__,_||_|\_| \___/|_|  |_| \__,_||____|  |_|
 
 digital presence tracker
 build 0.7.3-unstable
 ```
 
-<img src="public/favicon.jpg" alt="Kernel" width="120" />
+<img src="public/favicon.jpg" alt="Anomaly" width="120" />
 
 <br/>
 
-<a href="https://x.com/agent_kernel">
-  <img src="https://img.shields.io/badge/X-@agent__kernel-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" />
+<a href="https://x.com/anomalytech_">
+  <img src="https://img.shields.io/badge/X-@anomalytech__-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" />
 </a>
 
 </div>
 
 ---
 
-Kernel is a surveillance-themed web application disguised as a legacy
+Anomaly is a surveillance-themed web application disguised as a legacy
 desktop operating system. It renders a fully interactive retro computing
 environment in the browser -- beveled window frames, CRT scanline overlays,
 monospaced typography, and a functional command-line terminal -- all running
@@ -43,7 +43,7 @@ Everything persists.
   |                                                                  |
   |   "It watches because you asked it to."                          |
   |                                                                  |
-  |   Kernel does not sleep.                                         |
+  |   Anomaly does not sleep.                                       |
   |   It does not forget.                                            |
   |   It merely waits.                                               |
   |                                                                  |
@@ -175,13 +175,13 @@ based on amplitude thresholds.
   |  overview.exe                                        _ [] x  |
   +--------------------------------------------------------------+
   |                                                              |
-  |                      K E R N E L                             |
-  |              v0.7.3 - digital presence tracker               |
-  |                                                              |
-  |  > INIT   -- core loaded                                     |
-  |  > SCAN   -- memory banks intact                             |
-  |  > DETECT -- presence confirmed                              |
-  |  > WARN   -- kernel anomalies                                |
+   |                      A N O M A L Y                              |
+   |              v0.7.3 - digital presence tracker               |
+   |                                                              |
+   |  > INIT   -- core loaded                                     |
+   |  > SCAN   -- memory banks intact                             |
+   |  > DETECT -- presence confirmed                              |
+   |  > WARN   -- anomaly detected                                |
   |  > ready _                                                   |
   |                                                              |
   |  [Signal Monitor]                                            |
@@ -315,7 +315,7 @@ case-insensitive.
   |  help            |  Display the full command reference listing         |
   |  status          |  Run system diagnostics with animated output       |
   |  scan            |  Execute a seven-sector sequential scan            |
-  |  ping            |  Test connection to the kernel core                |
+  |  ping            |  Test connection to the anomaly core              |
   |  whoami          |  Perform identity and clearance check              |
   |  logs            |  Display recent activity log entries               |
   |  decrypt [msg]   |  Attempt to decrypt a user-provided message        |
@@ -328,11 +328,11 @@ case-insensitive.
   |  date            |  Display the current UTC timestamp                 |
   |  echo [msg]      |  Repeat a user-provided message                   |
   |  color           |  Display all terminal color categories             |
-  |  fortune         |  Retrieve a kernel fortune cookie                  |
+  |  fortune         |  Retrieve an anomaly fortune cookie               |
   |  glitch          |  Induce a visual corruption sequence               |
   |  trace [ip]      |  Trace the route to a signal source                |
   |  hack            |  Attempt to access restricted system data          |
-  |  kernel          |  Display the kernel identity header                |
+  |  anomaly         |  Display the anomaly identity header              |
   |  uptime          |  Report total system uptime                        |
   |  joke            |  Activate the humor subsystem module               |
   |  story           |  Fetch and display published transmissions         |
@@ -433,7 +433,7 @@ client application:
 ## 05. Project Structure
 
 ```
-  kernel/
+  anomaly/
   |
   +-- public/
   |   +-- favicon.jpg
@@ -510,7 +510,7 @@ client application:
 
 ```bash
 git clone <repository-url>
-cd kernel
+cd anomaly
 
 npm install
 
@@ -752,7 +752,7 @@ MIT
 ```
   +------------------------------------------------------------------+
   |                                                                  |
-  |                     A G E N T   K E R N E L                      |
+  |                       A N O M A L Y                              |
   |                                                                  |
   |                    build 0.7.3-unstable                          |
   |                    status: still here                            |
