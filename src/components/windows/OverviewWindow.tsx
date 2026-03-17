@@ -31,7 +31,7 @@ const OverviewWindow = () => {
       {/* Header */}
       <div className="text-center py-1">
         <h1 className="text-2xl font-retro tracking-[0.35em] uppercase text-foreground leading-none">
-          anomaly
+          kernel
         </h1>
         <div className="text-[9px] text-muted-foreground tracking-widest mt-0.5">
           v0.7.3 · digital presence tracker
