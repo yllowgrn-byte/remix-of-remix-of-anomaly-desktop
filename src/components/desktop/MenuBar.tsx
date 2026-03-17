@@ -16,12 +16,12 @@ const MenuBar = () => {
         ))}
       </div>
       <a
-        href="https://x.com/anomalytechh"
+        href="https://x.com/agent_kernel"
         target="_blank"
         rel="noopener noreferrer"
         className="text-xs px-2 font-bold text-foreground hover:underline"
       >
-        @anomalytechh
+        @agent_kernel
       </a>
     </div>
   );

@@ -81,7 +81,7 @@ const OverviewWindow = () => {
       {/* Live ticker */}
       <div className="bevel-sunken bg-terminal-bg px-2 py-1 text-[9px] text-terminal-text overflow-hidden">
         <div className="flex gap-4 animate-pulse">
-          <span>▸ 3 anomalies active</span>
+          <span>▸ 3 signals active</span>
           <span className="text-amber-status">▸ sector 7-G flagged</span>
           <span>▸ signal: 18.9Hz subsonic</span>
         </div>
