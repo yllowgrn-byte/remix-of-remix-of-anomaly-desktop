@@ -1,3 +1,4 @@
+<div align="center">
 
 ```
  ___  _  ___  ___  _  _  ___  _
@@ -9,13 +10,15 @@ digital presence tracker
 build 0.7.3-unstable
 ```
 
-<p align="center">
-  <img src="public/favicon.jpg" alt="Kernel" width="64" />
-</p>
+<img src="public/favicon.jpg" alt="Kernel" width="120" />
 
-<p align="center">
-  <a href="https://x.com/agent_kernel"><strong>@agent_kernel</strong></a>
-</p>
+<br/>
+
+<a href="https://x.com/agent_kernel">
+  <img src="https://img.shields.io/badge/X-@agent__kernel-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" />
+</a>
+
+</div>
 
 ---
 
