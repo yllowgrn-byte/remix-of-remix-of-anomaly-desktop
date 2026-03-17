@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Cpu, type LucideIcon } from "lucide-react";
+import { Cpu } from "lucide-react";
 
 interface TaskbarWindow {
   id: string;
   label: string;
-  icon: LucideIcon;
+  icon: string;
 }
 
 interface TaskbarProps {
@@ -33,7 +33,6 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
   return (
     <div className="bevel-raised bg-taskbar flex items-center justify-between px-1 py-0.5 select-none">
       <div className="flex items-center gap-1 flex-1 min-w-0">
-        {/* Start button with kernel branding */}
         <button className="bevel-raised bg-secondary px-2.5 py-0.5 text-xs font-bold hover:bg-muted active:bevel-sunken shrink-0 flex items-center gap-1.5">
           <Cpu size={12} strokeWidth={2} className="text-primary" />
           <span>Start</span>
@@ -41,17 +40,14 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
 
         <div className="h-4 w-px bg-border mx-0.5 shrink-0" />
 
-        {/* Quick launch divider */}
         <div className="flex items-center gap-px shrink-0 mr-1">
           <div className="w-px h-4 bg-window-border-dark" />
           <div className="w-px h-4 bg-window-border-light" />
         </div>
 
-        {/* Open window buttons */}
         <div className="flex gap-0.5 flex-1 min-w-0 overflow-hidden">
           {openWindows.map((win) => {
             const isActive = activeWindow === win.id && !minimizedWindows.includes(win.id);
-            const WinIcon = win.icon;
             return (
               <button
                 key={win.id}
@@ -62,7 +58,7 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
                     : "bevel-raised bg-secondary hover:bg-muted"
                 }`}
               >
-                <WinIcon size={12} strokeWidth={1.5} className="shrink-0" />
+                <span className="text-xs shrink-0">{win.icon}</span>
                 <span className="truncate">{win.label}</span>
               </button>
             );
@@ -70,7 +66,6 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
         </div>
       </div>
 
-      {/* System tray */}
       <div className="bevel-sunken flex items-center gap-2.5 px-2.5 py-0.5 shrink-0">
         <span className={`inline-block w-1.5 h-1.5 rounded-full transition-colors ${blinkOn ? "bg-primary" : "bg-muted"}`} />
         <div className="h-3 w-px bg-border/40" />

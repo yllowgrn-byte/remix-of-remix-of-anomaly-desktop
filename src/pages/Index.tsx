@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import { Monitor, Radio, FileText, Eye, TerminalSquare, Wrench, Archive, Coins, type LucideIcon } from "lucide-react";
 import BootScreen from "@/components/desktop/BootScreen";
 import MenuBar from "@/components/desktop/MenuBar";
 import Taskbar from "@/components/desktop/Taskbar";
@@ -15,18 +14,18 @@ import TokenWindow from "@/components/windows/TokenWindow";
 
 export interface WindowDef {
   id: string;
-  icon: LucideIcon;
+  icon: string;
   label: string;
 }
 
 const windowDefs: WindowDef[] = [
-  { id: "overview", icon: Monitor, label: "overview.exe" },
-  { id: "live_feed", icon: Radio, label: "live_feed.log" },
-  { id: "notes", icon: FileText, label: "notes.txt" },
-  { id: "sightings", icon: Eye, label: "sightings.dat" },
-  { id: "terminal", icon: TerminalSquare, label: "terminal.sys" },
-  { id: "status", icon: Wrench, label: "status.sys" },
-  { id: "archive", icon: Archive, label: "archive" },
+  { id: "overview", icon: "📟", label: "overview.exe" },
+  { id: "live_feed", icon: "📊", label: "live_feed.log" },
+  { id: "notes", icon: "📝", label: "notes.txt" },
+  { id: "sightings", icon: "🖼️", label: "sightings.dat" },
+  { id: "terminal", icon: "⬛", label: "terminal.sys" },
+  { id: "status", icon: "🔧", label: "status.sys" },
+  { id: "archive", icon: "📁", label: "archive" },
 ];
 
 const windowComponents: Record<string, React.ReactNode> = {
@@ -79,7 +78,7 @@ const Index = () => {
         {/* Title bar */}
         <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
           <div className="flex items-center gap-1.5">
-            <def.icon size={12} strokeWidth={1.5} className="text-window-titlebar-text" />
+            <span className="text-xs">{def.icon}</span>
             <span className="text-xs font-bold text-window-titlebar-text tracking-wide">
               {def.label}
             </span>
@@ -166,7 +165,7 @@ const Index = () => {
                   <div className="bevel-raised bg-secondary flex flex-col shrink-0" style={spawnDelay(500)}>
                     <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
                       <div className="flex items-center gap-1.5">
-                        <Coins size={12} strokeWidth={1.5} className="text-window-titlebar-text" />
+                        <span className="text-xs">💰</span>
                         <span className="text-xs font-bold text-window-titlebar-text tracking-wide">token.dat</span>
                       </div>
                       <div className="flex gap-0.5">

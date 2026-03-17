@@ -1,13 +1,11 @@
-import { type LucideIcon } from "lucide-react";
-
 interface DesktopIconProps {
-  icon: LucideIcon;
+  icon: string;
   label: string;
   isActive?: boolean;
   onClick?: () => void;
 }
 
-const DesktopIcon = ({ icon: Icon, label, isActive, onClick }: DesktopIconProps) => {
+const DesktopIcon = ({ icon, label, isActive, onClick }: DesktopIconProps) => {
   return (
     <button
       onClick={onClick}
@@ -17,11 +15,9 @@ const DesktopIcon = ({ icon: Icon, label, isActive, onClick }: DesktopIconProps)
           : "hover:bg-primary/10"
       }`}
     >
-      <Icon
-        size={18}
-        strokeWidth={1.5}
-        className={`transition-transform ${isActive ? "scale-110 text-primary" : "text-foreground group-hover:scale-105"}`}
-      />
+      <span className={`text-lg transition-transform ${isActive ? "scale-110" : "group-hover:scale-105"}`}>
+        {icon}
+      </span>
       <span className={`text-[9px] text-center leading-tight break-all line-clamp-2 transition-colors ${
         isActive ? "text-primary font-bold" : "text-foreground"
       }`}>
