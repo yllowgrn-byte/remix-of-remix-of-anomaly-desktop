@@ -326,7 +326,7 @@ const TerminalWindow = () => {
       }
 
       case "fortune": {
-        addLines([{ type: "system", text: "Consulting the anomaly..." }]);
+        addLines([{ type: "system", text: "Consulting the kernel..." }]);
         await simulateDelay(800);
         const fortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
         addLines([
