@@ -165,10 +165,10 @@ const TerminalWindow = () => {
       }
 
       case "ping": {
-        addLines([{ type: "system", text: "Pinging anomaly core..." }]);
+         addLines([{ type: "system", text: "Pinging kernel core..." }]);
         await simulateDelay(500);
         addLines([
-          { type: "output", text: "PING anomaly.core (127.0.0.1): 56 bytes" },
+          { type: "output", text: "PING kernel.core (127.0.0.1): 56 bytes" },
           { type: "info",   text: "  reply: seq=1 time=0.042ms" },
           { type: "info",   text: "  reply: seq=2 time=0.038ms" },
           { type: "warn",   text: "  reply: seq=3 time=#######ms" },
