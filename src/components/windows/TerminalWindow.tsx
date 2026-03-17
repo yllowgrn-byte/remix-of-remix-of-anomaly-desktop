@@ -535,7 +535,7 @@ const TerminalWindow = () => {
           <div
             key={i}
             className={`${lineColor(line.type)} ${
-              line.text.includes("A G E N T")
+              line.text.includes("A N O M A L Y")
                 ? "text-lg font-retro tracking-[0.3em] text-[hsl(45,80%,70%)]"
                 : ""
             }`}
