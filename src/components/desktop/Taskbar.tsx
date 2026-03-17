@@ -50,7 +50,7 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
                 onClick={() => onTaskbarClick?.(win.id)}
                 className={`flex items-center gap-1.5 px-2.5 py-0.5 text-[10px] min-w-[90px] max-w-[160px] truncate transition-colors ${
                   isActive
-                    ? "bevel-sunken bg-window-bg font-bold"
+                    ? "bg-window-bg font-bold border border-border/50"
                     : "bevel-raised bg-secondary hover:bg-muted"
                 }`}
               >
