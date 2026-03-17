@@ -19,7 +19,7 @@ const MenuBar = () => {
         {/* Logo mark */}
         <div className="flex items-center gap-1.5 px-2 mr-1">
           <Cpu size={14} strokeWidth={2} className="text-primary" />
-          <span className="font-bold text-sm tracking-wider">Kernel</span>
+          <span className="font-bold text-sm tracking-wider">Anomaly</span>
         </div>
 
         
