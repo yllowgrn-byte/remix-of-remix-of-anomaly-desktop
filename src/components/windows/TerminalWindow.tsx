@@ -62,7 +62,7 @@ const FORTUNES = [
   '"Not everything that watches is malicious. But not everything that smiles is friendly."',
   '"You are being observed. Smile."',
   '"Error 418: I\'m a teapot. Just kidding. Or am I?"',
-  '"The kernel does not sleep. It merely waits."',
+  '"The anomaly does not sleep. It merely waits."',
   '"Today is a good day to check your logs."',
   '"Something in sector 7-G wants to say hello."',
   '"Trust the signal. Ignore the noise. Unless the noise is screaming."',
