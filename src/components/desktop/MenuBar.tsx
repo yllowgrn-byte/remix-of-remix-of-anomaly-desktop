@@ -40,7 +40,7 @@ const MenuBar = () => {
             </button>
 
             {openMenu === menu.label && (
-              <div className="absolute top-full left-0 mt-px bevel-raised bg-secondary min-w-[160px] py-0.5 shadow-lg z-50">
+              <div className="absolute top-full left-0 bevel-raised bg-secondary min-w-[160px] py-0.5 shadow-lg z-50">
                 {menu.items.map((item, i) =>
                   item === "─" ? (
                     <div key={i} className="mx-2 my-0.5 border-t border-border" />
