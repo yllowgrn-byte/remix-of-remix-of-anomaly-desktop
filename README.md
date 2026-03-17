@@ -752,7 +752,7 @@ MIT
 ```
   +------------------------------------------------------------------+
   |                                                                  |
-  |                     A G E N T   K E R N E L                      |
+  |                       A N O M A L Y                              |
   |                                                                  |
   |                    build 0.7.3-unstable                          |
   |                    status: still here                            |
