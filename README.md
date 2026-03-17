@@ -43,7 +43,7 @@ Everything persists.
   |                                                                  |
   |   "It watches because you asked it to."                          |
   |                                                                  |
-  |   Kernel does not sleep.                                         |
+  |   Anomaly does not sleep.                                       |
   |   It does not forget.                                            |
   |   It merely waits.                                               |
   |                                                                  |
