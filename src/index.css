@@ -15,7 +15,7 @@
     --popover: 40 15% 88%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 215 60% 32%;
+    --primary: 0 60% 35%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 40 10% 82%;
@@ -24,7 +24,7 @@
     --muted: 40 8% 78%;
     --muted-foreground: 0 0% 40%;
 
-    --accent: 174 25% 38%;
+    --accent: 0 50% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 60% 45%;
@@ -32,21 +32,21 @@
 
     --border: 0 0% 60%;
     --input: 40 10% 82%;
-    --ring: 215 60% 32%;
+    --ring: 0 60% 35%;
 
     --radius: 0px;
 
     --sidebar-background: 40 15% 88%;
     --sidebar-foreground: 0 0% 10%;
-    --sidebar-primary: 215 60% 32%;
+    --sidebar-primary: 0 60% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 40 10% 82%;
     --sidebar-accent-foreground: 0 0% 10%;
     --sidebar-border: 0 0% 60%;
-    --sidebar-ring: 215 60% 32%;
+    --sidebar-ring: 0 60% 35%;
 
     /* Custom retro tokens */
-    --window-titlebar: 215 60% 32%;
+    --window-titlebar: 0 60% 35%;
     --window-titlebar-inactive: 0 0% 55%;
     --window-titlebar-text: 0 0% 100%;
     --window-bg: 40 15% 92%;
@@ -55,7 +55,7 @@
     --window-border-mid: 0 0% 75%;
     --taskbar-bg: 40 10% 82%;
     --terminal-bg: 0 0% 5%;
-    --terminal-text: 120 40% 60%;
+    --terminal-text: 0 50% 60%;
     --desktop-bg: 180 8% 52%;
     --status-amber: 40 80% 50%;
   }
@@ -67,19 +67,19 @@
     --card-foreground: 0 0% 85%;
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 85%;
-    --primary: 215 60% 45%;
+    --primary: 0 60% 45%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 18%;
     --secondary-foreground: 0 0% 85%;
     --muted: 0 0% 18%;
     --muted-foreground: 0 0% 55%;
-    --accent: 174 25% 38%;
+    --accent: 0 50% 45%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 25%;
     --input: 0 0% 18%;
-    --ring: 215 60% 45%;
+    --ring: 0 60% 45%;
   }
 }
 
@@ -142,7 +142,7 @@
 
 /* Window title gradient - classic Win95/98 */
 .titlebar-gradient {
-  background: linear-gradient(90deg, hsl(var(--window-titlebar)), hsl(215 40% 50%));
+  background: linear-gradient(90deg, hsl(var(--window-titlebar)), hsl(0 40% 50%));
 }
 
 .titlebar-gradient-inactive {

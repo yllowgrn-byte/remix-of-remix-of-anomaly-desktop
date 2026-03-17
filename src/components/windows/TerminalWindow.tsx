@@ -11,7 +11,7 @@ const HELP_TEXT: TerminalLine[] = [
   { type: "dim",    text: "" },
   { type: "info",   text: "  help          -- show this message" },
   { type: "info",   text: "  status        -- system diagnostics" },
-  { type: "info",   text: "  scan          -- run anomaly scan" },
+  { type: "info",   text: "  scan          -- run kernel scan" },
   { type: "info",   text: "  ping          -- test connection" },
   { type: "info",   text: "  whoami        -- identity check" },
   { type: "info",   text: "  logs          -- recent activity log" },
@@ -25,11 +25,11 @@ const HELP_TEXT: TerminalLine[] = [
   { type: "info",   text: "  date          -- current timestamp" },
   { type: "info",   text: "  echo [msg]    -- repeat a message" },
   { type: "info",   text: "  color         -- test color output" },
-  { type: "info",   text: "  fortune       -- anomaly fortune cookie" },
+  { type: "info",   text: "  fortune       -- kernel fortune cookie" },
   { type: "info",   text: "  glitch        -- induce visual glitch" },
   { type: "info",   text: "  trace [ip]    -- trace a signal source" },
   { type: "info",   text: "  hack          -- access restricted data" },
-  { type: "info",   text: "  anomaly       -- show anomaly logo" },
+  { type: "info",   text: "  kernel        -- show kernel logo" },
   { type: "info",   text: "  uptime        -- system uptime report" },
   { type: "info",   text: "  joke          -- system humor module" },
   { type: "info",   text: "  story         -- fetch transmissions" },
@@ -62,16 +62,16 @@ const FORTUNES = [
   '"Not everything that watches is malicious. But not everything that smiles is friendly."',
   '"You are being observed. Smile."',
   '"Error 418: I\'m a teapot. Just kidding. Or am I?"',
-  '"The anomaly does not sleep. It merely waits."',
+  '"The kernel does not sleep. It merely waits."',
   '"Today is a good day to check your logs."',
   '"Something in sector 7-G wants to say hello."',
   '"Trust the signal. Ignore the noise. Unless the noise is screaming."',
 ];
 
 const JOKES = [
-  "Why did the anomaly cross the firewall? To get to the other subnet.",
+  "Why did the kernel cross the firewall? To get to the other subnet.",
   "What do you call a ghost in the machine? A regular Tuesday around here.",
-  "How many anomalies does it take to crash a server? Just one. We checked.",
+  "How many kernels does it take to crash a server? Just one. We checked.",
   "I told the AI a joke. It laughed. I didn't program it to laugh.",
   "Why don't anomalies use passwords? They prefer skeleton keys.",
 ];
@@ -79,18 +79,18 @@ const JOKES = [
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: "dim", text: "" },
-    { type: "highlight", text: "  A G E N T  A N O M A L Y" },
+    { type: "highlight", text: "  A G E N T  K E R N E L" },
     { type: "dim", text: "" },
-    { type: "header", text: "  ANOMALY TERMINAL v0.7.3" },
+    { type: "header", text: "  KERNEL TERMINAL v0.7.3" },
     { type: "dim", text: "  =============================================" },
     { type: "system", text: "  > booting core systems..." },
     { type: "info", text: "  > scanning memory banks.......... OK" },
     { type: "info", text: "  > initializing signal monitor.... OK" },
-    { type: "system", text: "  > loading anomaly database....... OK" },
+    { type: "system", text: "  > loading kernel database........ OK" },
     { type: "info", text: "  > calibrating sensors............ OK" },
     { type: "warn",  text: "  > threat assessment.............. ELEVATED" },
     { type: "dim", text: "  =============================================" },
-    { type: "highlight", text: "  All systems online. 3 anomalies tracked." },
+    { type: "highlight", text: "  All systems online. 3 signals tracked." },
     { type: "output", text: '  Type "help" for commands. Try "story" for transmissions.' },
     { type: "dim", text: "" },
   ]);
@@ -156,7 +156,7 @@ const TerminalWindow = () => {
         addLines([
           { type: "dim", text: "" },
           { type: "header", text: "Scan complete. Results:" },
-          { type: "info",   text: "  * 2 anomalous signatures detected" },
+           { type: "info",   text: "  * 2 anomalous signatures detected" },
           { type: "warn",   text: "  * 1 unknown entity in sector 7-G" },
           { type: "info",   text: "  * Signal interference at 18.9Hz" },
           { type: "error",  text: "  [!] Recommend immediate investigation" },
@@ -165,10 +165,10 @@ const TerminalWindow = () => {
       }
 
       case "ping": {
-        addLines([{ type: "system", text: "Pinging anomaly core..." }]);
+         addLines([{ type: "system", text: "Pinging kernel core..." }]);
         await simulateDelay(500);
         addLines([
-          { type: "output", text: "PING anomaly.core (127.0.0.1): 56 bytes" },
+          { type: "output", text: "PING kernel.core (127.0.0.1): 56 bytes" },
           { type: "info",   text: "  reply: seq=1 time=0.042ms" },
           { type: "info",   text: "  reply: seq=2 time=0.038ms" },
           { type: "warn",   text: "  reply: seq=3 time=#######ms" },
@@ -235,7 +235,7 @@ const TerminalWindow = () => {
           { type: "info",   text: "  120Hz   ##........  LOW" },
           { type: "dim",    text: "" },
           { type: "system", text: "Dominant frequency: 18.9Hz (subsonic)" },
-          { type: "warn",   text: "Pattern matches known anomaly signature." },
+          { type: "warn",   text: "Pattern matches known kernel signature." },
         ]);
         break;
       }
@@ -252,7 +252,7 @@ const TerminalWindow = () => {
         addLines([
           ...matrixLines.map((l) => ({ type: "info" as const, text: l })),
           { type: "highlight", text: "Wake up..." },
-          { type: "highlight", text: "The anomaly has you..." },
+          { type: "highlight", text: "The kernel has you..." },
         ]);
         break;
       }
@@ -267,11 +267,11 @@ const TerminalWindow = () => {
 
       case "about":
         addLines([
-          { type: "header",    text: "ANOMALY — Digital Presence Tracker" },
+          { type: "header",    text: "KERNEL — Digital Presence Tracker" },
           { type: "dim",       text: "Version 0.7.3 (unstable)" },
           { type: "dim",       text: "" },
           { type: "output",    text: "Purpose: Monitor, log, and catalog" },
-          { type: "output",    text: "anomalous digital signatures." },
+          { type: "output",    text: "kernel digital signatures." },
           { type: "dim",       text: "" },
           { type: "highlight", text: '"It watches because you asked it to."' },
         ]);
@@ -326,7 +326,7 @@ const TerminalWindow = () => {
       }
 
       case "fortune": {
-        addLines([{ type: "system", text: "Consulting the anomaly..." }]);
+        addLines([{ type: "system", text: "Consulting the kernel..." }]);
         await simulateDelay(800);
         const fortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
         addLines([
@@ -395,10 +395,10 @@ const TerminalWindow = () => {
         break;
       }
 
-      case "anomaly": {
+      case "kernel": {
         addLines([
           { type: "dim", text: "" },
-          { type: "ascii", text: "  A G E N T  A N O M A L Y" },
+          { type: "ascii", text: "  A G E N T  K E R N E L" },
           { type: "dim", text: "" },
         ]);
         break;
@@ -429,7 +429,7 @@ const TerminalWindow = () => {
       }
 
       case "story": {
-        addLines([{ type: "system", text: "Fetching anomaly transmissions..." }]);
+        addLines([{ type: "system", text: "Fetching kernel transmissions..." }]);
         await simulateDelay(600);
         const { data, error: dbError } = await supabase
           .from("story_entries")
@@ -444,7 +444,7 @@ const TerminalWindow = () => {
           ]);
         } else {
           addLines([
-            { type: "header", text: "--- ANOMALY TRANSMISSIONS ---" },
+            { type: "header", text: "--- KERNEL TRANSMISSIONS ---" },
           ]);
           data.forEach((entry, idx) => {
             const typeColor: TerminalLine["type"] = 
@@ -535,7 +535,7 @@ const TerminalWindow = () => {
           <div
             key={i}
             className={`${lineColor(line.type)} ${
-              line.type === "ascii" && line.text.includes("A G E N T")
+              line.text.includes("A G E N T")
                 ? "text-lg font-retro tracking-[0.3em] text-[hsl(45,80%,70%)]"
                 : ""
             }`}

@@ -31,7 +31,7 @@ const OverviewWindow = () => {
       {/* Header */}
       <div className="text-center py-1">
         <h1 className="text-2xl font-retro tracking-[0.35em] uppercase text-foreground leading-none">
-          anomaly
+          kernel
         </h1>
         <div className="text-[9px] text-muted-foreground tracking-widest mt-0.5">
           v0.7.3 · digital presence tracker
@@ -43,7 +43,7 @@ const OverviewWindow = () => {
         <p>&gt; <span className="text-accent">INIT</span> — core loaded</p>
         <p>&gt; <span className="text-accent">SCAN</span> — memory banks intact</p>
         <p>&gt; <span className="text-accent">DETECT</span> — presence confirmed</p>
-        <p>&gt; <span className="text-amber-status">WARN</span> — anomalous patterns</p>
+        <p>&gt; <span className="text-amber-status">WARN</span> — kernel anomalies</p>
         <p className="pt-1 border-t border-terminal-text/10">
           &gt; ready <span className="cursor-blink">█</span>
         </p>
@@ -81,7 +81,7 @@ const OverviewWindow = () => {
       {/* Live ticker */}
       <div className="bevel-sunken bg-terminal-bg px-2 py-1 text-[9px] text-terminal-text overflow-hidden">
         <div className="flex gap-4 animate-pulse">
-          <span>▸ 3 anomalies active</span>
+          <span>▸ 3 signals active</span>
           <span className="text-amber-status">▸ sector 7-G flagged</span>
           <span>▸ signal: 18.9Hz subsonic</span>
         </div>
