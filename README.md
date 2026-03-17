@@ -1,67 +1,39 @@
 
-<div align="center">
-  <img src="public/favicon.jpg" alt="Kernel Logo" width="80" />
-</div>
+```
+ ___  _  ___  ___  _  _  ___  _
+| |_)| || __|| _ \| \| || __|| |
+| ' \| || _| |   /| .  || _| | |__
+|_|\_\_||___||_|_\|_|\_||___||____|
 
-<h1 align="center">KERNEL</h1>
+digital presence tracker
+build 0.7.3-unstable
+```
 
 <p align="center">
-  <strong>Digital Presence Tracker</strong><br/>
-  <code>v0.7.3-unstable</code>
+  <img src="public/favicon.jpg" alt="Kernel" width="64" />
 </p>
 
 <p align="center">
-  <a href="https://x.com/agent_kernel">
-    <img src="https://img.shields.io/badge/X-@agent__kernel-000000?style=flat-square&logo=x&logoColor=white" alt="X (Twitter)" />
-  </a>
-  <img src="https://img.shields.io/badge/build-unstable-critical?style=flat-square" alt="Build Status" />
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License" />
-  <img src="https://img.shields.io/badge/react-18.3-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React" />
-  <img src="https://img.shields.io/badge/typescript-5.8-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <a href="https://x.com/agent_kernel"><strong>@agent_kernel</strong></a>
 </p>
 
 ---
 
-## Table of Contents
+Kernel is a surveillance-themed web application disguised as a legacy
+desktop operating system. It renders a fully interactive retro computing
+environment in the browser -- beveled window frames, CRT scanline overlays,
+monospaced typography, and a functional command-line terminal -- all running
+on a modern React frontend backed by a real-time database.
 
-```
-    01 ............ Overview
-    02 ............ Architecture
-    03 ............ System Modules
-    04 ............ Terminal Reference
-    05 ............ Database Schema
-    06 ............ Project Structure
-    07 ............ Getting Started
-    08 ............ Configuration
-    09 ............ Admin Panel
-    10 ............ Design System
-    11 ............ Technology Stack
-    12 ............ Contributing
-    13 ............ License
-```
+The system operates as both a narrative instrument and a content management
+platform. Story entries, anomaly sightings, system notes, and configuration
+data flow through the interface in real time, creating the atmosphere of a
+machine that has been watching for far longer than it should have been.
 
----
-
-## 01. Overview
-
-Kernel is a retro-computing themed web application that presents itself as a
-digital presence monitoring station. It adopts the visual language of mid-1990s
-desktop operating systems, complete with beveled window frames, CRT scanline
-overlays, and a monospaced type system, while running on a modern reactive
-frontend backed by a real-time database layer.
-
-The application serves as both a narrative instrument and a functional content
-management platform. Story entries, sightings, notes, and system data flow
-through the interface in real time, creating an atmosphere of persistent
-surveillance and quiet observation. Every element is designed to feel like a
-machine that has been running for far longer than it should have been.
-
-At its core, Kernel is a single-page application with two primary routes: a
-public-facing desktop environment and a password-protected administration panel.
-The public interface displays data across seven distinct window modules, each
-styled as an independent application running within the desktop shell. The admin
-interface provides full CRUD operations on all content tables, token
-configuration, and system settings.
+Two interfaces exist: a public-facing desktop environment with seven
+independent window modules, and a password-protected administration panel
+with full CRUD control over all content tables. Everything updates live.
+Everything persists.
 
 ```
   +------------------------------------------------------------------+
@@ -77,11 +49,30 @@ configuration, and system settings.
 
 ---
 
-## 02. Architecture
+## Contents
+
+```
+  01 .............. Architecture
+  02 .............. System Modules
+  03 .............. Terminal Reference
+  04 .............. Database Schema
+  05 .............. Project Structure
+  06 .............. Getting Started
+  07 .............. Configuration
+  08 .............. Admin Panel
+  09 .............. Design System
+  10 .............. Technology Stack
+  11 .............. Contributing
+  12 .............. License
+```
+
+---
+
+## 01. Architecture
 
 The system follows a layered architecture where the presentation layer is
 entirely decoupled from the data persistence layer. State management is handled
-through React hooks and Supabase real-time subscriptions, eliminating the need
+through React hooks and real-time database subscriptions, eliminating the need
 for a dedicated state management library.
 
 ```
@@ -121,7 +112,7 @@ for a dedicated state management library.
   |  |  (Configuration)   |                                          |
   |  +--------------------+                                          |
   |                                                                  |
-  |  Real-time subscriptions via Supabase Channels                   |
+  |  Real-time subscriptions via database channels                   |
   |                                                                  |
   +==================================================================+
 ```
@@ -159,13 +150,13 @@ When a user loads the application, the following sequence occurs:
 
 ---
 
-## 03. System Modules
+## 02. System Modules
 
 Each module operates as an independent window within the desktop environment.
 The window manager handles layout composition through predefined layout maps,
 routing icon clicks to the appropriate window arrangement.
 
-### 03.1 Overview (overview.exe)
+### 02.1 Overview (overview.exe)
 
 The primary dashboard module. Displays the system header with version
 information, a boot log showing initialization status, a real-time signal
@@ -200,12 +191,12 @@ based on amplitude thresholds.
   +--------------------------------------------------------------+
 ```
 
-### 03.2 Live Feed (live_feed.log)
+### 02.2 Live Feed (live_feed.log)
 
 A chronological feed of published story entries pulled from the database in
 real time. Each entry displays its publication timestamp, a type-specific
 icon and label, and the content body. Entries marked as pinned receive a
-visual indicator. The feed subscribes to Postgres changes on the
+visual indicator. The feed subscribes to database changes on the
 `story_entries` table and refreshes automatically when mutations occur.
 
 Supported entry types and their visual markers:
@@ -226,7 +217,7 @@ Supported entry types and their visual markers:
   +------------------+--------+
 ```
 
-### 03.3 Sightings (sightings.dat)
+### 02.3 Sightings (sightings.dat)
 
 A tabular anomaly tracking interface with real-time database synchronization.
 Each sighting record contains a unique signal identifier, timestamp, location,
@@ -256,7 +247,7 @@ color hierarchy:
   +------------+-------------------+
 ```
 
-### 03.4 Terminal (terminal.sys)
+### 02.4 Terminal (terminal.sys)
 
 A fully interactive command-line interface with over twenty built-in commands,
 command history navigation, animated output sequences, and a persistent
@@ -271,7 +262,7 @@ output, including `scan`, `ping`, `trace`, `glitch`, and `reboot`.
 The terminal supports arrow-key history navigation, allowing users to cycle
 through previously entered commands.
 
-### 03.5 Notes (notes.txt)
+### 02.5 Notes (notes.txt)
 
 A read-only notepad-style display showing pinned story entries or fallback
 default content. The interface mimics a plain text editor with line numbers,
@@ -281,7 +272,7 @@ Content is sourced from `story_entries` where `status = 'pinned'`, ordered
 by `sort_order`. When no pinned entries exist, a set of hardcoded default
 lines is displayed.
 
-### 03.6 Status (status.sys)
+### 02.6 Status (status.sys)
 
 A live system diagnostics panel displaying subsystem health indicators and
 animated performance meters. The module simulates six performance metrics
@@ -292,24 +283,24 @@ Additionally, it lists five simulated active processes with process IDs,
 names, and CPU usage percentages. All values update in real time to create
 the impression of a continuously running monitoring station.
 
-### 03.7 Archive (archive)
+### 02.7 Archive (archive)
 
 A file-browser-style interface listing archived story entries. Records are
 fetched from `story_entries` where `status = 'archived'`, ordered by
 creation date in descending order. Each entry displays its type, date,
 and content in a columnar layout with hover highlighting.
 
-### 03.8 Token (token.dat)
+### 02.8 Token (token.dat)
 
 A compact module for displaying cryptocurrency token information, including
 a contract address with copy-to-clipboard functionality, an external buy
 link, and a prominent call-to-action button. Values are sourced from the
-`site_settings` table and update in real time via Supabase channel
+`site_settings` table and update in real time via database channel
 subscriptions.
 
 ---
 
-## 04. Terminal Reference
+## 03. Terminal Reference
 
 The terminal supports the following command set. All commands are
 case-insensitive.
@@ -347,7 +338,7 @@ case-insensitive.
 
 ---
 
-## 05. Database Schema
+## 04. Database Schema
 
 The application persists data across three tables. All tables use UUID
 primary keys with automatic generation and timestamp tracking.
@@ -436,7 +427,7 @@ client application:
 
 ---
 
-## 06. Project Structure
+## 05. Project Structure
 
 ```
   kernel/
@@ -478,8 +469,8 @@ client application:
   |   |
   |   +-- integrations/
   |   |   +-- supabase/
-  |   |       +-- client.ts             Auto-generated client
-  |   |       +-- types.ts              Auto-generated types
+  |   |       +-- client.ts             Database client
+  |   |       +-- types.ts              Type definitions
   |   |
   |   +-- lib/
   |   |   +-- utils.ts                  Utility functions
@@ -505,7 +496,7 @@ client application:
 
 ---
 
-## 07. Getting Started
+## 06. Getting Started
 
 ### Prerequisites
 
@@ -515,14 +506,11 @@ client application:
 ### Installation
 
 ```bash
-# Clone the repository
 git clone <repository-url>
 cd kernel
 
-# Install dependencies
 npm install
 
-# Start the development server
 npm run dev
 ```
 
@@ -544,7 +532,7 @@ The application will be available at `http://localhost:5173`.
 
 ---
 
-## 08. Configuration
+## 07. Configuration
 
 ### Environment Variables
 
@@ -574,7 +562,7 @@ pairs:
 
 ---
 
-## 09. Admin Panel
+## 08. Admin Panel
 
 The administration interface is accessible at the `/admin` route and
 protected by a password gate. It provides five management tabs:
@@ -637,7 +625,7 @@ Story entries follow a defined status progression:
 
 ---
 
-## 10. Design System
+## 09. Design System
 
 The visual identity is built on a comprehensive token system defined in CSS
 custom properties. All colors use HSL notation and are referenced through
@@ -703,7 +691,7 @@ The application uses two typefaces:
 
 ---
 
-## 11. Technology Stack
+## 10. Technology Stack
 
 ```
   Layer              Technology               Version
@@ -726,7 +714,7 @@ The application uses two typefaces:
 
 ---
 
-## 12. Contributing
+## 11. Contributing
 
 Contributions should adhere to the following principles:
 
@@ -737,7 +725,7 @@ Contributions should adhere to the following principles:
    through the CSS custom property system defined in `src/index.css` and
    mapped through `tailwind.config.ts`.
 
-3. Database interactions use the auto-generated Supabase client exclusively.
+3. Database interactions use the auto-generated client exclusively.
    The client file at `src/integrations/supabase/client.ts` must not be
    modified manually.
 
@@ -752,7 +740,7 @@ Contributions should adhere to the following principles:
 
 ---
 
-## 13. License
+## 12. License
 
 MIT
 
