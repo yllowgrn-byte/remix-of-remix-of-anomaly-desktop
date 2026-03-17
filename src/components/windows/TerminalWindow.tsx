@@ -25,7 +25,7 @@ const HELP_TEXT: TerminalLine[] = [
   { type: "info",   text: "  date          -- current timestamp" },
   { type: "info",   text: "  echo [msg]    -- repeat a message" },
   { type: "info",   text: "  color         -- test color output" },
-  { type: "info",   text: "  fortune       -- kernel fortune cookie" },
+  { type: "info",   text: "  fortune       -- anomaly fortune cookie" },
   { type: "info",   text: "  glitch        -- induce visual glitch" },
   { type: "info",   text: "  trace [ip]    -- trace a signal source" },
   { type: "info",   text: "  hack          -- access restricted data" },
