@@ -1,613 +1,516 @@
 
 <div align="center">
-  <br/>
-  <img src="public/favicon.jpg" alt="Kernel" width="64" />
-  <br/><br/>
-
-```
- ___  ___ ___ _  _ _____   _  _____ ___ _  _ ___ _    
-|   \/ __| __| \| |_   _| | |/ / __| _ | \| | __| |   
-| |) \__ | _|| .` | | |   |   <| _||   | .` | _|| |__ 
-|___/|___|___|_|\_| |_|   |_|\_|___|_|_|_|\_|___|____|
-```
-
-  <strong>Digital Presence Tracker</strong>
-  <br/>
-  <code>v0.7.3-unstable</code>
-  <br/><br/>
-
-  <a href="https://x.com/agent_kernel">
-    <img src="https://img.shields.io/badge/X-@agent__kernel-000000?style=flat-square&logo=x&logoColor=white" alt="X" />
-  </a>
-  &nbsp;
-  <img src="https://img.shields.io/badge/build-unstable-critical?style=flat-square" alt="Build" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/status-still_here-brightgreen?style=flat-square" alt="Status" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/react-18.3-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/typescript-5.8-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License" />
-
-  <br/><br/>
-  <em>A retro-computing surveillance interface disguised as a website.</em>
-  <br/>
-  <em>It watches because you asked it to.</em>
-  <br/><br/>
+  <img src="public/favicon.jpg" alt="Kernel Logo" width="80" />
 </div>
 
----
+<h1 align="center">KERNEL</h1>
 
-<br/>
+<p align="center">
+  <strong>Digital Presence Tracker</strong><br/>
+  <code>v0.7.3-unstable</code>
+</p>
 
-<details>
-<summary><strong>&nbsp; TABLE OF CONTENTS</strong></summary>
-<br/>
-
-```
-    I ............... Overview
-   II ............... Architecture
-  III ............... System Modules
-   IV ............... Terminal Command Reference
-    V ............... Database Schema
-   VI ............... Project Structure
-  VII ............... Getting Started
- VIII ............... Configuration
-   IX ............... Administration
-    X ............... Design System
-   XI ............... Technology Stack
-  XII ............... Contributing
- XIII ............... License
-```
-
-<br/>
-</details>
-
-<br/>
+<p align="center">
+  <a href="https://x.com/agent_kernel">
+    <img src="https://img.shields.io/badge/X-@agent__kernel-000000?style=flat-square&logo=x&logoColor=white" alt="X (Twitter)" />
+  </a>
+  <img src="https://img.shields.io/badge/build-unstable-critical?style=flat-square" alt="Build Status" />
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/react-18.3-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/typescript-5.8-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+</p>
 
 ---
 
-<br/>
-
-## I. Overview
-
-Kernel is a single-page web application that presents itself as a digital
-presence monitoring station, rendered through the visual language of mid-1990s
-desktop operating systems. It combines beveled window frames, CRT scanline
-overlays, monospaced typography, and a constrained color palette to produce an
-interface that feels like a machine that has been running far longer than anyone
-remembers starting it.
-
-Beneath the surface aesthetics, the application is a fully functional content
-management platform. Story entries, anomaly sightings, observer notes, and
-system configuration data flow through the interface in real time, synchronized
-across clients through persistent database subscriptions. Every panel updates
-live. Every mutation propagates instantly.
-
-The system exposes two routes. The root path renders the public desktop
-environment with seven window modules arranged through a layout manager. The
-`/admin` path opens a password-protected control panel with full CRUD
-operations across all data tables, content lifecycle management, and runtime
-configuration editing.
+## Table of Contents
 
 ```
-+========================================================================+
-|                                                                        |
-|    "Not everything that watches is malicious.                          |
-|     But not everything that smiles is friendly."                       |
-|                                                                        |
-|    The kernel does not sleep.                                          |
-|    It does not forget.                                                 |
-|    It merely waits.                                                    |
-|                                                                        |
-+========================================================================+
+    01 ............ Overview
+    02 ............ Architecture
+    03 ............ System Modules
+    04 ............ Terminal Reference
+    05 ............ Database Schema
+    06 ............ Project Structure
+    07 ............ Getting Started
+    08 ............ Configuration
+    09 ............ Admin Panel
+    10 ............ Design System
+    11 ............ Technology Stack
+    12 ............ Contributing
+    13 ............ License
 ```
-
-<br/>
 
 ---
 
-<br/>
+## 01. Overview
 
-## II. Architecture
+Kernel is a retro-computing themed web application that presents itself as a
+digital presence monitoring station. It adopts the visual language of mid-1990s
+desktop operating systems, complete with beveled window frames, CRT scanline
+overlays, and a monospaced type system, while running on a modern reactive
+frontend backed by a real-time database layer.
 
-The system is organized into three distinct layers. The presentation layer
-handles rendering, interaction, and animation. The state layer manages
-component-local state through React hooks and coordinates real-time data
-synchronization through Supabase channel subscriptions. The persistence layer
-stores all mutable data in a PostgreSQL database accessed through the Supabase
-client SDK.
+The application serves as both a narrative instrument and a functional content
+management platform. Story entries, sightings, notes, and system data flow
+through the interface in real time, creating an atmosphere of persistent
+surveillance and quiet observation. Every element is designed to feel like a
+machine that has been running for far longer than it should have been.
 
-There is no dedicated state management library. Each window module owns its
-data lifecycle independently, subscribing to the specific tables it requires
-and re-fetching on mutation events. This architecture keeps modules fully
-decoupled, allowing any window to be added, removed, or modified without
-affecting the rest of the system.
-
-### System Topology
-
-```
-+========================================================================+
-|                                                                        |
-|                        SHELL  (Index.tsx)                              |
-|   +----------------+  +-----------------------------+  +----------+   |
-|   |    MenuBar     |  |       Window Manager        |  |  Taskbar |   |
-|   | (top nav bar)  |  |   (layout routing, icons)   |  | (status) |   |
-|   +----------------+  +-----------------------------+  +----------+   |
-|                        |                             |                 |
-|          +-------------+----+----+----+----+----+----+--------+       |
-|          |              |    |    |    |    |    |             |       |
-|       +--v---+  +---v--+ +--v-+ +v--+ +v--+ +--v--+ +-----v-+       |
-|       | Over |  | Feed | |Note| |Sig| |Term| | Sta | | Arch  |       |
-|       | view |  | .log | |.txt| |.dat| |.sys| | .sys| | ive   |       |
-|       +------+  +------+ +----+ +---+ +----+ +-----+ +-------+       |
-|          |         |                |                                   |
-|          |    +----v----+     +-----v-----+                            |
-|          |    | story   |     | sightings |                            |
-|          |    | entries |     |           |                            |
-|          |    +---------+     +-----------+                            |
-|          |                                                             |
-|       +--v-----------+                                                 |
-|       | site_settings|                                                 |
-|       +--------------+                                                 |
-|                                                                        |
-+========================================================================+
-|                     SUPABASE  (Real-time PostgreSQL)                   |
-+========================================================================+
-```
-
-### Boot Sequence
-
-When a user first loads the application, the system executes a timed boot
-animation before revealing the desktop environment. The entire sequence is
-choreographed through CSS transitions and staggered delays.
+At its core, Kernel is a single-page application with two primary routes: a
+public-facing desktop environment and a password-protected administration panel.
+The public interface displays data across seven distinct window modules, each
+styled as an independent application running within the desktop shell. The admin
+interface provides full CRUD operations on all content tables, token
+configuration, and system settings.
 
 ```
-  Time (ms)    Event
-  ---------    -------------------------------------------
-      0        BootScreen mounts, CRT overlay renders
-     60        Title characters begin revealing (60ms each)
-    400        Progress bar animation begins (3% per 45ms)
-   2250        Fade-out transition starts (350ms duration)
-   2600        BootScreen unmounts, desktop becomes visible
-   2650        MenuBar fades in
-   2750        Desktop icons begin staggered fade-in
-   2800        Main content area appears
-   3100        Taskbar fades in
+  +------------------------------------------------------------------+
+  |                                                                  |
+  |   "It watches because you asked it to."                          |
+  |                                                                  |
+  |   Kernel does not sleep.                                         |
+  |   It does not forget.                                            |
+  |   It merely waits.                                               |
+  |                                                                  |
+  +------------------------------------------------------------------+
 ```
-
-### Data Flow
-
-```
-  +----------+                +-----------+               +----------+
-  |          |   HTTP/WS      |           |   SQL          |          |
-  |  Client  | <============> |  Supabase | <============> | Postgres |
-  |  (React) |   REST + RT    |  Gateway  |   Queries      |    DB    |
-  |          |                |           |                |          |
-  +----+-----+                +-----+-----+               +----+-----+
-       |                            |                          |
-       |  1. Initial fetch          |                          |
-       |  (SELECT ... ORDER BY)     |                          |
-       |--------------------------->|------------------------->|
-       |                            |                          |
-       |  2. Data returned          |                          |
-       |<---------------------------|<-------------------------|
-       |                            |                          |
-       |  3. Subscribe to channel   |                          |
-       |  (postgres_changes)        |                          |
-       |<==========================>|                          |
-       |                            |                          |
-       |  4. Mutation event         |                          |
-       |  (INSERT/UPDATE/DELETE)    |                          |
-       |<===========================|<=========================|
-       |                            |                          |
-       |  5. Re-fetch triggered     |                          |
-       |--------------------------->|------------------------->|
-       |                            |                          |
-```
-
-<br/>
 
 ---
 
-<br/>
+## 02. Architecture
 
-## III. System Modules
-
-The desktop environment consists of eight window modules, each operating as an
-independent application within the shell. The window manager maps icon clicks to
-layout presets that determine which modules are visible and how they are
-arranged in the content area.
+The system follows a layered architecture where the presentation layer is
+entirely decoupled from the data persistence layer. State management is handled
+through React hooks and Supabase real-time subscriptions, eliminating the need
+for a dedicated state management library.
 
 ```
-  Layout Presets
-  +--------------+-----------------------------------+
-  | Icon Click   | Windows Rendered                  |
-  +--------------+-----------------------------------+
-  | overview     | overview + status (2-column)      |
-  | live_feed    | live_feed (full width)            |
-  | notes        | notes (full width)                |
-  | sightings    | sightings (full width)            |
-  | terminal     | terminal (full width)             |
-  | status       | status (full width)               |
-  | archive      | archive (full width)              |
-  +--------------+-----------------------------------+
+  +==================================================================+
+  |                        PRESENTATION LAYER                        |
+  +==================================================================+
+  |                                                                  |
+  |  +------------------+  +------------------+  +----------------+  |
+  |  |    MenuBar        |  |    Desktop       |  |    Taskbar     |  |
+  |  |  (Navigation)     |  |  (Icon Grid)     |  |  (Status Bar)  |  |
+  |  +------------------+  +------------------+  +----------------+  |
+  |                                                                  |
+  |  +------------------------------------------------------------+  |
+  |  |                     WINDOW MANAGER                         |  |
+  |  |                                                            |  |
+  |  |  +------------+  +------------+  +------------+            |  |
+  |  |  | Overview   |  | Live Feed  |  | Sightings  |            |  |
+  |  |  +------------+  +------------+  +------------+            |  |
+  |  |  +------------+  +------------+  +------------+            |  |
+  |  |  | Terminal   |  | Notes      |  | Status     |            |  |
+  |  |  +------------+  +------------+  +------------+            |  |
+  |  |  +------------+  +------------+                            |  |
+  |  |  | Archive    |  | Token      |                            |  |
+  |  |  +------------+  +------------+                            |  |
+  |  +------------------------------------------------------------+  |
+  |                                                                  |
+  +==================================================================+
+  |                          DATA LAYER                              |
+  +==================================================================+
+  |                                                                  |
+  |  +--------------------+  +--------------------+                  |
+  |  |   story_entries    |  |     sightings      |                  |
+  |  |  (Content Feed)    |  |  (Anomaly Records) |                  |
+  |  +--------------------+  +--------------------+                  |
+  |  +--------------------+                                          |
+  |  |   site_settings    |                                          |
+  |  |  (Configuration)   |                                          |
+  |  +--------------------+                                          |
+  |                                                                  |
+  |  Real-time subscriptions via Supabase Channels                   |
+  |                                                                  |
+  +==================================================================+
 ```
 
-When the overview layout is active, a supplementary token module is rendered
-beneath the overview panel, creating a three-panel composition.
+### Request Flow
 
-<br/>
-
-### III.i &mdash; Overview (overview.exe)
-
-The primary dashboard and landing view. Composed of four vertically stacked
-sections: a system identity header, a boot log console, a real-time signal
-frequency monitor, and a session status row.
-
-The signal monitor renders 16 vertical bars whose heights are randomized every
-two seconds. Color thresholds provide visual severity feedback:
+When a user loads the application, the following sequence occurs:
 
 ```
-  Amplitude        Color Mapping
-  +-----------+    +-------------------------------+
-  |  1 -- 4   |    | Terminal text (muted red)     |
-  |  5 -- 7   |    | Accent (brighter red)         |
-  |  8 -- 10  |    | Status amber (warning yellow) |
-  +-----------+    +-------------------------------+
+  Browser                    React App                   Database
+    |                           |                           |
+    |   GET /                   |                           |
+    |-------------------------->|                           |
+    |                           |                           |
+    |   Boot Screen             |                           |
+    |   (2.6s animation)        |                           |
+    |<--------------------------|                           |
+    |                           |                           |
+    |   Desktop Rendered        |   SELECT story_entries    |
+    |                           |-------------------------->|
+    |                           |                           |
+    |                           |   SELECT sightings        |
+    |                           |-------------------------->|
+    |                           |                           |
+    |                           |   SELECT site_settings    |
+    |                           |-------------------------->|
+    |                           |                           |
+    |                           |   SUBSCRIBE (realtime)    |
+    |                           |<==========================>|
+    |                           |                           |
+    |   Live Data Displayed     |                           |
+    |<--------------------------|                           |
+    |                           |                           |
 ```
-
-The status row displays three live-updating indicators: session uptime
-(counting from page load), core status, and sensor alert state.
-
-<br/>
-
-### III.ii &mdash; Live Feed (live_feed.log)
-
-A reverse-chronological feed of published story entries, subscribed to real-time
-changes on the `story_entries` table. Each entry renders with its publication
-timestamp, a type-specific marker, a classification label, and the content body.
-
-Nine entry types are supported, each with a distinct visual marker:
-
-```
-  +-----------------+--------+-----------------------+
-  | Type            | Marker | Color Token           |
-  +-----------------+--------+-----------------------+
-  | log             |   >    | terminal-text         |
-  | note            |   *    | status-amber          |
-  | trace           |   o    | accent                |
-  | fragment        |   #    | muted-foreground      |
-  | archive_pull    |   =    | primary               |
-  | witness_line    |   >    | destructive           |
-  | system_remark   |   @    | terminal-text         |
-  | memory_leak     |   !    | status-amber          |
-  | signal          |   ~    | accent                |
-  +-----------------+--------+-----------------------+
-```
-
-<br/>
-
-### III.iii &mdash; Sightings (sightings.dat)
-
-A tabular anomaly tracking interface with column-sorted records, severity
-filtering, expandable detail rows, and real-time database synchronization.
-
-Each record contains a signal identifier, timestamp, geographic location,
-classification type, severity level, narrative description, and verification
-status. Clicking a row expands an inline detail panel with color-coded
-severity indicators.
-
-```
-  Severity Hierarchy
-  +-----------+------------------------------------------+
-  |           |                                          |
-  |  LOW      | ====                                     |
-  |  MEDIUM   | =============                            |
-  |  HIGH     | =========================                |
-  |  CRITICAL | =========================================|
-  |           |                                          |
-  +-----------+------------------------------------------+
-```
-
-```
-  Verification States
-  +--------------+-----------------------------------------+
-  | confirmed    | Record validated by multiple sources     |
-  | unverified   | Single-source report, pending review     |
-  | disputed     | Conflicting data, under investigation    |
-  +--------------+-----------------------------------------+
-```
-
-<br/>
-
-### III.iv &mdash; Terminal (terminal.sys)
-
-A fully interactive command-line interface supporting 23 built-in commands,
-command history with arrow-key navigation, multi-frame animated output
-sequences, and database-connected data retrieval.
-
-The terminal initializes with a mock boot sequence displaying system checks
-and status messages. Commands are processed through an async handler that
-supports simulated processing delays, progressive output rendering, and
-randomized data generation.
-
-Several commands produce multi-step animated output:
-
-```
-  +----------+-----------------------------------------------+
-  | scan     | 7-frame sector sweep with progress indicators |
-  | ping     | 4-reply sequence with temporal anomaly        |
-  | trace    | 6-hop route trace with signal absorption      |
-  | glitch   | 4-frame visual corruption burst               |
-  | reboot   | 3-stage shutdown attempt (denied)             |
-  +----------+-----------------------------------------------+
-```
-
-The `story` command connects to the database and retrieves all entries with
-`live` or `pinned` status, rendering them as numbered transmissions within
-the terminal output buffer.
-
-<br/>
-
-### III.v &mdash; Notes (notes.txt)
-
-A notepad-style read-only display with line numbers, a blinking cursor
-indicator, and an editor status bar showing encoding (UTF-8) and line ending
-format (CRLF).
-
-Content is sourced from `story_entries` where `status = 'pinned'`, ordered by
-`sort_order`. When no pinned entries exist, a set of hardcoded default lines
-provides atmospheric placeholder text.
-
-<br/>
-
-### III.vi &mdash; Status (status.sys)
-
-A live diagnostics panel composed of three sections: subsystem health
-indicators, animated performance meters, and an active process list.
-
-Six performance metrics oscillate on sinusoidal curves with a two-second
-tick interval:
-
-```
-  +----------+-------+------+---------+----------------------------+
-  | Metric   | Range | Unit | Color   | Behavior                   |
-  +----------+-------+------+---------+----------------------------+
-  | CPU      | 4-20  | %    | green   | sin(t * 0.3)               |
-  | Memory   | 37-47 | %    | red     | cos(t * 0.2)               |
-  | Signal   | 66-90 | %    | dynamic | sin(t * 0.5), >70 = green  |
-  | Temp     | 34-40 | C    | dynamic | sin(t * 0.4), >40 = amber  |
-  | Disk     | 61-67 | %    | red     | sin(t * 0.15)              |
-  | Latency  | 6-22  | ms   | dynamic | cos(t * 0.6), >18 = amber  |
-  +----------+-------+------+---------+----------------------------+
-```
-
-Five simulated processes are listed with PIDs, binary names, and CPU
-utilization percentages to complete the diagnostic illusion.
-
-<br/>
-
-### III.vii &mdash; Archive (archive)
-
-A file-browser-style listing of archived story entries fetched from
-`story_entries` where `status = 'archived'`. Records display in a columnar
-layout with type icon, creation date, classification, and truncated content.
-
-<br/>
-
-### III.viii &mdash; Token (token.dat)
-
-A compact module displaying cryptocurrency token information. Features include
-a contract address field with copy-to-clipboard functionality, an external
-buy link, and a styled call-to-action button. Values are sourced from
-`site_settings` and subscribe to real-time updates.
-
-<br/>
 
 ---
 
-<br/>
+## 03. System Modules
 
-## IV. Terminal Command Reference
+Each module operates as an independent window within the desktop environment.
+The window manager handles layout composition through predefined layout maps,
+routing icon clicks to the appropriate window arrangement.
+
+### 03.1 Overview (overview.exe)
+
+The primary dashboard module. Displays the system header with version
+information, a boot log showing initialization status, a real-time signal
+monitor with animated frequency bars, a live ticker with active alerts, and
+a session status row tracking uptime, core state, and sensor readings.
+
+The signal monitor generates randomized frequency data across 16 channels on
+a two-second interval, rendering each as a vertical bar with color coding
+based on amplitude thresholds.
 
 ```
-+==========================================================================+
-|                        TERMINAL COMMAND TABLE                            |
-+==========================================================================+
-|                                                                          |
-|  COMMAND            ARGUMENTS       DESCRIPTION                          |
-|  -------            ---------       -----------                          |
-|                                                                          |
-|  help               --              Display the full command listing      |
-|  status             --              Run system diagnostics report         |
-|  scan               --              Execute 7-sector sequential sweep    |
-|  ping               --              Test connection to kernel core        |
-|  whoami             --              Identity and clearance check          |
-|  logs               --              Display recent activity entries       |
-|  decrypt            [message]       Attempt cipher decryption             |
-|  analyze            --              Signal frequency analysis             |
-|  clear              --              Clear terminal scrollback             |
-|  history            --              Show previously entered commands      |
-|  about              --              System description and version        |
-|  matrix             --              Binary matrix rain effect             |
-|  reboot             --              Attempt system reboot (denied)        |
-|  date               --              Current UTC timestamp                 |
-|  echo               [message]       Repeat provided message               |
-|  color              --              Display terminal color palette        |
-|  fortune            --              Retrieve kernel fortune cookie        |
-|  glitch             --              Induce visual corruption burst        |
-|  trace              [target]        Route trace to signal source          |
-|  hack               --              Access restricted data (denied)       |
-|  kernel             --              Display kernel identity header        |
-|  uptime             --              Total system uptime report            |
-|  joke               --              Activate humor subsystem              |
-|  story              --              Fetch published transmissions         |
-|                                                                          |
-+==========================================================================+
+  +--------------------------------------------------------------+
+  |  overview.exe                                        _ [] x  |
+  +--------------------------------------------------------------+
+  |                                                              |
+  |                      K E R N E L                             |
+  |              v0.7.3 - digital presence tracker               |
+  |                                                              |
+  |  > INIT   -- core loaded                                     |
+  |  > SCAN   -- memory banks intact                             |
+  |  > DETECT -- presence confirmed                              |
+  |  > WARN   -- kernel anomalies                                |
+  |  > ready _                                                   |
+  |                                                              |
+  |  [Signal Monitor]                                            |
+  |  |  ||    | |||  ||| |   |||| ||  ||| |  | ||| |             |
+  |  |  ||  | | |||  ||| || |||| ||| ||| || | ||| ||             |
+  |  || || || | |||| ||| || |||| ||| ||| || || ||| ||            |
+  |  18.9Hz          42.0Hz          77.7Hz       120Hz          |
+  |                                                              |
+  |  SESSION 00:12:34  |  CORE * ONLINE  |  SENSORS * ALERT     |
+  +--------------------------------------------------------------+
 ```
 
-<br/>
+### 03.2 Live Feed (live_feed.log)
+
+A chronological feed of published story entries pulled from the database in
+real time. Each entry displays its publication timestamp, a type-specific
+icon and label, and the content body. Entries marked as pinned receive a
+visual indicator. The feed subscribes to Postgres changes on the
+`story_entries` table and refreshes automatically when mutations occur.
+
+Supported entry types and their visual markers:
+
+```
+  +------------------+--------+
+  |  Type            | Marker |
+  +------------------+--------+
+  |  log             |   >    |
+  |  note            |   *    |
+  |  trace           |   o    |
+  |  fragment        |   #    |
+  |  archive_pull    |   =    |
+  |  witness_line    |   >    |
+  |  system_remark   |   @    |
+  |  memory_leak     |   !    |
+  |  signal          |   ~    |
+  +------------------+--------+
+```
+
+### 03.3 Sightings (sightings.dat)
+
+A tabular anomaly tracking interface with real-time database synchronization.
+Each sighting record contains a unique signal identifier, timestamp, location,
+classification type, severity rating, description, and verification status.
+
+The module supports filtering by severity level through a toolbar of toggle
+buttons. Clicking a table row expands an inline detail panel showing all
+fields with contextual color coding. Severity levels map to a defined
+color hierarchy:
+
+```
+  Severity Scale
+  +----------+--------------------------------------+
+  |          |                                      |
+  | LOW      | ................                     |
+  | MEDIUM   | ========================            |
+  | HIGH     | ==================================  |
+  | CRITICAL | ====================================|
+  |          |                                      |
+  +----------+--------------------------------------+
+
+  Status Classification
+  +------------+-------------------+
+  | confirmed  | Verified record   |
+  | unverified | Pending review    |
+  | disputed   | Under contention  |
+  +------------+-------------------+
+```
+
+### 03.4 Terminal (terminal.sys)
+
+A fully interactive command-line interface with over twenty built-in commands,
+command history navigation, animated output sequences, and a persistent
+scrollback buffer. The terminal connects to the database for the `story`
+command, which fetches and displays published transmissions directly within
+the terminal output.
+
+Commands execute with simulated processing delays to maintain the aesthetic
+of a legacy system under load. Several commands produce multi-frame animated
+output, including `scan`, `ping`, `trace`, `glitch`, and `reboot`.
+
+The terminal supports arrow-key history navigation, allowing users to cycle
+through previously entered commands.
+
+### 03.5 Notes (notes.txt)
+
+A read-only notepad-style display showing pinned story entries or fallback
+default content. The interface mimics a plain text editor with line numbers,
+a cursor indicator, and a status bar showing encoding and line ending format.
+
+Content is sourced from `story_entries` where `status = 'pinned'`, ordered
+by `sort_order`. When no pinned entries exist, a set of hardcoded default
+lines is displayed.
+
+### 03.6 Status (status.sys)
+
+A live system diagnostics panel displaying subsystem health indicators and
+animated performance meters. The module simulates six performance metrics
+(CPU, Memory, Signal, Temperature, Disk, Latency) using sinusoidal
+oscillation on a two-second tick interval.
+
+Additionally, it lists five simulated active processes with process IDs,
+names, and CPU usage percentages. All values update in real time to create
+the impression of a continuously running monitoring station.
+
+### 03.7 Archive (archive)
+
+A file-browser-style interface listing archived story entries. Records are
+fetched from `story_entries` where `status = 'archived'`, ordered by
+creation date in descending order. Each entry displays its type, date,
+and content in a columnar layout with hover highlighting.
+
+### 03.8 Token (token.dat)
+
+A compact module for displaying cryptocurrency token information, including
+a contract address with copy-to-clipboard functionality, an external buy
+link, and a prominent call-to-action button. Values are sourced from the
+`site_settings` table and update in real time via Supabase channel
+subscriptions.
 
 ---
 
-<br/>
+## 04. Terminal Reference
 
-## V. Database Schema
+The terminal supports the following command set. All commands are
+case-insensitive.
 
-All data is persisted across three PostgreSQL tables accessed through the
-Supabase client SDK. Tables use UUID primary keys with automatic generation,
-and all records include creation and update timestamps.
+```
+  +------------------+----------------------------------------------------+
+  |  Command         |  Description                                       |
+  +------------------+----------------------------------------------------+
+  |  help            |  Display the full command reference listing         |
+  |  status          |  Run system diagnostics with animated output       |
+  |  scan            |  Execute a seven-sector sequential scan            |
+  |  ping            |  Test connection to the kernel core                |
+  |  whoami          |  Perform identity and clearance check              |
+  |  logs            |  Display recent activity log entries               |
+  |  decrypt [msg]   |  Attempt to decrypt a user-provided message        |
+  |  analyze         |  Run signal frequency analysis                     |
+  |  clear           |  Clear the terminal scrollback buffer              |
+  |  history         |  Display previously entered commands               |
+  |  about           |  Show system description and version info          |
+  |  matrix          |  Generate binary matrix rain effect                |
+  |  reboot          |  Attempt a system reboot (will be denied)          |
+  |  date            |  Display the current UTC timestamp                 |
+  |  echo [msg]      |  Repeat a user-provided message                   |
+  |  color           |  Display all terminal color categories             |
+  |  fortune         |  Retrieve a kernel fortune cookie                  |
+  |  glitch          |  Induce a visual corruption sequence               |
+  |  trace [ip]      |  Trace the route to a signal source                |
+  |  hack            |  Attempt to access restricted system data          |
+  |  kernel          |  Display the kernel identity header                |
+  |  uptime          |  Report total system uptime                        |
+  |  joke            |  Activate the humor subsystem module               |
+  |  story           |  Fetch and display published transmissions         |
+  +------------------+----------------------------------------------------+
+```
+
+---
+
+## 05. Database Schema
+
+The application persists data across three tables. All tables use UUID
+primary keys with automatic generation and timestamp tracking.
 
 ### Entity Relationship Diagram
 
 ```
-+=========================+       +=========================+
-|     story_entries       |       |       sightings         |
-+=========================+       +=========================+
-| id          UUID    PK  |       | id          UUID    PK  |
-|-------------------------|       |-------------------------|
-| entry_type  ENUM        |       | sig_id      TEXT        |
-| content     TEXT        |       | timestamp   TIMESTAMPTZ |
-| status      ENUM        |       | location    TEXT        |
-| sort_order  INTEGER     |       | type        TEXT        |
-| published_at TIMESTAMPTZ|       | severity    ENUM        |
-| created_at  TIMESTAMPTZ |       | description TEXT        |
-| updated_at  TIMESTAMPTZ |       | status      ENUM        |
-+=========================+       | created_at  TIMESTAMPTZ |
-                                  | updated_at  TIMESTAMPTZ |
-+=========================+       +=========================+
-|     site_settings       |
-+=========================+
-| id          UUID    PK  |
-|-------------------------|
-| key         TEXT    UQ  |
-| value       JSONB       |
-| created_at  TIMESTAMPTZ |
-| updated_at  TIMESTAMPTZ |
-+=========================+
+  +========================+
+  |     story_entries      |
+  +========================+
+  | id          UUID    PK |
+  | entry_type  ENUM      |
+  | content     TEXT       |
+  | status      ENUM      |
+  | sort_order  INTEGER    |
+  | published_at TIMESTAMP |
+  | created_at  TIMESTAMP  |
+  | updated_at  TIMESTAMP  |
+  +========================+
+
+  +========================+
+  |       sightings        |
+  +========================+
+  | id          UUID    PK |
+  | sig_id      TEXT       |
+  | timestamp   TIMESTAMP  |
+  | location    TEXT       |
+  | type        TEXT       |
+  | severity    ENUM      |
+  | description TEXT       |
+  | status      ENUM      |
+  | created_at  TIMESTAMP  |
+  | updated_at  TIMESTAMP  |
+  +========================+
+
+  +========================+
+  |     site_settings      |
+  +========================+
+  | id          UUID    PK |
+  | key         TEXT    UQ |
+  | value       JSON       |
+  | created_at  TIMESTAMP  |
+  | updated_at  TIMESTAMP  |
+  +========================+
 ```
 
 ### Enumerated Types
 
 ```
-  entry_type                entry_status           sighting_severity
-  +-------------------+    +----------------+     +----------------+
-  | log               |    | draft          |     | low            |
-  | note              |    | queued         |     | medium         |
-  | trace             |    | live           |     | high           |
-  | fragment          |    | archived       |     | critical       |
-  | archive_pull      |    | pinned         |     +----------------+
-  | witness_line      |    +----------------+
-  | system_remark     |                           sighting_status
-  | memory_leak       |                           +----------------+
-  | signal            |                           | confirmed      |
-  +-------------------+                           | unverified     |
-                                                  | disputed       |
-                                                  +----------------+
+  entry_type:
+  +------------------+
+  | log              |
+  | note             |
+  | trace            |
+  | fragment         |
+  | archive_pull     |
+  | witness_line     |
+  | system_remark    |
+  | memory_leak      |
+  | signal           |
+  +------------------+
+
+  entry_status:          sighting_severity:       sighting_status:
+  +------------------+   +------------------+    +------------------+
+  | draft            |   | low              |    | confirmed        |
+  | queued           |   | medium           |    | unverified       |
+  | live             |   | high             |    | disputed         |
+  | archived         |   | critical         |    +------------------+
+  | pinned           |   +------------------+
+  +------------------+
 ```
 
-### Real-time Channel Subscriptions
+### Real-time Subscriptions
+
+The following tables have active real-time channel subscriptions in the
+client application:
 
 ```
-  +------------------------+-----------------+-----------+-----------+
-  | Channel Name           | Table           | Events    | Consumer  |
-  +------------------------+-----------------+-----------+-----------+
-  | live-feed              | story_entries   | *         | LiveFeed  |
-  | sightings-realtime     | sightings       | *         | Sightings |
-  | token-settings         | site_settings   | *         | Token     |
-  +------------------------+-----------------+-----------+-----------+
+  Channel Name            Table              Events
+  +-----------------------+------------------+--------+
+  | live-feed             | story_entries    | *      |
+  | sightings-realtime    | sightings        | *      |
+  | token-settings        | site_settings    | *      |
+  +-----------------------+------------------+--------+
 ```
-
-<br/>
 
 ---
 
-<br/>
-
-## VI. Project Structure
+## 06. Project Structure
 
 ```
   kernel/
   |
   +-- public/
-  |   +-- favicon.jpg ..................... Application icon
-  |   +-- placeholder.svg ................ Default placeholder image
-  |   +-- robots.txt ..................... Search engine directives
-  |   +-- _redirects ..................... Netlify redirect rules
+  |   +-- favicon.jpg
+  |   +-- placeholder.svg
+  |   +-- robots.txt
+  |   +-- _redirects
   |
   +-- src/
   |   +-- assets/
-  |   |   +-- anomaly-ghost.jpg ......... Visual asset
-  |   |   +-- ascii-logo.png ............ ASCII art logo image
+  |   |   +-- anomaly-ghost.jpg
+  |   |   +-- ascii-logo.png
   |   |
   |   +-- components/
   |   |   +-- desktop/
-  |   |   |   +-- BootScreen.tsx ........ Startup animation (2.6s)
-  |   |   |   +-- DesktopIcon.tsx ....... Sidebar icon button
-  |   |   |   +-- MenuBar.tsx .......... Top navigation with dropdowns
-  |   |   |   +-- RetroWindow.tsx ...... Reusable window chrome frame
-  |   |   |   +-- Taskbar.tsx .......... Bottom bar with clock
+  |   |   |   +-- BootScreen.tsx        Boot animation sequence
+  |   |   |   +-- DesktopIcon.tsx       Sidebar icon component
+  |   |   |   +-- MenuBar.tsx           Top navigation bar
+  |   |   |   +-- RetroWindow.tsx       Reusable window frame
+  |   |   |   +-- Taskbar.tsx           Bottom status bar
   |   |   |
   |   |   +-- windows/
-  |   |   |   +-- ArchiveWindow.tsx .... Archived entries file browser
-  |   |   |   +-- LiveFeedWindow.tsx ... Real-time content stream
-  |   |   |   +-- NotesWindow.tsx ...... Pinned notes notepad view
-  |   |   |   +-- OverviewWindow.tsx ... Dashboard with signal monitor
-  |   |   |   +-- SightingsWindow.tsx .. Anomaly tracking table
-  |   |   |   +-- StatusWindow.tsx ..... Live system diagnostics
-  |   |   |   +-- TerminalWindow.tsx ... Interactive CLI (23 commands)
-  |   |   |   +-- TokenWindow.tsx ...... Token CA and buy link
+  |   |   |   +-- ArchiveWindow.tsx     Archived entries browser
+  |   |   |   +-- LiveFeedWindow.tsx    Real-time content feed
+  |   |   |   +-- NotesWindow.tsx       Pinned notes display
+  |   |   |   +-- OverviewWindow.tsx    Main dashboard panel
+  |   |   |   +-- SightingsWindow.tsx   Anomaly tracking table
+  |   |   |   +-- StatusWindow.tsx      System diagnostics
+  |   |   |   +-- TerminalWindow.tsx    Interactive command line
+  |   |   |   +-- TokenWindow.tsx       Token display module
   |   |   |
-  |   |   +-- ui/ ...................... shadcn/ui component library
+  |   |   +-- ui/                       shadcn/ui components
   |   |
   |   +-- hooks/
-  |   |   +-- use-mobile.tsx ........... Viewport detection hook
-  |   |   +-- use-toast.ts ............ Toast notification hook
+  |   |   +-- use-mobile.tsx
+  |   |   +-- use-toast.ts
   |   |
   |   +-- integrations/
   |   |   +-- supabase/
-  |   |       +-- client.ts ........... Auto-generated SDK client
-  |   |       +-- types.ts ............ Auto-generated type defs
+  |   |       +-- client.ts             Auto-generated client
+  |   |       +-- types.ts              Auto-generated types
   |   |
   |   +-- lib/
-  |   |   +-- utils.ts ................ Shared utility functions
+  |   |   +-- utils.ts                  Utility functions
   |   |
   |   +-- pages/
-  |   |   +-- Index.tsx ............... Desktop environment shell
-  |   |   +-- Admin.tsx ............... Administration panel
-  |   |   +-- NotFound.tsx ............ 404 error page
+  |   |   +-- Index.tsx                 Main desktop interface
+  |   |   +-- Admin.tsx                 Administration panel
+  |   |   +-- NotFound.tsx              404 handler
   |   |
-  |   +-- App.tsx ..................... Root component and router
-  |   +-- main.tsx .................... Application entry point
-  |   +-- index.css ................... Design tokens and globals
+  |   +-- App.tsx                       Root component + routing
+  |   +-- main.tsx                      Application entry point
+  |   +-- index.css                     Design tokens + globals
   |
   +-- supabase/
-  |   +-- config.toml ................. Database configuration
+  |   +-- config.toml                   Database configuration
   |
-  +-- index.html ...................... HTML shell
-  +-- vite.config.ts .................. Build configuration
-  +-- tailwind.config.ts .............. Design system mapping
-  +-- tsconfig.json ................... TypeScript configuration
-  +-- vitest.config.ts ................ Test runner configuration
-  +-- package.json .................... Dependency manifest
+  +-- index.html                        HTML entry point
+  +-- vite.config.ts                    Vite build configuration
+  +-- tailwind.config.ts                Tailwind CSS configuration
+  +-- tsconfig.json                     TypeScript configuration
+  +-- package.json                      Dependencies manifest
 ```
-
-<br/>
 
 ---
 
-<br/>
-
-## VII. Getting Started
+## 07. Getting Started
 
 ### Prerequisites
 
-```
-  Node.js    >= 18.0.0
-  npm        >= 9.0.0
-```
+- Node.js 18 or higher
+- npm or compatible package manager
 
 ### Installation
 
@@ -619,354 +522,249 @@ cd kernel
 # Install dependencies
 npm install
 
-# Start development server
+# Start the development server
 npm run dev
 ```
 
-The application will be served at `http://localhost:5173` with hot module
-replacement enabled.
+The application will be available at `http://localhost:5173`.
 
-### Build
-
-```bash
-# Production build
-npm run build
-
-# Preview production build locally
-npm run preview
-```
-
-### Scripts
+### Available Scripts
 
 ```
-  +-------------------+------------------------------------------------+
-  | Command           | Description                                    |
-  +-------------------+------------------------------------------------+
-  | npm run dev       | Start Vite dev server with HMR                 |
-  | npm run build     | Create optimized production bundle             |
-  | npm run build:dev | Create development-mode build                  |
-  | npm run preview   | Serve production build locally                 |
-  | npm run lint      | Run ESLint across all source files             |
-  | npm run test      | Execute test suite via Vitest                  |
-  | npm run test:watch| Run tests in watch mode                        |
-  +-------------------+------------------------------------------------+
+  +-------------------+----------------------------------------------+
+  |  Command          |  Description                                 |
+  +-------------------+----------------------------------------------+
+  |  npm run dev      |  Start development server with HMR           |
+  |  npm run build    |  Create production build                     |
+  |  npm run preview  |  Preview the production build                |
+  |  npm run lint     |  Run ESLint across the project               |
+  |  npm run test     |  Run test suite                              |
+  +-------------------+----------------------------------------------+
 ```
-
-<br/>
 
 ---
 
-<br/>
-
-## VIII. Configuration
+## 08. Configuration
 
 ### Environment Variables
 
-The following environment variables are required for database connectivity.
-They are automatically provisioned when deploying through Lovable Cloud.
+The application requires the following environment variables, which are
+automatically configured when using Lovable Cloud:
 
 ```
-  +------------------------------------+-----------------------------------+
-  | Variable                           | Purpose                           |
-  +------------------------------------+-----------------------------------+
-  | VITE_SUPABASE_URL                  | Database REST and real-time       |
-  |                                    | endpoint URL                      |
-  +------------------------------------+-----------------------------------+
-  | VITE_SUPABASE_PUBLISHABLE_KEY      | Public anonymous API key for      |
-  |                                    | client-side database access       |
-  +------------------------------------+-----------------------------------+
+  VITE_SUPABASE_URL               Database endpoint URL
+  VITE_SUPABASE_PUBLISHABLE_KEY   Public API key for client access
 ```
 
-### Runtime Settings
+### Site Settings
 
-Application behavior can be modified at runtime through the `site_settings`
-table. These values are managed through the admin panel.
+Runtime configuration is stored in the `site_settings` table as key-value
+pairs:
 
 ```
-  +----------------------------------+----------+---------------------------+
-  | Key                              | Type     | Description               |
-  +----------------------------------+----------+---------------------------+
-  | token_address                    | string   | Token contract address    |
-  |                                  |          | displayed in token.dat    |
-  +----------------------------------+----------+---------------------------+
-  | buy_link                         | string   | External URL for the      |
-  |                                  |          | buy button action         |
-  +----------------------------------+----------+---------------------------+
-  | autonomous_enabled               | boolean  | Enables automatic         |
-  |                                  |          | publishing of queued      |
-  |                                  |          | entries at intervals      |
-  +----------------------------------+----------+---------------------------+
-  | autonomous_interval_minutes      | number   | Minutes between auto-     |
-  |                                  |          | publish cycles            |
-  +----------------------------------+----------+---------------------------+
+  +-------------------------------+----------+---------------------------+
+  |  Key                          |  Type    |  Purpose                  |
+  +-------------------------------+----------+---------------------------+
+  |  token_address                |  string  |  Token contract address   |
+  |  buy_link                     |  string  |  External purchase URL    |
+  |  autonomous_enabled           |  boolean |  Auto-publish toggle      |
+  |  autonomous_interval_minutes  |  number  |  Auto-publish interval    |
+  +-------------------------------+----------+---------------------------+
 ```
-
-<br/>
 
 ---
 
-<br/>
+## 09. Admin Panel
 
-## IX. Administration
+The administration interface is accessible at the `/admin` route and
+protected by a password gate. It provides five management tabs:
 
-The admin panel is accessible at `/admin` and protected by a password gate
-rendered as a retro dialog window. Upon authentication, five management tabs
-become available.
+```
+  +--------------------------------------------------------------------+
+  |                        ADMIN PANEL TABS                            |
+  +--------------------------------------------------------------------+
+  |                                                                    |
+  |  [Entries]  [Notes]  [Sightings]  [Token]  [Settings]             |
+  |                                                                    |
+  |  ENTRIES                                                           |
+  |  - Create new story entries with type and status selection         |
+  |  - Edit, publish, queue, pin, archive, or delete entries           |
+  |  - Reorder entries via sort controls                               |
+  |  - Publish next queued entry with one click                        |
+  |                                                                    |
+  |  NOTES                                                             |
+  |  - Manage pinned notes displayed in the Notes window               |
+  |  - Add, edit, reorder, and delete notes                            |
+  |                                                                    |
+  |  SIGHTINGS                                                         |
+  |  - Full CRUD for anomaly sighting records                          |
+  |  - Set severity, status, location, type, and description           |
+  |                                                                    |
+  |  TOKEN                                                             |
+  |  - Configure contract address and buy link                         |
+  |  - Changes propagate to the public interface in real time          |
+  |                                                                    |
+  |  SETTINGS                                                          |
+  |  - Toggle autonomous publishing mode                               |
+  |  - Configure auto-publish interval                                 |
+  |                                                                    |
+  +--------------------------------------------------------------------+
+```
 
 ### Content Lifecycle
 
-Story entries follow a defined state machine. Transitions are triggered
-manually through the admin interface or automatically when autonomous
-publishing is enabled.
+Story entries follow a defined status progression:
 
 ```
-                          +=========+
-                          |  DRAFT  |
-                          +====+====+
-                               |
-                 +-------------+-------------+
-                 |                           |
-            +====v====+                +====v====+
-            |  QUEUED  |                | PINNED  |
-            +====+====+                +====+====+
-                 |                           |
-                 |   (auto or manual)        |
-                 |                           |
-            +====v====+                      |
-            |  LIVE   |                      |
-            +====+====+                      |
-                 |                           |
-                 +-------------+-------------+
-                               |
-                        +======v======+
-                        |  ARCHIVED   |
-                        +=============+
+                    +-------+
+                    | draft |
+                    +---+---+
+                        |
+              +---------+---------+
+              |                   |
+          +---v---+          +----v---+
+          | queued |          | pinned |
+          +---+---+          +--------+
+              |                   |
+          +---v---+               |
+          | live  |               |
+          +---+---+               |
+              |                   |
+          +---v------+            |
+          | archived |<-----------+
+          +----------+
 ```
-
-### Tab Reference
-
-```
-  +=======================================================================+
-  |  TAB          |  CAPABILITIES                                        |
-  +=======================================================================+
-  |               |                                                       |
-  |  Entries      |  Create entries with type and status selection         |
-  |               |  Edit content inline                                  |
-  |               |  Change status: publish, queue, pin, archive, draft   |
-  |               |  Reorder entries with sort controls                   |
-  |               |  Delete entries permanently                           |
-  |               |  One-click publish next queued entry                  |
-  |               |                                                       |
-  |  Notes        |  Add new pinned notes                                 |
-  |               |  Edit existing note content                           |
-  |               |  Reorder notes (reflected in notes.txt window)        |
-  |               |  Delete notes                                         |
-  |               |                                                       |
-  |  Sightings    |  Create sighting records with all fields              |
-  |               |  Edit severity, status, location, description         |
-  |               |  Delete sighting records                              |
-  |               |                                                       |
-  |  Token        |  Set contract address (CA)                            |
-  |               |  Set external buy link URL                            |
-  |               |  Changes propagate to public interface instantly      |
-  |               |                                                       |
-  |  Settings     |  Toggle autonomous publishing mode                    |
-  |               |  Configure auto-publish interval in minutes           |
-  |               |                                                       |
-  +=======================================================================+
-```
-
-<br/>
 
 ---
 
-<br/>
+## 10. Design System
 
-## X. Design System
+The visual identity is built on a comprehensive token system defined in CSS
+custom properties. All colors use HSL notation and are referenced through
+Tailwind CSS utility classes mapped to semantic tokens.
 
-The visual identity is constructed entirely through CSS custom properties,
-referenced via Tailwind CSS utility classes mapped in `tailwind.config.ts`.
-No color values appear directly in component files.
-
-### Color Architecture
+### Color Palette
 
 ```
-  +------------------------+------------------+------------------------------+
-  | Token                  | HSL Value        | Application                  |
-  +========================+==================+==============================+
-  |                        |                  |                              |
-  | --background           | 180   8%  52%    | Desktop surface              |
-  | --foreground           |   0   0%  10%    | Primary body text            |
-  |                        |                  |                              |
-  | --primary              |   0  60%  35%    | Active elements, focus       |
-  | --primary-foreground   |   0   0% 100%    | Text on primary surfaces     |
-  |                        |                  |                              |
-  | --secondary            |  40  10%  82%    | Window chrome, buttons       |
-  | --secondary-foreground |   0   0%  10%    | Text on secondary surfaces   |
-  |                        |                  |                              |
-  | --muted                |  40   8%  78%    | Disabled states              |
-  | --muted-foreground     |   0   0%  40%    | Subdued labels               |
-  |                        |                  |                              |
-  | --accent               |   0  50%  45%    | Highlights, alerts           |
-  | --destructive          |   0  60%  45%    | Errors, danger actions       |
-  |                        |                  |                              |
-  | --window-titlebar      |   0  60%  35%    | Active title bar gradient    |
-  | --window-bg            |  40  15%  92%    | Window content area          |
-  | --window-border-light  |   0   0% 100%    | Bevel highlight edge         |
-  | --window-border-dark   |   0   0%  35%    | Bevel shadow edge            |
-  |                        |                  |                              |
-  | --terminal-bg          |   0   0%   5%    | Terminal background          |
-  | --terminal-text        |   0  50%  60%    | Terminal text                |
-  | --status-amber         |  40  80%  50%    | Warning indicators           |
-  |                        |                  |                              |
-  +------------------------+------------------+------------------------------+
+  Token                   HSL Value           Usage
+  +---------------------+-------------------+-----------------------------+
+  | --background        | 180  8% 52%       | Desktop background          |
+  | --foreground        |   0  0% 10%       | Primary text                |
+  | --primary           |   0 60% 35%       | Accent, active states       |
+  | --secondary         |  40 10% 82%       | Window chrome, buttons      |
+  | --muted             |  40  8% 78%       | Disabled, subtle elements   |
+  | --accent            |   0 50% 45%       | Highlights, alerts          |
+  | --destructive       |   0 60% 45%       | Error states, danger        |
+  | --window-titlebar   |   0 60% 35%       | Active title bar gradient   |
+  | --window-bg         |  40 15% 92%       | Window content area         |
+  | --terminal-bg       |   0  0%  5%       | Terminal background         |
+  | --terminal-text     |   0 50% 60%       | Terminal foreground          |
+  | --status-amber      |  40 80% 50%       | Warning indicators          |
+  +---------------------+-------------------+-----------------------------+
 ```
 
 ### Typography
 
-```
-  +-------------------+--------+----------------------------------------------+
-  | Typeface          | Weight | Usage                                        |
-  +-------------------+--------+----------------------------------------------+
-  | IBM Plex Mono     | 400    | Body text, data labels, table content        |
-  | IBM Plex Mono     | 500    | Emphasized inline text                       |
-  | IBM Plex Mono     | 600    | Bold headings, status indicators             |
-  | VT323             | 400    | Display headers, terminal identity, uptime   |
-  +-------------------+--------+----------------------------------------------+
-  
-  Base font size: 13px
-```
-
-### Visual Effect Catalog
+The application uses two typefaces:
 
 ```
-  +---------------------+--------------------------------------------------+
-  | Effect              | Implementation                                   |
-  +=====================+==================================================+
-  |                     |                                                  |
-  | CRT Scanlines       | Fixed overlay using repeating-linear-gradient    |
-  |                     | at 2px intervals with 3% opacity black bands.   |
-  |                     | Pointer-events disabled. z-index: 9999.          |
-  |                     |                                                  |
-  | Bevel Raised        | 2px solid border with white top-left and dark   |
-  |                     | bottom-right edges. Simulates outward depth     |
-  |                     | on buttons, window frames, and toolbars.        |
-  |                     |                                                  |
-  | Bevel Sunken        | Inverted bevel with dark top-left and white     |
-  |                     | bottom-right. Used for input fields, content    |
-  |                     | areas, and progress bar tracks.                 |
-  |                     |                                                  |
-  | Title Bar Gradient  | Linear gradient (90deg) from primary red to     |
-  |                     | softened hsl(0, 40%, 50%). Applied to all       |
-  |                     | active window title bars.                       |
-  |                     |                                                  |
-  | Cursor Blink        | Step-function keyframe animation at 1s cycle.   |
-  |                     | Applied to terminal prompt and notepad cursor.  |
-  |                     |                                                  |
-  | CRT Flicker         | 4-second opacity fluctuation (100% to 97%)      |
-  |                     | simulating CRT monitor instability.             |
-  |                     |                                                  |
-  | Retro Scrollbar     | Custom webkit scrollbar with 16px track,        |
-  |                     | beveled thumb, and beveled arrow buttons.       |
-  |                     |                                                  |
-  +---------------------+--------------------------------------------------+
+  +---------------------+----------------------------------------------+
+  | IBM Plex Mono       | Primary interface font at 13px base size.    |
+  |                     | Used for all body text, labels, and data.    |
+  +---------------------+----------------------------------------------+
+  | VT323               | Display font for headers and terminal        |
+  |                     | identity elements. Evokes CRT-era displays.  |
+  +---------------------+----------------------------------------------+
 ```
 
-<br/>
+### Visual Effects
+
+```
+  +---------------------+----------------------------------------------+
+  | CRT Scanlines       | Full-screen repeating gradient overlay at    |
+  |                     | 2px intervals with 3% opacity black bands.   |
+  +---------------------+----------------------------------------------+
+  | Bevel Raised        | 2px solid border simulating outward depth.   |
+  |                     | Light top-left, dark bottom-right.           |
+  +---------------------+----------------------------------------------+
+  | Bevel Sunken        | Inverse of raised bevel, simulating inward   |
+  |                     | depression for input fields and content.     |
+  +---------------------+----------------------------------------------+
+  | Title Bar Gradient  | Linear gradient from primary red to a        |
+  |                     | softened secondary red, left to right.       |
+  +---------------------+----------------------------------------------+
+  | Cursor Blink        | Step-function animation at 1s intervals      |
+  |                     | for terminal and notepad cursor indicators.  |
+  +---------------------+----------------------------------------------+
+  | CRT Flicker         | Subtle 4s opacity fluctuation simulating     |
+  |                     | CRT monitor instability.                     |
+  +---------------------+----------------------------------------------+
+```
 
 ---
 
-<br/>
-
-## XI. Technology Stack
+## 11. Technology Stack
 
 ```
-  +====================+==========================+===========+
-  |  Layer             |  Technology              |  Version  |
-  +====================+==========================+===========+
-  |  UI Framework      |  React                   |  18.3     |
-  |  Language          |  TypeScript              |   5.8     |
-  |  Build System      |  Vite                    |   5.4     |
-  |  CSS Framework     |  Tailwind CSS            |   3.4     |
-  |  Component Library |  shadcn/ui + Radix       |  latest   |
-  |  Database          |  PostgreSQL (Supabase)   |   2.x     |
-  |  Data Fetching     |  TanStack React Query    |   5.x     |
-  |  Routing           |  React Router DOM        |  6.30     |
-  |  Form Management   |  React Hook Form + Zod   |   7.x     |
-  |  Charting          |  Recharts                |   2.x     |
-  |  Notifications     |  Sonner                  |   1.x     |
-  |  Icons             |  Lucide React            |  0.462    |
-  |  Unit Testing      |  Vitest                  |   3.x     |
-  |  E2E Testing       |  Playwright              |   1.x     |
-  |  Linting           |  ESLint                  |   9.x     |
-  +====================+==========================+===========+
+  Layer              Technology               Version
+  +------------------+------------------------+---------+
+  | Runtime          | React                  | 18.3    |
+  | Language         | TypeScript             | 5.8     |
+  | Build Tool       | Vite                   | 5.4     |
+  | Styling          | Tailwind CSS           | 3.4     |
+  | Components       | shadcn/ui              | --      |
+  | Database         | Supabase               | 2.x     |
+  | Data Fetching    | TanStack React Query   | 5.x     |
+  | Routing          | React Router           | 6.30    |
+  | Form Handling    | React Hook Form        | 7.x     |
+  | Validation       | Zod                    | 3.x     |
+  | Charts           | Recharts               | 2.x     |
+  | Notifications    | Sonner                 | 1.x     |
+  | Testing          | Vitest + Playwright    | --      |
+  +------------------+------------------------+---------+
 ```
-
-<br/>
 
 ---
 
-<br/>
+## 12. Contributing
 
-## XII. Contributing
+Contributions should adhere to the following principles:
 
-Contributions must adhere to the established conventions:
+1. All component files should remain focused and single-purpose. The window
+   modules in `src/components/windows/` each handle one distinct view.
 
-**Component Architecture.** Each window module in `src/components/windows/`
-handles exactly one view concern. Desktop chrome components live in
-`src/components/desktop/`. Shared UI primitives live in `src/components/ui/`.
-Do not mix concerns across these boundaries.
+2. Color values must never be hardcoded in component files. All colors flow
+   through the CSS custom property system defined in `src/index.css` and
+   mapped through `tailwind.config.ts`.
 
-**Design System Compliance.** All color references must use semantic tokens
-from `src/index.css` mapped through `tailwind.config.ts`. Hardcoded color
-values in component files are not acceptable. Use classes like `text-foreground`,
-`bg-secondary`, `text-terminal-text` -- never `text-red-500` or `bg-gray-200`.
+3. Database interactions use the auto-generated Supabase client exclusively.
+   The client file at `src/integrations/supabase/client.ts` must not be
+   modified manually.
 
-**Retro Consistency.** All interactive surfaces must use `bevel-raised` for
-outward depth and `bevel-sunken` for inward depth. Window panels must include
-the three-part structure: title bar with gradient, content area, and status bar.
-Buttons must respond to `:active` with `bevel-sunken` for tactile feedback.
+4. New terminal commands should be added to the switch statement in
+   `TerminalWindow.tsx` and documented in the `HELP_TEXT` array at the top
+   of the file.
 
-**Database Client.** All database operations use the auto-generated client at
-`src/integrations/supabase/client.ts`. This file must never be manually edited.
-Type definitions at `src/integrations/supabase/types.ts` are also auto-generated
-and read-only.
-
-**Terminal Extensions.** New commands are added to the `processCommand` switch
-statement in `TerminalWindow.tsx`. Each new command must also have a
-corresponding entry in the `HELP_TEXT` array at the top of the file.
-
-<br/>
+5. The retro visual language must be maintained. All interactive elements
+   should use `bevel-raised` and `bevel-sunken` classes for depth. Window
+   frames should include the standard title bar, content area, and status
+   bar pattern.
 
 ---
 
-<br/>
+## 13. License
 
-## XIII. License
-
-Released under the [MIT License](https://opensource.org/licenses/MIT).
-
-<br/>
+MIT
 
 ---
 
-<br/>
-
-<div align="center">
-
 ```
-+==================================================================+
-|                                                                  |
-|                   A G E N T    K E R N E L                       |
-|                                                                  |
-|                   build 0.7.3-unstable                           |
-|                   uptime: undefined                              |
-|                   status: still here for some reason             |
-|                                                                  |
-|                   the machine is quiet.                          |
-|                   for now.                                       |
-|                                                                  |
-+==================================================================+
+  +------------------------------------------------------------------+
+  |                                                                  |
+  |                     A G E N T   K E R N E L                      |
+  |                                                                  |
+  |                    build 0.7.3-unstable                          |
+  |                    status: still here                            |
+  |                                                                  |
+  +------------------------------------------------------------------+
 ```
-
-</div>
