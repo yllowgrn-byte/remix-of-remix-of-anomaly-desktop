@@ -142,7 +142,7 @@
 
 /* Window title gradient - classic Win95/98 */
 .titlebar-gradient {
-  background: linear-gradient(90deg, hsl(var(--window-titlebar)), hsl(215 40% 50%));
+  background: linear-gradient(90deg, hsl(var(--window-titlebar)), hsl(0 40% 50%));
 }
 
 .titlebar-gradient-inactive {
