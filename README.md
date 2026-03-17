@@ -1,21 +1,21 @@
 <div align="center">
 
 ```
- ___  _  ___  ___  _  _  ___  _
-| |_)| || __|| _ \| \| || __|| |
-| ' \| || _| |   /| .  || _| | |__
-|_|\_\_||___||_|_\|_|\_||___||____|
+  ___   _  _  ___  __  __   ___   _    __   __
+ / _ \ | \| |/ _ \|  \/  | / _ \ | |   \ \ / /
+| (_| || .  || (_) | |\/| || (_| || |__  \   /
+ \__,_||_|\_| \___/|_|  |_| \__,_||____|  |_|
 
 digital presence tracker
 build 0.7.3-unstable
 ```
 
-<img src="public/favicon.jpg" alt="Kernel" width="120" />
+<img src="public/favicon.jpg" alt="Anomaly" width="120" />
 
 <br/>
 
-<a href="https://x.com/agent_kernel">
-  <img src="https://img.shields.io/badge/X-@agent__kernel-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" />
+<a href="https://x.com/anomalytech_">
+  <img src="https://img.shields.io/badge/X-@anomalytech__-000000?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)" />
 </a>
 
 </div>
