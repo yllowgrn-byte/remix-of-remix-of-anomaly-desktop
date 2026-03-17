@@ -79,18 +79,18 @@ const JOKES = [
 const TerminalWindow = () => {
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: "dim", text: "" },
-    { type: "highlight", text: "  A G E N T  A N O M A L Y" },
+    { type: "highlight", text: "  A G E N T  K E R N E L" },
     { type: "dim", text: "" },
-    { type: "header", text: "  ANOMALY TERMINAL v0.7.3" },
+    { type: "header", text: "  KERNEL TERMINAL v0.7.3" },
     { type: "dim", text: "  =============================================" },
     { type: "system", text: "  > booting core systems..." },
     { type: "info", text: "  > scanning memory banks.......... OK" },
     { type: "info", text: "  > initializing signal monitor.... OK" },
-    { type: "system", text: "  > loading anomaly database....... OK" },
+    { type: "system", text: "  > loading kernel database........ OK" },
     { type: "info", text: "  > calibrating sensors............ OK" },
     { type: "warn",  text: "  > threat assessment.............. ELEVATED" },
     { type: "dim", text: "  =============================================" },
-    { type: "highlight", text: "  All systems online. 3 anomalies tracked." },
+    { type: "highlight", text: "  All systems online. 3 signals tracked." },
     { type: "output", text: '  Type "help" for commands. Try "story" for transmissions.' },
     { type: "dim", text: "" },
   ]);
