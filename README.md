@@ -328,7 +328,7 @@ case-insensitive.
   |  date            |  Display the current UTC timestamp                 |
   |  echo [msg]      |  Repeat a user-provided message                   |
   |  color           |  Display all terminal color categories             |
-  |  fortune         |  Retrieve a kernel fortune cookie                  |
+  |  fortune         |  Retrieve an anomaly fortune cookie               |
   |  glitch          |  Induce a visual corruption sequence               |
   |  trace [ip]      |  Trace the route to a signal source                |
   |  hack            |  Attempt to access restricted system data          |
