@@ -25,7 +25,7 @@ const windowDefs: WindowDef[] = [
   { id: "sightings", icon: "🔭", label: "sightings.dat" },
   { id: "terminal", icon: "🛠️", label: "terminal.sys" },
   { id: "status", icon: "🔗", label: "status.sys" },
-  { id: "archive", icon: "🗜️", label: "archive" },
+  { id: "archive", icon: "📦", label: "archive" },
 ];
 
 const windowComponents: Record<string, React.ReactNode> = {

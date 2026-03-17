@@ -38,7 +38,7 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
           <span>Start</span>
         </button>
 
-        <div className="h-4 w-px bg-border mx-0.5 shrink-0" />
+        
 
 
         <div className="flex gap-0.5 flex-1 min-w-0 overflow-hidden">

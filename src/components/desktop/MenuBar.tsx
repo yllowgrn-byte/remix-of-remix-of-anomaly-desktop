@@ -22,7 +22,7 @@ const MenuBar = () => {
           <span className="font-bold text-sm tracking-wider">Kernel</span>
         </div>
 
-        <div className="h-4 w-px bg-border mx-0.5" />
+        
 
         {/* Menu items with dropdowns */}
         {menuItems.map((menu) => (
@@ -66,7 +66,7 @@ const MenuBar = () => {
           <Signal size={10} strokeWidth={2} className="text-primary" />
           <span className="uppercase tracking-wider">online</span>
         </div>
-        <div className="h-3 w-px bg-border" />
+        
         <a
           href="https://x.com/agent_kernel"
           target="_blank"
