@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import { Monitor, Radio, FileText, Eye, TerminalSquare, Wrench, Archive, Coins, type LucideIcon } from "lucide-react";
 import BootScreen from "@/components/desktop/BootScreen";
 import MenuBar from "@/components/desktop/MenuBar";
 import Taskbar from "@/components/desktop/Taskbar";
@@ -15,7 +14,7 @@ import TokenWindow from "@/components/windows/TokenWindow";
 
 export interface WindowDef {
   id: string;
-  icon: LucideIcon;
+  icon: string;
   label: string;
 }
 
