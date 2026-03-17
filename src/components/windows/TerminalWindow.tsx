@@ -267,11 +267,11 @@ const TerminalWindow = () => {
 
       case "about":
         addLines([
-          { type: "header",    text: "ANOMALY — Digital Presence Tracker" },
+          { type: "header",    text: "KERNEL — Digital Presence Tracker" },
           { type: "dim",       text: "Version 0.7.3 (unstable)" },
           { type: "dim",       text: "" },
           { type: "output",    text: "Purpose: Monitor, log, and catalog" },
-          { type: "output",    text: "anomalous digital signatures." },
+          { type: "output",    text: "kernel digital signatures." },
           { type: "dim",       text: "" },
           { type: "highlight", text: '"It watches because you asked it to."' },
         ]);
