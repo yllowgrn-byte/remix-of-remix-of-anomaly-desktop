@@ -175,13 +175,13 @@ based on amplitude thresholds.
   |  overview.exe                                        _ [] x  |
   +--------------------------------------------------------------+
   |                                                              |
-  |                      K E R N E L                             |
-  |              v0.7.3 - digital presence tracker               |
-  |                                                              |
-  |  > INIT   -- core loaded                                     |
-  |  > SCAN   -- memory banks intact                             |
-  |  > DETECT -- presence confirmed                              |
-  |  > WARN   -- kernel anomalies                                |
+   |                      A N O M A L Y                              |
+   |              v0.7.3 - digital presence tracker               |
+   |                                                              |
+   |  > INIT   -- core loaded                                     |
+   |  > SCAN   -- memory banks intact                             |
+   |  > DETECT -- presence confirmed                              |
+   |  > WARN   -- anomaly detected                                |
   |  > ready _                                                   |
   |                                                              |
   |  [Signal Monitor]                                            |
