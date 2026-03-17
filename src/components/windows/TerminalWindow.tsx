@@ -11,7 +11,7 @@ const HELP_TEXT: TerminalLine[] = [
   { type: "dim",    text: "" },
   { type: "info",   text: "  help          -- show this message" },
   { type: "info",   text: "  status        -- system diagnostics" },
-  { type: "info",   text: "  scan          -- run anomaly scan" },
+  { type: "info",   text: "  scan          -- run kernel scan" },
   { type: "info",   text: "  ping          -- test connection" },
   { type: "info",   text: "  whoami        -- identity check" },
   { type: "info",   text: "  logs          -- recent activity log" },
