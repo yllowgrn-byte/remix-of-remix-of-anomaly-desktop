@@ -43,7 +43,7 @@ const OverviewWindow = () => {
         <p>&gt; <span className="text-accent">INIT</span> — core loaded</p>
         <p>&gt; <span className="text-accent">SCAN</span> — memory banks intact</p>
         <p>&gt; <span className="text-accent">DETECT</span> — presence confirmed</p>
-        <p>&gt; <span className="text-amber-status">WARN</span> — anomalous patterns</p>
+        <p>&gt; <span className="text-amber-status">WARN</span> — kernel anomalies</p>
         <p className="pt-1 border-t border-terminal-text/10">
           &gt; ready <span className="cursor-blink">█</span>
         </p>
