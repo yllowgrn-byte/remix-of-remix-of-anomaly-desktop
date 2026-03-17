@@ -252,7 +252,7 @@ const TerminalWindow = () => {
         addLines([
           ...matrixLines.map((l) => ({ type: "info" as const, text: l })),
           { type: "highlight", text: "Wake up..." },
-          { type: "highlight", text: "The kernel has you..." },
+          { type: "highlight", text: "The anomaly has you..." },
         ]);
         break;
       }
