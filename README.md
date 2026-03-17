@@ -332,7 +332,7 @@ case-insensitive.
   |  glitch          |  Induce a visual corruption sequence               |
   |  trace [ip]      |  Trace the route to a signal source                |
   |  hack            |  Attempt to access restricted system data          |
-  |  kernel          |  Display the kernel identity header                |
+  |  anomaly         |  Display the anomaly identity header              |
   |  uptime          |  Report total system uptime                        |
   |  joke            |  Activate the humor subsystem module               |
   |  story           |  Fetch and display published transmissions         |
