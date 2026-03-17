@@ -20,13 +20,13 @@ export interface WindowDef {
 }
 
 const windowDefs: WindowDef[] = [
-  { id: "overview", icon: "📟", label: "overview.exe" },
-  { id: "live_feed", icon: "📊", label: "live_feed.log" },
-  { id: "notes", icon: "📝", label: "notes.txt" },
-  { id: "sightings", icon: "🖼️", label: "sightings.dat" },
-  { id: "terminal", icon: "⬛", label: "terminal.sys" },
-  { id: "status", icon: "🔧", label: "status.sys" },
-  { id: "archive", icon: "📁", label: "archive" },
+  { id: "overview", icon: Monitor, label: "overview.exe" },
+  { id: "live_feed", icon: Radio, label: "live_feed.log" },
+  { id: "notes", icon: FileText, label: "notes.txt" },
+  { id: "sightings", icon: Eye, label: "sightings.dat" },
+  { id: "terminal", icon: TerminalSquare, label: "terminal.sys" },
+  { id: "status", icon: Wrench, label: "status.sys" },
+  { id: "archive", icon: Archive, label: "archive" },
 ];
 
 const windowComponents: Record<string, React.ReactNode> = {
