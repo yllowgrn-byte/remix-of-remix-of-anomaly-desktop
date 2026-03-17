@@ -165,7 +165,7 @@ const Index = () => {
                   <div className="bevel-raised bg-secondary flex flex-col shrink-0" style={spawnDelay(500)}>
                     <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
                       <div className="flex items-center gap-1.5">
-                        <Coins size={12} strokeWidth={1.5} className="text-window-titlebar-text" />
+                        <span className="text-xs">💰</span>
                         <span className="text-xs font-bold text-window-titlebar-text tracking-wide">token.dat</span>
                       </div>
                       <div className="flex gap-0.5">
