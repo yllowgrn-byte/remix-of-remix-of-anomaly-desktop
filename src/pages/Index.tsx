@@ -78,7 +78,7 @@ const Index = () => {
         {/* Title bar */}
         <div className="titlebar-gradient flex items-center justify-between px-2 py-0.5 select-none cursor-default shrink-0">
           <div className="flex items-center gap-1.5">
-            <def.icon size={12} strokeWidth={1.5} className="text-window-titlebar-text" />
+            <span className="text-xs">{def.icon}</span>
             <span className="text-xs font-bold text-window-titlebar-text tracking-wide">
               {def.label}
             </span>
