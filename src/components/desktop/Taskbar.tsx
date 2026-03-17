@@ -35,9 +35,7 @@ const Taskbar = ({ openWindows = [], activeWindow, minimizedWindows = [], onTask
       <div className="flex items-center gap-1 flex-1 min-w-0">
         {/* Start button with kernel branding */}
         <button className="bevel-raised bg-secondary px-2.5 py-0.5 text-xs font-bold hover:bg-muted active:bevel-sunken shrink-0 flex items-center gap-1.5">
-          <div className="w-3 h-3 bg-primary rounded-sm flex items-center justify-center">
-            <span className="text-primary-foreground text-[7px] font-bold leading-none">K</span>
-          </div>
+          <Cpu size={12} strokeWidth={2} className="text-primary" />
           <span>Start</span>
         </button>
 
