@@ -510,7 +510,7 @@ client application:
 
 ```bash
 git clone <repository-url>
-cd kernel
+cd anomaly
 
 npm install
 
