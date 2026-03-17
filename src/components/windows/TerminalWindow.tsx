@@ -235,7 +235,7 @@ const TerminalWindow = () => {
           { type: "info",   text: "  120Hz   ##........  LOW" },
           { type: "dim",    text: "" },
           { type: "system", text: "Dominant frequency: 18.9Hz (subsonic)" },
-          { type: "warn",   text: "Pattern matches known anomaly signature." },
+          { type: "warn",   text: "Pattern matches known kernel signature." },
         ]);
         break;
       }
