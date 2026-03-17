@@ -69,9 +69,9 @@ const FORTUNES = [
 ];
 
 const JOKES = [
-  "Why did the kernel cross the firewall? To get to the other subnet.",
+  "Why did the anomaly cross the firewall? To get to the other subnet.",
   "What do you call a ghost in the machine? A regular Tuesday around here.",
-  "How many kernels does it take to crash a server? Just one. We checked.",
+  "How many anomalies does it take to crash a server? Just one. We checked.",
   "I told the AI a joke. It laughed. I didn't program it to laugh.",
   "Why don't anomalies use passwords? They prefer skeleton keys.",
 ];
