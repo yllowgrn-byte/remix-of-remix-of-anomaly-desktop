@@ -66,7 +66,7 @@ const MenuBar = () => {
           <Signal size={10} strokeWidth={2} className="text-primary" />
           <span className="uppercase tracking-wider">online</span>
         </div>
-        <div className="h-3 w-px bg-border" />
+        
         <a
           href="https://x.com/agent_kernel"
           target="_blank"
